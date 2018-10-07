@@ -2,12 +2,20 @@
   "name": "sacred-calendar",
   "version": "1.0.0",
   "description": "rest-full wep api for web & ios clients",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
-    "express": "^4.16.3"
+    "bcrypt": "^3.0.1",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "mysql2": "^1.6.1",
+    "nodemon": "^1.18.4"
   },
   "devDependencies": {},
   "scripts": {
+    "start": "SET NODE_ENV=prod & node server.js",
+    "dev": "SET NODE_ENV=dev & nodemon server.js",
+    "setup": "node setupModel.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Zachary Kipping",
