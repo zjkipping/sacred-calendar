@@ -17,18 +17,18 @@ module.exports = {
       await connection.execute(`
         CREATE TABLE IF NOT EXISTS UserDetails (
           userID int NOT NULL,
-            firstName varchar(50) NOT NULL,
-            lastName varchar(50) NOT NULL,
-            email varchar(50) NOT NULL,
-            signUpDate int NOT NULL,
-            FOREIGN KEY (userID) REFERENCES UserLogin(id)
+          firstName varchar(50) NOT NULL,
+          lastName varchar(50) NOT NULL,
+          email varchar(50) NOT NULL,
+          signUpDate int NOT NULL,
+          FOREIGN KEY (userID) REFERENCES UserLogin(id)
         )
       `)
   
       await connection.execute(`
         CREATE TABLE IF NOT EXISTS TokenAuth (
-          id int NOT NULL,
-            token varchar(256) NOT NULL
+          userID int NOT NULL,
+          token varchar(256) NOT NULL
         )
       `)
     } catch (err) {

@@ -36,7 +36,7 @@ module.exports = {
           const refreshToken = jwt.sign({ uid: id } , CONFIG.refreshTokenSecret, { expiresIn: CONFIG.refreshTokenLife});
           const hashedRefreshToken = await bcrypt.hashSync(refreshToken, saltRounds);
 
-          await connection.execute('INSERT INTO TokenAuth (id, token) values (?, ?)', [id, hashedRefreshToken]);
+          await connection.execute('INSERT INTO TokenAuth (userID, token) values (?, ?)', [id, hashedRefreshToken]);
           res.status(200).send({ id, token, refreshToken });
         } else {
           res.status(400).send({ error: true, code: 'NO_RESULT', message: 'No such user that matches given username & password' });
@@ -50,7 +50,7 @@ module.exports = {
     try {
       const id = req.body.id;
       const hashedRefreshToken = await bcrypt.hashSync(req.body.refreshToken, saltRounds);
-      await connection.execute('DELETE FROM TokenAuth WHERE id = ? AND refreshToken = ?', [id, hashedRefreshToken]);
+      await connection.execute('DELETE FROM TokenAuth WHERE userID = ? AND refreshToken = ?', [id, hashedRefreshToken]);
       res.status(200).send();
     } catch (err) {
       res.status(500).send({ error: true, code: err.code, message: err.message });

@@ -20,7 +20,7 @@ module.exports = {
     try {
       const id = req.body.id;
       const refreshToken = req.body.refreshToken;  
-      const [rows, _fields] = await connection.execute('SELECT token from `TokenAuth` where id = ?', [id]);
+      const [rows, _fields] = await connection.execute('SELECT token from `TokenAuth` where userID = ?', [id]);
       rows.forEach(async (row) => {
         const match = await bcrypt.compareSync(refreshToken, row.token);
         if (match) {
@@ -33,7 +33,7 @@ module.exports = {
             }
           } catch (err) {
             const hashedRefreshToken = await bcrypt.hashSync(req.body.refreshToken, saltRounds);
-            await connection.execute('DELETE FROM TokenAuth WHERE id = ? AND refreshToken = ?', [id, hashedRefreshToken]);
+            await connection.execute('DELETE FROM TokenAuth WHERE userID = ? AND refreshToken = ?', [id, hashedRefreshToken]);
             res.status(401).send({ error: true, code:'NO_AUTH', message: 'Unauthorized access.' });
           }
           return;
