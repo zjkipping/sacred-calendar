@@ -19,6 +19,7 @@ target 'SacredCalendar' do
   pod 'Firebase/Storage'
   pod 'RxCocoa'
   pod 'RxSwift'
+  pod 'Alamofire'
 
   target 'SacredCalendarTests' do
     inherit! :search_paths
