@@ -179,6 +179,9 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Protobuf (3.6.1)
+  - RxCocoa (4.3.0):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.3.0)
 
 DEPENDENCIES:
   - Firebase/AdMob
@@ -192,6 +195,8 @@ DEPENDENCIES:
   - Firebase/Performance
   - Firebase/RemoteConfig
   - Firebase/Storage
+  - RxCocoa
+  - RxSwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -221,6 +226,8 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - Protobuf
+    - RxCocoa
+    - RxSwift
 
 SPEC CHECKSUMS:
   Firebase: a870ed114d769b424021a0c8ddb0c86c3250a0c5
@@ -249,7 +256,9 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  RxCocoa: 71b9cce833fbcb89a8eec11816dd225830c2bd3c
+  RxSwift: a9717a34df3179fe63563f76e046ad345078dd3a
 
-PODFILE CHECKSUM: 0933a1d4cbca628708d68184a1ff809460934f7e
+PODFILE CHECKSUM: 010255b2c18fb028ee77d87fd790a8b66d84c906
 
 COCOAPODS: 1.5.3

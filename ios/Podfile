@@ -17,6 +17,8 @@ target 'SacredCalendar' do
   pod 'Firebase/Performance'
   pod 'Firebase/RemoteConfig'
   pod 'Firebase/Storage'
+  pod 'RxCocoa'
+  pod 'RxSwift'
 
   target 'SacredCalendarTests' do
     inherit! :search_paths
