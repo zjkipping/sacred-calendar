@@ -20,6 +20,7 @@ target 'SacredCalendar' do
   pod 'RxCocoa'
   pod 'RxSwift'
   pod 'Alamofire'
+  pod 'SwiftyJSON'
 
   target 'SacredCalendarTests' do
     inherit! :search_paths
