@@ -17,6 +17,11 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@types": ["src/app/types.ts"],
+      "@services/*": ["src/app/services/*"],
+      "@dialogs/*": ["src/app/dialogs/*"]
+    }
   }
 }
