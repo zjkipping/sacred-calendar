@@ -86,6 +86,7 @@ module.exports = {
           senderID int NOT NULL,
           recipientID int NOT NULL,
           eventID int NOT NULL,
+          created int NOT NULL,
           FOREIGN KEY (eventID) REFERENCES Event (id)
         )
       `);
