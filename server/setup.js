@@ -51,7 +51,7 @@ module.exports = {
           name varchar(50) NOT NULL,
           description text,
           location varchar(255),
-          date string varchar(10) NOT NULL,
+          date varchar(10) NOT NULL,
           startTime varchar(25) NOT NULL,
           endTime varchar(25),
           FOREIGN KEY (userID) REFERENCES UserLogin(id),
@@ -93,5 +93,6 @@ module.exports = {
       console.log(err);
     }
     console.log('Finished Setup!');
+    process.exit(0);
   }
 };
