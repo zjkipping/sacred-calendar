@@ -66,7 +66,7 @@ import {
     MatDialogModule,
     MatRadioModule,
     MatSnackBarModule,
-    MatCheckboxModule,
+    MatCheckboxModule
   ]
 })
 

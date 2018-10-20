@@ -1,0 +1,14 @@
+.register-card {
+  display: flex;
+  flex-direction: column;
+  max-width: 720px;
+  width: 100%;
+}
+
+.register-container {
+  min-height: 100vh;
+}
+
+.input-space {
+  margin-top: 10px;
+}

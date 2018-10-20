@@ -1,0 +1,106 @@
+// generate material design theme color palette using your own colors
+
+// angular material theme uses 3 main classes primary, accent and warn.
+// you can select different shades of your color (500 value is the acutal color)
+
+// use of color "mat-color($cla-warn, 500)" you can adjust the shade of the color
+// use of contrast color "mat-contrast($cla-dark-accent, 900)"
+
+$sc-primary: (
+  50 : #e2eaf2,
+  100 : #b6cbdf,
+  200 : #85a9ca,
+  300 : #5487b4,
+  400 : #306da4,
+  500 : #0b5394,
+  600 : #0a4c8c,
+  700 : #084281,
+  800 : #063977,
+  900 : #032965,
+  A100 : #95b6ff,
+  A200 : #6294ff,
+  A400 : #2f71ff,
+  A700 : #155fff,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #ffffff,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #ffffff,
+      A700 : #ffffff,
+  )
+);
+
+$sc-warn: (
+  50 : #f3e0e0,
+  100 : #e0b3b3,
+  200 : #cc8080,
+  300 : #b84d4d,
+  400 : #a82626,
+  500 : #990000,
+  600 : #910000,
+  700 : #860000,
+  800 : #7c0000,
+  900 : #6b0000,
+  A100 : #ff9a9a,
+  A200 : #ff6767,
+  A400 : #ff3434,
+  A700 : #ff1a1a,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #ffffff,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #ffffff,
+      A700 : #ffffff,
+  )
+);
+
+$sc-accent: (
+  50 : #e5f4f3,
+  100 : #bee4e1,
+  200 : #93d3cd,
+  300 : #67c1b8,
+  400 : #47b3a9,
+  500 : #26a69a,
+  600 : #229e92,
+  700 : #1c9588,
+  800 : #178b7e,
+  900 : #0d7b6c,
+  A100 : #adfff3,
+  A200 : #7affec,
+  A400 : #47ffe4,
+  A700 : #2dffe0,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #000000,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);

@@ -1,1 +1,32 @@
-<h1>Login Page</h1>
+<div fxLayout="row" fxLayoutAlign="center center" class="login-container">
+  <form [formGroup]="loginForm">
+    <mat-card class="login-card">
+      <mat-card-header>
+        <mat-card-title class="accent-text">Login To Sacred Calendar</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-divider></mat-divider>
+        
+        <mat-form-field class="full-width input-space">
+          <input matInput placeholder="Username" name="username" formControlName="username" required>
+          <mat-error>
+            Please enter a valid username address
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width input-space">
+          <input matInput placeholder="Password" type="password" name="password" formControlName="password" required>
+          <mat-error>
+            Your password is too short! (Minimum of 5 characters)
+          </mat-error>
+        </mat-form-field>
+        <p class="warn-text" *ngIf="error != ''">{{error}}</p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <a routerLink="/register" class="accent-text">No Account? Click Here To Register</a>
+        <div fxFlex></div>
+        <button [disabled]="!loginForm.valid" (click)="login()" mat-raised-button color="primary">Login</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

@@ -1,1 +1,42 @@
-<h1>Register Page</h1>
+<div fxLayout="row" fxLayoutAlign="center center" class="register-container">
+  <form [formGroup]="registerForm">
+    <mat-card class="register-card">
+      <mat-card-header>
+        <mat-card-title class="accent-text">Register An Account</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-form-field class="full-width input-space">
+          <input matInput placeholder="Username" name="username" formControlName="username" required>
+          <mat-error>Please enter a username address</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width input-space">
+          <input matInput placeholder="Email" name="email" formControlName="email" required>
+          <mat-error>Please enter a valid email address</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width input-space">
+          <input matInput placeholder="First Name" name="firstName" formControlName="firstName" required>
+          <mat-error>Please enter your first name</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width input-space">
+          <input matInput placeholder="Last Name" name="lastName" formControlName="lastName" required>
+          <mat-error>Please enter your last name</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width input-space">
+          <input matInput placeholder="Password" type="password" name="password" formControlName="password" required>
+          <mat-error>Your password is too short! (Minimum of 5 characters)</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width input-space">
+          <input matInput placeholder="Password Confirmation" type="password" name="password_conf" formControlName="password_conf" required>
+          <mat-error>Please confirm your password</mat-error>
+        </mat-form-field>
+        <p class="warn-text" *ngIf="error != ''">{{error}}</p>
+      </mat-card-content>
+      <mat-card-actions align="end">
+          <a routerLink="/login" class="accent-text">Have An Account? Click Here To Login</a>
+        <div fxFlex></div>
+        <button [disabled]="!registerForm.valid" (click)="register()" mat-raised-button color="primary">Register</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

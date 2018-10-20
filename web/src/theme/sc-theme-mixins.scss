@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+@import './sc-theme.scss';
+
+@include mat-core();
+
+$sc-app-primary: mat-palette($sc-primary);
+$sc-app-accent: mat-palette($sc-accent);
+$sc-app-warn: mat-palette($sc-warn);
+
+$sc-app-theme: mat-dark-theme($sc-app-primary, $sc-app-accent, $sc-app-warn);
+@include angular-material-theme($sc-app-theme);
