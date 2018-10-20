@@ -9,7 +9,7 @@ module.exports = {
       await connection.execute(`
         CREATE TABLE IF NOT EXISTS UserLogin (
           id int AUTO_INCREMENT PRIMARY KEY,
-          username varchar(30) NOT NULL UNIQUE,
+          email varchar(30) NOT NULL UNIQUE,
           password varchar(256) NOT NULL
         )
       `);
@@ -19,7 +19,7 @@ module.exports = {
           userID int NOT NULL,
           firstName varchar(50) NOT NULL,
           lastName varchar(50) NOT NULL,
-          email varchar(50) NOT NULL,
+          email varchar(50) NOT NULL UNIQUE,
           signUpDate int NOT NULL,
           FOREIGN KEY (userID) REFERENCES UserLogin(id)
         )
