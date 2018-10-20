@@ -1,3 +1,4 @@
+const CONFIG = require('./config');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
@@ -6,16 +7,24 @@ module.exports = {
   register: async (req, res) => {
     try {
       const hashedPassword = await bcrypt.hashSync(req.body.password, saltRounds);
-      const [result] = await connection.execute('INSERT INTO `UserLogin` (email, password) VALUES (?, ?)', [req.body.email, hashedPassword]);
-      await connection.execute(
-        'INSERT INTO `UserDetails` (userID, firstName, lastName, email, signUpDate) VALUES (?, ?, ?, ?, UNIX_TIMESTAMP())', 
+      await connection.query('START TRANSACTION');
+      const [result] = await connection.query('INSERT INTO `UserLogin` (username, password) VALUES (?, ?)', [req.body.username, hashedPassword]);
+      await connection.query(
+        'INSERT INTO `UserDetails` (userID, firstName, lastName, email, signUpDate) VALUES (?, ?, ?, ?, UNIX_TIMESTAMP())',
         [result.insertId, req.body.firstName, req.body.lastName, req.body.email]
       );
-
+      connection.query('COMMIT');
       res.status(200).send();
     } catch (err) {
+      console.log(err);
       if (err.code === 'ER_DUP_ENTRY') {
-        res.status(400).send({ error: true, code: 'DUP_NAME', message: 'That email already exists.' });
+        if (err.message.includes('email')) {
+          res.status(400).send({ error: true, code: 'DUP_EMAIL', message: 'That email already exists.' });
+        } else if (err.message.includes('username')) {
+          res.status(400).send({ error: true, code: 'DUP_NAME', message: 'That username already exists.' });
+        } else {
+          res.status(400).send({ error: true, code: 'DUP_VALUE', message: err.message });
+        }
       } else {
         res.status(500).send({ error: true, code: err.code, message: err.message });
       }
@@ -23,9 +32,9 @@ module.exports = {
   },
   login: async (req, res) => {
     try {
-      const [rows, _fields] = await connection.execute('SELECT id, password from `UserLogin` where email = ?', [req.body.email]);
+      const [rows, _fields] = await connection.execute('SELECT id, password from `UserLogin` where username = ?', [req.body.username]);
       if (rows.length === 0) {
-        res.status(400).send({ error: true, code: 'NO_RESULT', message: 'No such user that matches given email & password' });
+        res.status(400).send({ error: true, code: 'NO_RESULT', message: 'No such user that matches given username & password' });
       } else {
         const id = rows[0].id;
         const password = rows[0].password;
@@ -37,12 +46,13 @@ module.exports = {
           const hashedRefreshToken = await bcrypt.hashSync(refreshToken, saltRounds);
 
           await connection.execute('INSERT INTO TokenAuth (userID, token) values (?, ?)', [id, hashedRefreshToken]);
-          res.status(200).send({ id, token, refreshToken });
+          res.status(200).send({ token, refreshToken });
         } else {
           res.status(400).send({ error: true, code: 'NO_RESULT', message: 'No such user that matches given username & password' });
         }
       }
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
   },
@@ -53,6 +63,7 @@ module.exports = {
       await connection.execute('DELETE FROM TokenAuth WHERE userID = ? AND refreshToken = ?', [id, hashedRefreshToken]);
       res.status(200).send();
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
   }

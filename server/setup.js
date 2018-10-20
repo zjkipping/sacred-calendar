@@ -9,7 +9,7 @@ module.exports = {
       await connection.execute(`
         CREATE TABLE IF NOT EXISTS UserLogin (
           id int AUTO_INCREMENT PRIMARY KEY,
-          email varchar(30) NOT NULL UNIQUE,
+          username varchar(30) NOT NULL UNIQUE,
           password varchar(256) NOT NULL
         )
       `);
