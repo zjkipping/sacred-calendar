@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { DataService } from '@services/data.service';
+import { Observable } from 'rxjs';
+
+import { UserDetails } from '@types';
 
 @Component({
   selector: 'app-profile',
@@ -6,5 +10,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
+  user: Observable<UserDetails>;
 
+  constructor(private dataService: DataService) {
+    this.user = this.dataService.userDetails;
+  }
 }
