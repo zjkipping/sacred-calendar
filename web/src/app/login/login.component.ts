@@ -15,12 +15,17 @@ export class LoginComponent {
   constructor(fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = fb.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      remember: [false]
     });
   }
 
   login() {
-    this.authService.loginUser(this.loginForm.value['username'], this.loginForm.value['password']).subscribe(
+    this.authService.loginUser(
+      this.loginForm.value['username'],
+      this.loginForm.value['password'],
+      this.loginForm.value['remember']
+    ).subscribe(
       res => {
         this.router.navigate(['']);
       },

@@ -20,6 +20,7 @@
             Your password is too short! (Minimum of 5 characters)
           </mat-error>
         </mat-form-field>
+        <mat-checkbox class="example-margin" [checked]="false" formControlName="remember">Remember Me</mat-checkbox>
         <p class="warn-text" *ngIf="error != ''">{{error}}</p>
       </mat-card-content>
       <mat-card-actions align="end">

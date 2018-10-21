@@ -24,9 +24,12 @@ import {
   MatPaginatorModule
 } from '@angular/material';
 
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+
 @NgModule({
   imports: [
     CommonModule,
+    NgxMaterialTimepickerModule,
     MatButtonModule,
     MatIconModule,
     MatChipsModule,
@@ -48,6 +51,7 @@ import {
     MatPaginatorModule
   ],
   exports: [
+    NgxMaterialTimepickerModule,
     MatButtonModule,
     MatIconModule,
     MatChipsModule,
