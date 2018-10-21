@@ -58,9 +58,16 @@ module.exports = {
   },
   logout: async (req, res) => {
     try {
-      const id = req.body.id;
-      const hashedRefreshToken = await bcrypt.hashSync(req.body.refreshToken, saltRounds);
-      await connection.execute('DELETE FROM TokenAuth WHERE userID = ? AND refreshToken = ?', [id, hashedRefreshToken]);
+      const refreshToken = req.body.refreshToken;
+      const decoded = jwt.decode(refreshToken);
+      const id = decoded.uid;
+      const [rows, _fields] = await connection.execute('select token from TokenAuth WHERE userID = ?', [id]);
+      rows.forEach(async (row) => {
+        const match = await bcrypt.compareSync(refreshToken, row.token);
+        if (match) {
+          await connection.execute('delete from TokenAuth WHERE userID = ? AND token = ?', [id, row.token]);
+        }
+      });
       res.status(200).send();
     } catch (err) {
       console.log(err);
