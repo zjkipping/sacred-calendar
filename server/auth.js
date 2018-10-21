@@ -1,12 +1,11 @@
 const CONFIG = require('./config');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const saltRounds = 10;
 
 module.exports = {
   register: async (req, res) => {
     try {
-      const hashedPassword = await bcrypt.hashSync(req.body.password, saltRounds);
+      const hashedPassword = await bcrypt.hashSync(req.body.password, CONFIG.saltRounds);
       await connection.query('START TRANSACTION');
       const [result] = await connection.query('INSERT INTO `UserLogin` (username, password) VALUES (?, ?)', [req.body.username, hashedPassword]);
       await connection.query(
@@ -43,7 +42,7 @@ module.exports = {
           const token = jwt.sign({ uid: id } , CONFIG.tokenSecret, { expiresIn: CONFIG.tokenLife});
 
           const refreshToken = jwt.sign({ uid: id } , CONFIG.refreshTokenSecret, { expiresIn: CONFIG.refreshTokenLife});
-          const hashedRefreshToken = await bcrypt.hashSync(refreshToken, saltRounds);
+          const hashedRefreshToken = await bcrypt.hashSync(refreshToken, CONFIG.saltRounds);
 
           await connection.execute('INSERT INTO TokenAuth (userID, token) values (?, ?)', [id, hashedRefreshToken]);
           res.status(200).send({ token, refreshToken });

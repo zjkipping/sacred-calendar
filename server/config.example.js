@@ -9,5 +9,6 @@ module.exports = {
   tokenSecret: '',
   tokenLife: '10m',
   refreshTokenSecret: '',
-  refreshTokenLife: '14d'
+  refreshTokenLife: '14d',
+  saltRounds: 10
 }
