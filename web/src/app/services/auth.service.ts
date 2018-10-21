@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 export class AuthService {
   refreshToken = '';
   clientToken = '';
-  user?: UserDetails;
 
   constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
     this.refreshToken = this.cookieService.get('token');
@@ -36,14 +35,12 @@ export class AuthService {
   }
 
   logoutUser() {
-
     this.http.post('/api' + '/logout', { refreshToken: this.refreshToken }).pipe(
       take(1)
     ).subscribe(() => {
       this.cookieService.delete('token');
       this.refreshToken = '';
       this.clientToken = '';
-      this.user = undefined;
       this.router.navigate(['/login']);
     });
   }
