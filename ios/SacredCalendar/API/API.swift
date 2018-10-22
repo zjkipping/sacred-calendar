@@ -34,7 +34,7 @@ enum Action {
 
 class API {
 
-    static let apiEndpoint = "http://"
+    static let apiEndpoint = Configuration.environment
      
     static func request(_ resource: Resource,
                           _ action: Action,
