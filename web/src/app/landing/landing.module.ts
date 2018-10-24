@@ -11,6 +11,7 @@ import { StatsComponent } from './stats/stats.component';
 import { AvailabilityComponent } from './availability/availability.component';
 import { FriendsListComponent } from './friends-list/friends-list.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MonthViewComponent } from './month-view/month-view.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ProfileComponent } from './profile/profile.component';
     StatsComponent,
     AvailabilityComponent,
     ProfileComponent,
-    FriendsListComponent
+    FriendsListComponent,
+    MonthViewComponent
   ],
   imports: [
     CommonModule,

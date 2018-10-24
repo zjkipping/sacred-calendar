@@ -1,0 +1,51 @@
+@import "../../../theme/sc-theme-mixins.scss";
+
+.view-container {
+  min-width: 720px;
+  max-width: 720px;
+  margin: 0px auto;
+}
+
+.week-day {
+  border: 2px solid mat-color($sc-primary, 500);
+}
+
+.date-header {
+  background: mat-color($sc-accent, 500);
+  padding: 5px !important;
+  height: auto !important;
+}
+.date {
+  background: rgba(0,0,0,.38);
+}
+
+.mat-grid-tile .mat-grid-tile-footer, .mat-grid-tile .mat-grid-tile-header {
+  background: mat-color($sc-accent, 500);
+}
+
+.tile-body {
+  margin-top: 27px;
+  padding: 3px;
+}
+
+.event {
+  font-size: 12px;
+  margin-top: 2px;
+  padding: 0px 4px;
+}
+
+.blue-background {
+  background: mat-color($sc-primary, 500);
+}
+
+.green-background {
+  background: green;
+}
+
+.purple-background {
+  background: purple;
+}
+
+::ng-deep .date .mat-figure {
+  display: block !important;
+}

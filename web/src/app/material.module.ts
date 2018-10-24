@@ -21,7 +21,8 @@ import {
   MatDatepickerModule,
   MatSelectModule,
   MatRadioModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatGridListModule
 } from '@angular/material';
 
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
@@ -48,7 +49,8 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatRadioModule,
     MatSnackBarModule,
     MatCheckboxModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatGridListModule
   ],
   exports: [
     NgxMaterialTimepickerModule,
@@ -70,7 +72,8 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatDialogModule,
     MatRadioModule,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatGridListModule
   ]
 })
 

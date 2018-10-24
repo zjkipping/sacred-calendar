@@ -5,3 +5,7 @@ export interface UserDetails {
   lastName: string;
   signUpDate: number;
 }
+
+export interface Event {
+  id: number;
+}
