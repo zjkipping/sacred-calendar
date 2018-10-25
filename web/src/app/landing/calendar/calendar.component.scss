@@ -1,0 +1,21 @@
+.container {
+  min-width: 720px;
+  max-width: 720px;
+  margin: 0px auto;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.add-event-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#calendarContainer {
+  overflow: hidden;
+}
+
+.mat-drawer-container {
+  background: inherit;
+}

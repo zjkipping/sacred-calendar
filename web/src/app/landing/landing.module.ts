@@ -13,6 +13,7 @@ import { FriendsListComponent } from './friends-list/friends-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MonthViewComponent } from './month-view/month-view.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DayViewComponent } from './calendar/day-view/day-view.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AvailabilityComponent,
     ProfileComponent,
     FriendsListComponent,
-    MonthViewComponent
+    MonthViewComponent,
+    DayViewComponent
   ],
   imports: [
     CommonModule,

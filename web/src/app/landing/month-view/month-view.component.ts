@@ -1,5 +1,4 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -50,7 +49,9 @@ export class MonthViewComponent {
   }
 
   selectDate(date: CalendarDate) {
-    this.dateSelected.emit(date);
+    if (!date.disabled) {
+      this.dateSelected.emit(date);
+    }
   }
 }
 
@@ -68,8 +69,8 @@ function SetDate(date: moment.Moment, rawEvents: Event[], current: moment.Moment
   return {
     events,
     mDate: date,
-    selected: selected ? selected.mDate.isSame(date, 'd') : false,
-    today: current.isSame(date, 'd'),
-    disabled: current.isSame(date, 'month')
+    selected: selected ? selected.mDate.isSame(date, 'day') : false,
+    today: moment().isSame(date, 'day'),
+    disabled: !current.isSame(date, 'month')
   };
 }

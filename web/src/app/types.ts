@@ -10,6 +10,12 @@ export interface UserDetails {
 
 export interface Event {
   id: number;
+  name: string;
+  description?: string;
+  location?: string;
+  date: any;
+  startTime: string;
+  endTime?: string;
 }
 
 export interface CalendarDate {

@@ -30,7 +30,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 @NgModule({
   imports: [
     CommonModule,
-    NgxMaterialTimepickerModule,
+    NgxMaterialTimepickerModule.forRoot(),
     MatButtonModule,
     MatIconModule,
     MatChipsModule,

@@ -1,11 +1,5 @@
 @import "../../../theme/sc-theme-mixins.scss";
 
-.view-container {
-  min-width: 720px;
-  max-width: 720px;
-  margin: 0px auto;
-}
-
 .week-day {
   border: 2px solid mat-color($sc-primary, 500);
 }
@@ -56,4 +50,15 @@
 
 .selected {
   background: mat-color($sc-primary, 300);
+}
+
+.disabled {
+  height: 102px;
+  width: 102px;
+  top: 0;
+  left: 0;
+  background: grey;
+  opacity: 0.85;
+  position: absolute;
+  z-index: 5000;
 }

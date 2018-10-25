@@ -1,1 +1,15 @@
-<app-month-view (dateSelected)="selectDate($event)" [events]="[]" [selected]="selectedDate"></app-month-view>
+<mat-sidenav-container [hasBackdrop]="false">
+  <mat-sidenav #sidenav mode="over" position="end" [(opened)]="sideNavOpen">
+    <app-day-view [day]="selectedDate"></app-day-view>
+  </mat-sidenav>
+  <mat-sidenav-content id="calendarContainer">
+    <div class="container">
+      <mat-toolbar>
+        <mat-toolbar-row>
+          <button mat-raised-button color="primary" (click)="addEvent()">Add Event</button>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <app-month-view (dateSelected)="selectDate($event)" [events]="[]" [selected]="selectedDate"></app-month-view>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

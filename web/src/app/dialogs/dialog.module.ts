@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
-
-import { NewEventDialogComponent } from '@dialogs/new-event.dialog';
-import { MaterialModule } from '../material.module';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { EventFormDialogComponent } from '@dialogs/event-form.dialog';
+import { MaterialModule } from '../material.module';
 
 @NgModule({
   declarations: [
-    NewEventDialogComponent
+    EventFormDialogComponent
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
-    NewEventDialogComponent
+    EventFormDialogComponent
   ]
 })
 export class DialogModule { }
