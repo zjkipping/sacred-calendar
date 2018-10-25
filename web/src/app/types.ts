@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export interface UserDetails {
   username: string;
   email: string;
@@ -8,4 +10,13 @@ export interface UserDetails {
 
 export interface Event {
   id: number;
+}
+
+export interface CalendarDate {
+  events: Event[];
+  // rename this, conflicts with type name too much
+  mDate: moment.Moment;
+  selected?: boolean;
+  today?: boolean;
+  disabled?: boolean;
 }

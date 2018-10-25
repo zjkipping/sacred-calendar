@@ -1,8 +1,8 @@
 <mat-card class="view-container">
   <mat-grid-list cols="7" rowHeight="2.5:1">
-    <mat-grid-tile><button mat-mini-fab color="accent"><mat-icon aria-label="Previous Month Button">chevron_left</mat-icon></button></mat-grid-tile>
-    <mat-grid-tile colspan="5"><h1>October, 2018</h1></mat-grid-tile>
-    <mat-grid-tile><button mat-mini-fab color="accent"><mat-icon aria-label="Next Month Button">chevron_right</mat-icon></button></mat-grid-tile>
+    <mat-grid-tile><button mat-mini-fab color="accent" (click)="previousMonth()"><mat-icon aria-label="Previous Month Button">chevron_left</mat-icon></button></mat-grid-tile>
+    <mat-grid-tile colspan="5"><h1>{{currentMonthYear.format('MMMM')}}, {{currentMonthYear.year()}}</h1></mat-grid-tile>
+    <mat-grid-tile><button mat-mini-fab color="accent" (click)="nextMonth()"><mat-icon aria-label="Next Month Button">chevron_right</mat-icon></button></mat-grid-tile>
     
     <mat-grid-tile>Sunday</mat-grid-tile>
     <mat-grid-tile>Monday</mat-grid-tile>
@@ -13,13 +13,13 @@
     <mat-grid-tile>Saturday</mat-grid-tile>
   </mat-grid-list>
   <mat-grid-list cols="7" rowHeight="1:1">
-    <mat-grid-tile class="date" *ngFor="let date of testData; index as i">
-      <mat-grid-tile-header class="date-header">{{i + 1}}</mat-grid-tile-header>
+    <mat-grid-tile class="date" (click)="selectDate(day)" *ngFor="let day of days" [class.today]="day.today" [class.selected]="day.selected">
+      <mat-grid-tile-header class="date-header">{{day.mDate.format('D')}}</mat-grid-tile-header>
       <div class="tile-body">
         <div class="event blue-background">some event</div>
         <div class="event green-background">some event</div>
         <div class="event purple-background">some event</div>
-    </div>
+      </div>
     </mat-grid-tile>
   </mat-grid-list>
 </mat-card>

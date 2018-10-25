@@ -12,6 +12,7 @@ import { AvailabilityComponent } from './availability/availability.component';
 import { FriendsListComponent } from './friends-list/friends-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MonthViewComponent } from './month-view/month-view.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MonthViewComponent } from './month-view/month-view.component';
   imports: [
     CommonModule,
     MaterialModule,
-    LandingRoutingModule
+    LandingRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class LandingModule { }

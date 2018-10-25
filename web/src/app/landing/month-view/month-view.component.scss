@@ -49,3 +49,11 @@
 ::ng-deep .date .mat-figure {
   display: block !important;
 }
+
+.today {
+  background: yellow;
+}
+
+.selected {
+  background: mat-color($sc-primary, 300);
+}
