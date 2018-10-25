@@ -15,7 +15,7 @@ class FetchEventsService {
         return Observable.create { observer in
             let request = API.request(.events, .list, query) { response in
                 guard response.success else {
-                    observer.onError(response.raw.error!)
+                    observer.onError(response.error!)
                     return
                 }
                 

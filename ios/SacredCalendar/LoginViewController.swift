@@ -28,7 +28,7 @@ class AuthViewModel {
         self.services = services
     }
     
-    func login(credentials: Credentials) -> Observable<User> {
+    func login(credentials: Credentials) -> Observable<Bool> {
         return services.auth.login(credentials: credentials)
     }
     
@@ -90,14 +90,14 @@ class LoginViewController: UIViewController {
     }
     
     func attachFormErrorObserver() {
-        formErrors.filter({
-            $0.count > 0
-        }).subscribe(onNext: {
-            
-            // TODO: display form errors
-            print($0)
-            
-        }).disposed(by: trash)
+        formErrors
+            .filter({ $0.count > 0 })
+            .subscribe(onNext: {
+                
+                // TODO: display form errors
+                print($0)
+                
+            }).disposed(by: trash)
     }
     
     func validateForm(username: String, password: String) -> FormValidationState {
@@ -131,14 +131,14 @@ class LoginViewController: UIViewController {
                     return false
                 }
             })
-            .flatMap({ [weak self] username, password -> Observable<User> in
+            .flatMap({ [weak self] username, password -> Observable<Bool> in
                 let credentials = (username: username, password: password)
                 return self?.viewModel.login(credentials: credentials) ?? .empty()
             })
-            .subscribe(onNext: { [weak self] in
-                User.current = $0
+            .subscribe(onNext: { [weak self] _ in
+//                User.current = $0
                 
-                print("logged in: \($0.fullName)")
+//                print("logged in: \($0.fullName)")
                 
                 let events = EventsViewController()
                 self?.navigationController?.pushViewController(events, animated: true)

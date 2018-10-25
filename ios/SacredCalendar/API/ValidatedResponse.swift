@@ -18,6 +18,10 @@ class ValidatedResponse {
         return (200..<300).contains(statusCode)
     }
     
+    var error: Error? {
+        return raw.error
+    }
+    
     init(raw: DataResponse<Any>, statusCode: Int, data: JSON) {
         self.raw = raw
         self.statusCode = statusCode

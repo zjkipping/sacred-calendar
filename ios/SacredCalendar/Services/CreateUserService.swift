@@ -17,7 +17,7 @@ class CreateUserService {
         return Observable.create { observer in
             let request = API.request(.users, .create) { response in
                 guard response.success else {
-                    observer.onError(response.raw.error!)
+                    observer.onError(response.error!)
                     return
                 }
                 

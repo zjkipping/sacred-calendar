@@ -6,7 +6,8 @@
 //  Copyright © 2018 CS4320. All rights reserved.
 //
 
-import Foundation
+import SwiftKeychainWrapper
+
 import Alamofire
 import SwiftyJSON
 
@@ -18,8 +19,12 @@ protocol Cancelable {
 
 extension DataRequest: Cancelable { }
 
+enum HeaderKey: String {
+    case authToken = "x-auth-token"
+}
+
 enum Resource: String {
-    case auth, events, categories, users
+    case auth = "", events, categories, users
 }
 
 enum Action {
@@ -30,6 +35,7 @@ enum Action {
     case list
     case login
     case logout
+    case refreshToken
 }
 
 class API {
@@ -41,6 +47,7 @@ class API {
                       _ parameters: Parameters? = nil,
                           encoding: ParameterEncoding = JSONEncoding.default,
                            headers: HTTPHeaders? = nil,
+                        isRetrying: Bool = false,
                           callback: @escaping (ValidatedResponse) -> Void) -> Cancelable {
         
         let url = API.url(for: resource, action: action)
@@ -49,10 +56,26 @@ class API {
         let encoding = method == .get ? URLEncoding.default : encoding
         
         print("API \(method.rawValue) : \(url)")
-       
+        
+        var options = headers
+        
+        if let authToken = KeychainWrapper.standard.string(forKey: TokenKey.auth.rawValue) {
+            options?[HeaderKey.authToken.rawValue] = authToken
+        }
+
         return Alamofire.request(url, method: method, parameters: parameters, encoding: encoding, headers: headers).responseJSON {
             
             guard let response = API.validate(data: $0) else { return }
+            
+            guard response.statusCode != 401 || isRetrying else {
+                let auth = AuthService()
+                _ = auth.refreshToken()
+                    .take(1)
+                    .subscribe(onNext: { _ in
+                        _ = API.request(resource, action, parameters, encoding: encoding, headers: headers, isRetrying: true, callback: callback)
+                    })
+                return
+            }
             
             callback(response)
         }
@@ -60,13 +83,14 @@ class API {
     
     private static func method(for action: Action) -> HTTPMethod {
         switch action {
-        case .get: return .get
-        case .list: return .get
-        case .create: return .put
-        case .update: return .patch
-        case .delete: return .delete
-        case .login: return .post
-        case .logout: return .post
+        case .get:          return .get
+        case .list:         return .get
+        case .create:       return .put
+        case .update:       return .patch
+        case .delete:       return .delete
+        case .login:        return .post
+        case .logout:       return .post
+        case .refreshToken: return .post
         }
     }
     
@@ -79,10 +103,11 @@ class API {
         case .get(let id):      return id
         case .create:           return ""
         case .update(let id):   return id
+        case .delete(let id):   return id
         case .list:             return "list"
         case .login:            return "login"
         case .logout:           return "logout"
-        case .delete(let id):   return id
+        case .refreshToken:     return "refreshToken"
         }
     }
     
