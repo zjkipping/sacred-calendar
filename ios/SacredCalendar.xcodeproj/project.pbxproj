@@ -12,6 +12,14 @@
 		6FFCD8EFB9C5B5630C62FB73 /* Pods_SacredCalendarTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34550049EF923839B4B12D5C /* Pods_SacredCalendarTests.framework */; };
 		71D90933216D98390036AC5E /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D90932216D98390036AC5E /* Event.swift */; };
 		71D90935216DA05D0036AC5E /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D90934216DA05D0036AC5E /* API.swift */; };
+		71E6C8722175916200D3E661 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C8712175916200D3E661 /* LoginViewController.xib */; };
+		71E6C874218161B300D3E661 /* NotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C873218161B300D3E661 /* NotificationViewController.xib */; };
+		71E6C8762181635D00D3E661 /* StatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C8752181635D00D3E661 /* StatsViewController.xib */; };
+		71E6C8782181650700D3E661 /* FriendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C8772181650700D3E661 /* FriendViewController.xib */; };
+		71E6C87A218166A600D3E661 /* NewCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C879218166A600D3E661 /* NewCategoryViewController.xib */; };
+		71E6C87C21816B3300D3E661 /* FilterEventsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C87B21816B3300D3E661 /* FilterEventsViewController.xib */; };
+		71E6C87E21816D7600D3E661 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C87D21816D7600D3E661 /* CalendarViewController.xib */; };
+		71E6C88021816D9C00D3E661 /* NewEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C87F21816D9C00D3E661 /* NewEventViewController.xib */; };
 		8BA9005C215334BA00FF7733 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9005B215334BA00FF7733 /* AppDelegate.swift */; };
 		8BA9005E215334BA00FF7733 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9005D215334BA00FF7733 /* ViewController.swift */; };
 		8BA90061215334BA00FF7733 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BA9005F215334BA00FF7733 /* Main.storyboard */; };
@@ -45,6 +53,14 @@
 		6DF08B653A47221361681CB6 /* Pods-SacredCalendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SacredCalendar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SacredCalendar/Pods-SacredCalendar.debug.xcconfig"; sourceTree = "<group>"; };
 		71D90932216D98390036AC5E /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		71D90934216DA05D0036AC5E /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		71E6C8712175916200D3E661 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		71E6C873218161B300D3E661 /* NotificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationViewController.xib; sourceTree = "<group>"; };
+		71E6C8752181635D00D3E661 /* StatsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatsViewController.xib; sourceTree = "<group>"; };
+		71E6C8772181650700D3E661 /* FriendViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendViewController.xib; sourceTree = "<group>"; };
+		71E6C879218166A600D3E661 /* NewCategoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewCategoryViewController.xib; sourceTree = "<group>"; };
+		71E6C87B21816B3300D3E661 /* FilterEventsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterEventsViewController.xib; sourceTree = "<group>"; };
+		71E6C87D21816D7600D3E661 /* CalendarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
+		71E6C87F21816D9C00D3E661 /* NewEventViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewEventViewController.xib; sourceTree = "<group>"; };
 		8BA90058215334BA00FF7733 /* SacredCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SacredCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA9005B215334BA00FF7733 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BA9005D215334BA00FF7733 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +155,14 @@
 				8BA90062215334BA00FF7733 /* Assets.xcassets */,
 				8BA90064215334BA00FF7733 /* LaunchScreen.storyboard */,
 				8BA90067215334BA00FF7733 /* Info.plist */,
+				71E6C873218161B300D3E661 /* NotificationViewController.xib */,
+				71E6C879218166A600D3E661 /* NewCategoryViewController.xib */,
+				71E6C87B21816B3300D3E661 /* FilterEventsViewController.xib */,
+				71E6C87D21816D7600D3E661 /* CalendarViewController.xib */,
+				71E6C87F21816D9C00D3E661 /* NewEventViewController.xib */,
+				71E6C8752181635D00D3E661 /* StatsViewController.xib */,
+				71E6C8772181650700D3E661 /* FriendViewController.xib */,
+				71E6C8712175916200D3E661 /* LoginViewController.xib */,
 			);
 			path = SacredCalendar;
 			sourceTree = "<group>";
@@ -280,8 +304,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71E6C8782181650700D3E661 /* FriendViewController.xib in Resources */,
+				71E6C874218161B300D3E661 /* NotificationViewController.xib in Resources */,
+				71E6C8722175916200D3E661 /* LoginViewController.xib in Resources */,
 				8BA90066215334BA00FF7733 /* LaunchScreen.storyboard in Resources */,
 				8BA90063215334BA00FF7733 /* Assets.xcassets in Resources */,
+				71E6C88021816D9C00D3E661 /* NewEventViewController.xib in Resources */,
+				71E6C87A218166A600D3E661 /* NewCategoryViewController.xib in Resources */,
+				71E6C87E21816D7600D3E661 /* CalendarViewController.xib in Resources */,
+				71E6C87C21816B3300D3E661 /* FilterEventsViewController.xib in Resources */,
+				71E6C8762181635D00D3E661 /* StatsViewController.xib in Resources */,
 				8BA90061215334BA00FF7733 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
