@@ -10,8 +10,6 @@
 		36BE0872D4DA842058DCA91D /* Pods_SacredCalendarUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BA15B465CC15D18A0BBFD8B /* Pods_SacredCalendarUITests.framework */; };
 		48B3B8B09D91243E7B311675 /* Pods_SacredCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B513FB8EB7AA76E9ABE30D60 /* Pods_SacredCalendar.framework */; };
 		6FFCD8EFB9C5B5630C62FB73 /* Pods_SacredCalendarTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34550049EF923839B4B12D5C /* Pods_SacredCalendarTests.framework */; };
-		71D90933216D98390036AC5E /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D90932216D98390036AC5E /* Event.swift */; };
-		71D90935216DA05D0036AC5E /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D90934216DA05D0036AC5E /* API.swift */; };
 		71E6C8722175916200D3E661 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C8712175916200D3E661 /* LoginViewController.xib */; };
 		71E6C874218161B300D3E661 /* NotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C873218161B300D3E661 /* NotificationViewController.xib */; };
 		71E6C8762181635D00D3E661 /* StatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C8752181635D00D3E661 /* StatsViewController.xib */; };
@@ -20,8 +18,6 @@
 		71E6C87C21816B3300D3E661 /* FilterEventsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C87B21816B3300D3E661 /* FilterEventsViewController.xib */; };
 		71E6C87E21816D7600D3E661 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C87D21816D7600D3E661 /* CalendarViewController.xib */; };
 		71E6C88021816D9C00D3E661 /* NewEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C87F21816D9C00D3E661 /* NewEventViewController.xib */; };
-		8BA9005C215334BA00FF7733 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9005B215334BA00FF7733 /* AppDelegate.swift */; };
-		8BA9005E215334BA00FF7733 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9005D215334BA00FF7733 /* ViewController.swift */; };
 		8BA90061215334BA00FF7733 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BA9005F215334BA00FF7733 /* Main.storyboard */; };
 		8BA90063215334BA00FF7733 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA90062215334BA00FF7733 /* Assets.xcassets */; };
 		8BA90066215334BA00FF7733 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BA90064215334BA00FF7733 /* LaunchScreen.storyboard */; };
@@ -51,8 +47,6 @@
 		34550049EF923839B4B12D5C /* Pods_SacredCalendarTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SacredCalendarTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BA15B465CC15D18A0BBFD8B /* Pods_SacredCalendarUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SacredCalendarUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DF08B653A47221361681CB6 /* Pods-SacredCalendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SacredCalendar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SacredCalendar/Pods-SacredCalendar.debug.xcconfig"; sourceTree = "<group>"; };
-		71D90932216D98390036AC5E /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		71D90934216DA05D0036AC5E /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		71E6C8712175916200D3E661 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		71E6C873218161B300D3E661 /* NotificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationViewController.xib; sourceTree = "<group>"; };
 		71E6C8752181635D00D3E661 /* StatsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatsViewController.xib; sourceTree = "<group>"; };
@@ -62,8 +56,6 @@
 		71E6C87D21816D7600D3E661 /* CalendarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
 		71E6C87F21816D9C00D3E661 /* NewEventViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewEventViewController.xib; sourceTree = "<group>"; };
 		8BA90058215334BA00FF7733 /* SacredCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SacredCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8BA9005B215334BA00FF7733 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8BA9005D215334BA00FF7733 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8BA90060215334BA00FF7733 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8BA90062215334BA00FF7733 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BA90065215334BA00FF7733 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -147,10 +139,6 @@
 		8BA9005A215334BA00FF7733 /* SacredCalendar */ = {
 			isa = PBXGroup;
 			children = (
-				8BA9005B215334BA00FF7733 /* AppDelegate.swift */,
-				71D90934216DA05D0036AC5E /* API.swift */,
-				8BA9005D215334BA00FF7733 /* ViewController.swift */,
-				71D90932216D98390036AC5E /* Event.swift */,
 				8BA9005F215334BA00FF7733 /* Main.storyboard */,
 				8BA90062215334BA00FF7733 /* Assets.xcassets */,
 				8BA90064215334BA00FF7733 /* LaunchScreen.storyboard */,
@@ -476,10 +464,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BA9005E215334BA00FF7733 /* ViewController.swift in Sources */,
-				8BA9005C215334BA00FF7733 /* AppDelegate.swift in Sources */,
-				71D90935216DA05D0036AC5E /* API.swift in Sources */,
-				71D90933216D98390036AC5E /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,7 +676,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C86CBD267973E68417265440 /* Pods-SacredCalendarTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 349WFX4WJR;
@@ -714,7 +697,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A6BB218A37F34B3C5BA101D8 /* Pods-SacredCalendarTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 349WFX4WJR;
@@ -736,7 +718,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D7E1235FAE83FD8658C39CF6 /* Pods-SacredCalendarUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 349WFX4WJR;
 				INFOPLIST_FILE = SacredCalendarUITests/Info.plist;
@@ -757,7 +738,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 102A6DC7EE4D37CB05A0985A /* Pods-SacredCalendarUITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 349WFX4WJR;
 				INFOPLIST_FILE = SacredCalendarUITests/Info.plist;
