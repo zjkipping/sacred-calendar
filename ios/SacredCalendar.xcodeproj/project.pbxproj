@@ -30,7 +30,6 @@
 		8B9B13BA217D6655002CB9A0 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13B9217D6655002CB9A0 /* Environment.swift */; };
 		8BA9005C215334BA00FF7733 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9005B215334BA00FF7733 /* AppDelegate.swift */; };
 		8BA9005E215334BA00FF7733 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9005D215334BA00FF7733 /* LoginViewController.swift */; };
->>>>>>> 96b0bea4731315d7740cade7dec2a18b95945bcc
 		8BA90061215334BA00FF7733 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BA9005F215334BA00FF7733 /* Main.storyboard */; };
 		8BA90063215334BA00FF7733 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA90062215334BA00FF7733 /* Assets.xcassets */; };
 		8BA90066215334BA00FF7733 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BA90064215334BA00FF7733 /* LaunchScreen.storyboard */; };
@@ -85,7 +84,6 @@
 		8BA90058215334BA00FF7733 /* SacredCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SacredCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA9005B215334BA00FF7733 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BA9005D215334BA00FF7733 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
->>>>>>> 96b0bea4731315d7740cade7dec2a18b95945bcc
 		8BA90060215334BA00FF7733 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8BA90062215334BA00FF7733 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BA90065215334BA00FF7733 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -213,14 +211,11 @@
 		8BA9005A215334BA00FF7733 /* SacredCalendar */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-=======
 				8BA9005B215334BA00FF7733 /* AppDelegate.swift */,
 				8BA9005D215334BA00FF7733 /* LoginViewController.swift */,
 				8BC175F521759501002AFFD2 /* SignUpViewController.swift */,
 				8BC175F321758E54002AFFD2 /* EventsViewController.swift */,
 				8B9B13B2217D31F8002CB9A0 /* Models */,
->>>>>>> 96b0bea4731315d7740cade7dec2a18b95945bcc
 				8BA9005F215334BA00FF7733 /* Main.storyboard */,
 				8B9B13B1217D2481002CB9A0 /* Services */,
 				8B495AFA216EDB3900F0A60C /* API */,
