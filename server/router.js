@@ -1,7 +1,7 @@
 const CONFIG = require('./config');
 const tokenUtil = require('./token-util');
 const auth = require('./auth');
-
+const user = require('./user');
 const express = require('express');
 const mysql = require('mysql2/promise');
 
@@ -22,17 +22,30 @@ const startRoutes = async () => {
   // anything below here requires a token to use
   // the user's ID is passed to req.id below here
 
-  router.get('/self', async (req, res) => {
-    try {
-      const [rows, _fields] = await connection.execute(
-        'SELECT username, firstName, lastName, email, signUpDate from `UserDetails` INNER JOIN UserLogin ON UserDetails.userID=UserLogin.id WHERE id = ?', 
-        [req.id]
-      );
-      res.status(200).send(rows[0]);
-    } catch (err) {
-      res.status(500).send({ error: true, code: err.code, message: err.message });
-    }
-  });
+  router.get('/self', user.self);
+
+  router.get('/events', user.events);
+
+  router.get('/categories', user.categories);
+
+  router.post('/event', user.newEvent);
+  router.put('/event', user.updateEvent);
+  router.delete('/event', user.deleteEvent);
+
+  router.post('/category', user.newCategory);
+  router.put('/category', user.updateCategory);
+  router.delete('/category', user.deleteCategory);
+
+  // above is needed for DEMO-1
+  // below is needed for DEMO-2
+
+  router.get('/availability', user.availability);
+  router.get('/friends', user.friends);
+
+  router.post('/friends', user.addFriend);
+  router.put('/friends', user.updateFriend);
+  router.delete('/friends', user.removeFriend);
+
 };
 
 startRoutes();
