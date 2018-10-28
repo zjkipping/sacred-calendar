@@ -36,7 +36,7 @@ module.exports = {
         CREATE TABLE IF NOT EXISTS Category (
           id int AUTO_INCREMENT PRIMARY KEY,
           userID int NOT NULL,
-          name varchar(50) NOT NULL UNIQUE,
+          name varchar(50) NOT NULL,
           color varchar(7) NOT NULL,
           FOREIGN KEY (userID) REFERENCES UserLogin(id)
         )
@@ -94,7 +94,7 @@ module.exports = {
       console.log(err);
     }
     console.log('Finished Setup!');
-    if (!process.env.NODE_ENV.includes('prod')) {
+    if (!CONFIG.production) {
       process.exit(0);
     }
   }

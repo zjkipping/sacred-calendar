@@ -16,10 +16,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', require('./router'));
 
 const runServer = async () => {
-  if (process.env.NODE_ENV.includes('prod')) {
+  if (CONFIG.production) {
     await model.setup();
   }
-  const port = CONFIG.port || 3000;
+  const port = process.env.PORT || CONFIG.port || 8080;
   await promisify(app.listen).bind(app)(port);
   console.log('Started server on port: ' + port);
 }

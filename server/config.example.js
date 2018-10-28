@@ -1,11 +1,12 @@
 module.exports = {
+  production: false,
   dbCredentials: {
     host: '',
     user: '',
     password: '',
     database: ''
   },
-  port: 3000,
+  port: 8080,
   tokenSecret: '',
   tokenLife: '10m',
   refreshTokenSecret: '',
