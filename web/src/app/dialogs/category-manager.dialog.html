@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Category Manager</h1>
+<button mat-mini-fab color="accent" (click)="addCategory()" class="add-button">
+  <mat-icon>add</mat-icon>
+</button>
+<div mat-dialog-content class="category-manager-body">
+  <ng-container *ngFor="let category of getFormGroups(); index as i">
+    <form [formGroup]="category" *ngIf="!category.value.delete">
+      <mat-form-field class="color-picker">
+        <input matInput formControlName="color" type="color">
+      </mat-form-field>
+      <mat-form-field class="category-name">
+        <input matInput formControlName="name" placeholder="Category Name">
+      </mat-form-field>
+      <button mat-mini-fab (click)="deleteCategory(i)" color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </form>
+  </ng-container>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+  <div class="spacer"></div>
+  <button mat-raised-button [disabled]="categoriesForm?.pristine" class="success" (click)="submitCategories()">Submit</button>
+</div>

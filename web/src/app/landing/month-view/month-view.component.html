@@ -12,13 +12,14 @@
     <mat-grid-tile>Friday</mat-grid-tile>
     <mat-grid-tile>Saturday</mat-grid-tile>
   </mat-grid-list>
-  <mat-grid-list cols="7" rowHeight="1:1">
-    <mat-grid-tile class="date" [style.cursor]="day.disabled ? '' : 'pointer'" (click)="selectDate(day)" *ngFor="let day of days" [class.today]="day.today" [class.selected]="day.selected">
+  <mat-grid-list cols="7" rowHeight="1:1.05">
+    <mat-grid-tile class="date" [style.cursor]="day.disabled ? '' : 'pointer'" (click)="selectDate(day)" *ngFor="let day of days; index as i" [class.today]="day.today" [class.selected]="day.selected">
       <mat-grid-tile-header class="date-header">{{day.mDate.format('D')}}</mat-grid-tile-header>
       <div class="tile-body">
-        <div class="event blue-background">some event</div>
-        <div class="event green-background">some event</div>
-        <div class="event purple-background">some event</div>
+        <ng-container *ngFor="let event of day.events; index as i">
+          <div class="event" [style.backgroundColor]="event.category.color" *ngIf="i < 3 || day.events.length <= 4">{{event.name}}</div>
+        </ng-container>
+        <div class="text-right event-ellipse" *ngIf="day.events.length > 4">+{{day.events.length - 4}}</div>
       </div>
       <div class="disabled" *ngIf="day.disabled"></div>
     </mat-grid-tile>

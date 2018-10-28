@@ -1,11 +1,11 @@
 <h1 mat-dialog-title>Event Form</h1>
 <form [formGroup]="eventForm">
-  <div mat-dialog-content>
+  <div mat-dialog-content class="event-form-body">
     <mat-form-field class="full-width">
       <input matInput formControlName="name" placeholder="Name" required>
     </mat-form-field>
     <mat-form-field class="full-width">
-      <input matInput formControlName="description" placeholder="Description">
+      <textarea class="description" matInput formControlName="description" placeholder="Description"></textarea>
     </mat-form-field>
     <mat-form-field class="full-width">
       <input matInput formControlName="location" placeholder="Location">
@@ -15,6 +15,8 @@
       <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
       <mat-datepicker #datePicker></mat-datepicker>
     </mat-form-field>
+
+    <!-- TODO: make these dark themed -->
     <ngx-material-timepicker #pickerStart></ngx-material-timepicker>
     <mat-form-field class="full-width">
       <input matInput [ngxTimepicker]="pickerStart" formControlName="startTime" placeholder="Start Time"  required>
@@ -22,6 +24,13 @@
     <ngx-material-timepicker #pickerEnd></ngx-material-timepicker>
     <mat-form-field class="full-width">
       <input matInput [ngxTimepicker]="pickerEnd" formControlName="endTime" placeholder="End Time">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-select formControlName="categoryID">
+        <mat-option disabled value="" selected>Select a Category</mat-option>
+        <mat-option *ngFor="let category of categories | async" [value]="category.id" [style.backgroundColor]="category.color">{{category.name}}</mat-option>
+      </mat-select>
     </mat-form-field>
   </div>
   <div mat-dialog-actions>

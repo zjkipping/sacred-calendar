@@ -19,7 +19,7 @@ export class MonthViewComponent {
 
   private rawEvents: Event[] = [];
   @Input() set events(raw: Event[]) {
-    this.rawEvents = raw;
+    this.rawEvents = raw ? raw : [];
     this.days = GenerateDates(this.rawEvents, this.currentMonthYear, this.selectedDate);
   }
 
@@ -58,13 +58,18 @@ export class MonthViewComponent {
 function GenerateDates(events: Event[], current: moment.Moment, selected: CalendarDate | undefined): CalendarDate[] {
   const start = moment(current).startOf('month').subtract(moment(current).startOf('month').day(), 'days');
   const startDate = start.date();
+
   return _
-    .range(startDate, startDate + 42)
-    .map(date => SetDate(moment(start).date(date), events, current, selected));
+  .range(startDate, startDate + 42)
+  .map(date => SetDate(moment(start).date(date), events, current, selected));
 }
 
 function SetDate(date: moment.Moment, rawEvents: Event[], current: moment.Moment, selected: CalendarDate | undefined): CalendarDate {
-  const events = rawEvents;
+  const events = rawEvents.filter(event => {
+    return event.date.isSame(date, 'day');
+  });
+
+  // TODO: sort events by time
 
   return {
     events,

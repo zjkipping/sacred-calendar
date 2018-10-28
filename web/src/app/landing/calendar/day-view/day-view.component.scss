@@ -1,0 +1,47 @@
+@import "../../../..//theme/sc-theme-mixins.scss";
+
+.day-view-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-top: 114px;
+  max-height: 600px;
+  height: 600px;
+  overflow-y: auto;
+  background-color: mat-color($sc-accent, 500);
+  padding: 10px;
+  width: 400px;
+  z-index: 10;
+  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+  border: 2px solid white;
+  border-right: none;
+  overflow-x: hidden;
+}
+
+.divider {
+  margin: 10px 0px;
+  border: 1px solid white;
+  width: 100%;
+}
+
+.delete-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.event-container {
+  position: relative;
+}
+
+.event {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0px;
+  border-radius: 5px;
+  border: 2px solid white;
+  background-color: #262626;
+  color: white;
+  cursor: pointer;
+}

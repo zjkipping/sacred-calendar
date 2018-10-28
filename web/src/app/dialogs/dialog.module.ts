@@ -4,10 +4,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { EventFormDialogComponent } from '@dialogs/event-form.dialog';
 import { MaterialModule } from '../material.module';
+import { CategoryManagerDialogComponent } from './category-manager.dialog';
 
 @NgModule({
   declarations: [
-    EventFormDialogComponent
+    EventFormDialogComponent,
+    CategoryManagerDialogComponent
   ],
   imports: [
     CommonModule,
@@ -15,7 +17,8 @@ import { MaterialModule } from '../material.module';
     ReactiveFormsModule
   ],
   entryComponents: [
-    EventFormDialogComponent
+    EventFormDialogComponent,
+    CategoryManagerDialogComponent
   ]
 })
 export class DialogModule { }

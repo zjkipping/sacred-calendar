@@ -18,7 +18,7 @@
 }
 
 .tile-body {
-  margin-top: 27px;
+  margin-top: 25px;
   padding: 3px;
 }
 
@@ -26,6 +26,16 @@
   font-size: 12px;
   margin-top: 2px;
   padding: 0px 4px;
+  background: grey;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 5px;
+  border: 1px solid white;
+}
+
+.event-ellipse {
+  font-size: 14px;
 }
 
 .blue-background {
@@ -45,7 +55,7 @@
 }
 
 .today {
-  background: yellow;
+  background: rgb(122, 3, 112);
 }
 
 .selected {
@@ -53,12 +63,12 @@
 }
 
 .disabled {
-  height: 102px;
-  width: 102px;
+  height: 102.33px;
+  width: 97.42px;
   top: 0;
   left: 0;
   background: grey;
   opacity: 0.85;
   position: absolute;
-  z-index: 5000;
+  z-index: 5;
 }
