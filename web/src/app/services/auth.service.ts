@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, take } from 'rxjs/operators';
-import { UserDetails } from '@types';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+
+import { environment } from '../../environments/environment';
+
+const API_URL = environment.API_URL;
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +21,11 @@ export class AuthService {
   }
 
   registerUser(username: string, firstName: string, lastName: string, email: string, password: string): Observable<any> {
-    return this.http.post('/api' + '/register', { username, firstName, lastName, email, password }).pipe(take(1));
+    return this.http.post(API_URL + '/register', { username, firstName, lastName, email, password }).pipe(take(1));
   }
 
   loginUser(username: string, password: string, remember: boolean): Observable<any> {
-    return this.http.post('/api' + '/login', { username, password }).pipe(
+    return this.http.post(API_URL + '/login', { username, password }).pipe(
       take(1),
       tap((res: any) => {
         this.refreshToken = res.refreshToken;
@@ -35,7 +38,7 @@ export class AuthService {
   }
 
   logoutUser(): void {
-    this.http.post('/api' + '/logout', { refreshToken: this.refreshToken }).pipe(
+    this.http.post(API_URL + '/logout', { refreshToken: this.refreshToken }).pipe(
       take(1)
     ).subscribe(() => {
       this.clearAuth();
@@ -50,7 +53,7 @@ export class AuthService {
   }
 
   getNewClientToken(): Observable<any> {
-    return this.http.post('/api' + '/token', { refreshToken: this.refreshToken }).pipe(
+    return this.http.post(API_URL + '/token', { refreshToken: this.refreshToken }).pipe(
       take(1),
       tap(res => this.clientToken = res.token),
     );

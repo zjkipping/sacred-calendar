@@ -50,8 +50,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "sacred-calendar:build",
-            "proxyConfig": "proxy.config.json"
+            "browserTarget": "sacred-calendar:build"
           },
           "configurations": {
             "production": {

@@ -7,7 +7,9 @@ import * as moment from 'moment';
 import { UserDetails, EventFormValue, Event, Category, CategoryFormValue } from '@types';
 import { map, take } from 'rxjs/operators';
 
-const API_URL = '/api';
+import { environment } from '../../environments/environment';
+
+const API_URL = environment.API_URL;
 
 @Injectable({
   providedIn: 'root'
