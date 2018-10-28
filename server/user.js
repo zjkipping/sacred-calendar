@@ -10,6 +10,7 @@ module.exports = {
       );
       res.status(200).send(rows[0]);
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
   },
@@ -40,6 +41,7 @@ module.exports = {
         }
       }));
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
   },
@@ -51,6 +53,7 @@ module.exports = {
       );
       res.status(200).send(rows);
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
   },
@@ -62,29 +65,32 @@ module.exports = {
       );
       res.status(200).send(rows);
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
-    res.status(404).send();
   },
   availability: async (req, res) => {
     try {
 
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
     res.status(404).send();
   },
   newEvent: async (req, res) => {
-    const description = req.body.description ? req.body.description: null;
-    const location = req.body.location ? req.body.location : null;
-    const endTime = req.body.endTime ? req.body.endTime: null;
     try {
+      const description = req.body.description ? req.body.description: null;
+      const location = req.body.location ? req.body.location : null;
+      const endTime = req.body.endTime ? req.body.endTime: null;
+      const categoryID = req.body.categoryID ? req.body.categoryID: null;
       await connection.execute(
-        'INSERT INTO Event (userID, created, name, description, location, date, startTime, endTime) VALUES (?, UNIX_TIMESTAMP(), ?, ?, ?, ?, ?, ?)',
-        [req.id, req.body.name, description, location, req.body.date, req.body.startTime, endTime]
+        'INSERT INTO Event (userID, created, name, description, location, date, startTime, endTime, categoryID) VALUES (?, UNIX_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?)',
+        [req.id, req.body.name, description, location, req.body.date, req.body.startTime, endTime, categoryID]
       );
       res.status(200).send();
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
   },
@@ -99,6 +105,7 @@ module.exports = {
       );
       res.status(200).send();
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
   },
@@ -106,10 +113,11 @@ module.exports = {
     try {
       await connection.execute(
         'DELETE FROM Event WHERE id = ?',
-        [req.body.id]
+        [req.params.id]
       )
       res.status(200).send();
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
   },
@@ -121,6 +129,7 @@ module.exports = {
       );
       res.status(200).send();
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
   },
@@ -132,17 +141,23 @@ module.exports = {
       );
       res.status(200).send();
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
   },
   deleteCategory: async (req, res) => {
     try {
       await connection.execute(
+        'UPDATE Event SET categoryID = null WHERE categoryID = ?',
+        [req.params.id]
+      );
+      await connection.execute(
         'DELETE FROM Category WHERE id = ?',
-        [req.body.id]
+        [req.params.id]
       );
       res.status(200).send();
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
   },
@@ -150,6 +165,7 @@ module.exports = {
     try {
 
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
     res.status(404).send();
@@ -158,6 +174,7 @@ module.exports = {
     try {
 
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
     res.status(404).send();
@@ -166,6 +183,7 @@ module.exports = {
     try {
 
     } catch (err) {
+      console.log(err);
       res.status(500).send({ error: true, code: err.code, message: err.message });
     }
     res.status(404).send();

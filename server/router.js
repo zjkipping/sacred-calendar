@@ -30,11 +30,11 @@ const startRoutes = async () => {
 
   router.post('/event', user.newEvent);
   router.put('/event', user.updateEvent);
-  router.delete('/event', user.deleteEvent);
+  router.delete('/event/:id', user.deleteEvent);
 
   router.post('/category', user.newCategory);
   router.put('/category', user.updateCategory);
-  router.delete('/category', user.deleteCategory);
+  router.delete('/category/:id', user.deleteCategory);
 
   // above is needed for DEMO-1
   // below is needed for DEMO-2
