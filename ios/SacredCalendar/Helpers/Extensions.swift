@@ -13,3 +13,9 @@ extension String {
         return self + "/" + value
     }
 }
+
+extension UIViewController {
+    func set(title: String) {
+        navigationItem.title = title
+    }
+}

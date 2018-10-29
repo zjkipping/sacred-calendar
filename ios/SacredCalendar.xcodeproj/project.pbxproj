@@ -12,6 +12,8 @@
 		6FFCD8EFB9C5B5630C62FB73 /* Pods_SacredCalendarTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34550049EF923839B4B12D5C /* Pods_SacredCalendarTests.framework */; };
 		71D90933216D98390036AC5E /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D90932216D98390036AC5E /* Event.swift */; };
 		71D90935216DA05D0036AC5E /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D90934216DA05D0036AC5E /* API.swift */; };
+		8B29FFC3218281A500F86BC8 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B29FFC2218281A500F86BC8 /* LoginViewController.xib */; };
+		8B29FFC6218285A600F86BC8 /* SignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B29FFC5218285A600F86BC8 /* SignUpViewController.xib */; };
 		8B495AF7216EDB0900F0A60C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B495AF6216EDB0900F0A60C /* Extensions.swift */; };
 		8B495AF9216EDB1F00F0A60C /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B495AF8216EDB1F00F0A60C /* Operators.swift */; };
 		8B495AFD216EDB6800F0A60C /* ValidatedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B495AFC216EDB6800F0A60C /* ValidatedResponse.swift */; };
@@ -57,6 +59,8 @@
 		6DF08B653A47221361681CB6 /* Pods-SacredCalendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SacredCalendar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SacredCalendar/Pods-SacredCalendar.debug.xcconfig"; sourceTree = "<group>"; };
 		71D90932216D98390036AC5E /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		71D90934216DA05D0036AC5E /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		8B29FFC2218281A500F86BC8 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		8B29FFC5218285A600F86BC8 /* SignUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignUpViewController.xib; sourceTree = "<group>"; };
 		8B495AF6216EDB0900F0A60C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8B495AF8216EDB1F00F0A60C /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		8B495AFC216EDB6800F0A60C /* ValidatedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatedResponse.swift; sourceTree = "<group>"; };
@@ -128,6 +132,15 @@
 				102A6DC7EE4D37CB05A0985A /* Pods-SacredCalendarUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		8B29FFC4218281B000F86BC8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8B29FFC2218281A500F86BC8 /* LoginViewController.xib */,
+				8B29FFC5218285A600F86BC8 /* SignUpViewController.xib */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		8B495AFA216EDB3900F0A60C /* API */ = {
@@ -207,6 +220,7 @@
 				8BA90062215334BA00FF7733 /* Assets.xcassets */,
 				8BA90064215334BA00FF7733 /* LaunchScreen.storyboard */,
 				8BA90067215334BA00FF7733 /* Info.plist */,
+				8B29FFC4218281B000F86BC8 /* Views */,
 			);
 			path = SacredCalendar;
 			sourceTree = "<group>";
@@ -347,8 +361,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B29FFC6218285A600F86BC8 /* SignUpViewController.xib in Resources */,
 				8BA90066215334BA00FF7733 /* LaunchScreen.storyboard in Resources */,
 				8BA90063215334BA00FF7733 /* Assets.xcassets in Resources */,
+				8B29FFC3218281A500F86BC8 /* LoginViewController.xib in Resources */,
 				8BA90061215334BA00FF7733 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,6 +430,11 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SacredCalendar/Pods-SacredCalendar-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
+				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
+				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
+				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
+				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
@@ -422,6 +443,11 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",

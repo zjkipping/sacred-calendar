@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="SacredCalendar" customModuleProvider="target">
+            <connections>
+                <outlet property="passwordField" destination="WhJ-td-fxQ" id="Cyq-dA-beg"/>
+                <outlet property="signUpButton" destination="nzL-tM-fh9" id="Oke-Uf-Svw"/>
+                <outlet property="submitButton" destination="DOy-92-VIt" id="uZ9-vK-Rax"/>
+                <outlet property="usernameField" destination="rpG-Md-cJg" id="6eh-sh-igB"/>
+                <outlet property="view" destination="iN0-l3-epB" id="4sg-r0-MYL"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nzL-tM-fh9" customClass="MDCRaisedButton">
+                    <rect key="frame" x="137.5" y="405.5" width="100" height="44"/>
+                    <color key="backgroundColor" red="0.14901960784313725" green="0.65098039215686276" blue="0.60392156862745094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" title="SIGN UP">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rpG-Md-cJg" customClass="TextField" customModule="Material">
+                    <rect key="frame" x="94" y="157" width="187.5" height="30"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WhJ-td-fxQ" customClass="TextField" customModule="Material">
+                    <rect key="frame" x="94" y="200" width="187.5" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DOy-92-VIt" customClass="MDCRaisedButton">
+                    <rect key="frame" x="137.5" y="321.5" width="100" height="44"/>
+                    <color key="backgroundColor" red="0.043137254901960784" green="0.32549019607843138" blue="0.58039215686274503" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="2GU-ko-eLS"/>
+                        <constraint firstAttribute="width" constant="100" id="x7R-5k-Vtb"/>
+                    </constraints>
+                    <state key="normal" title="LOGIN">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="nzL-tM-fh9" firstAttribute="centerX" secondItem="DOy-92-VIt" secondAttribute="centerX" id="4ut-rE-SmG"/>
+                <constraint firstItem="DOy-92-VIt" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="HdZ-8H-QTt"/>
+                <constraint firstItem="rpG-Md-cJg" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="0.5" id="PDa-wZ-fmA"/>
+                <constraint firstItem="WhJ-td-fxQ" firstAttribute="top" secondItem="rpG-Md-cJg" secondAttribute="bottom" constant="13" id="Th5-gn-ABR"/>
+                <constraint firstItem="rpG-Md-cJg" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.5" id="V7L-zE-BOM"/>
+                <constraint firstItem="WhJ-td-fxQ" firstAttribute="centerX" secondItem="rpG-Md-cJg" secondAttribute="centerX" id="WVy-s3-fD9"/>
+                <constraint firstItem="nzL-tM-fh9" firstAttribute="height" secondItem="DOy-92-VIt" secondAttribute="height" id="j3w-Vq-g8P"/>
+                <constraint firstItem="nzL-tM-fh9" firstAttribute="width" secondItem="DOy-92-VIt" secondAttribute="width" id="kMH-J7-R8R"/>
+                <constraint firstItem="DOy-92-VIt" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="lBq-eD-a7x"/>
+                <constraint firstItem="rpG-Md-cJg" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="nwd-5K-Ps4"/>
+                <constraint firstItem="nzL-tM-fh9" firstAttribute="top" secondItem="DOy-92-VIt" secondAttribute="bottom" constant="40" id="pOQ-Qp-zHY"/>
+                <constraint firstItem="rpG-Md-cJg" firstAttribute="width" secondItem="WhJ-td-fxQ" secondAttribute="width" id="q5s-cy-2Cg"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="138.40000000000001" y="152.47376311844079"/>
+        </view>
+    </objects>
+</document>

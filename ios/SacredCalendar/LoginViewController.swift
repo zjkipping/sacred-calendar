@@ -48,6 +48,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     
     @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var signUpButton: UIButton!
     
     let viewModel: AuthViewModel
     
@@ -70,9 +71,12 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        set(title: "Sacred Calendar")
+        
         attachFormErrorObserver()
         
         setup(loginButton: submitButton)
+        setup(signUpButton: signUpButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -142,6 +146,15 @@ class LoginViewController: UIViewController {
                 
                 let events = EventsViewController()
                 self?.navigationController?.pushViewController(events, animated: true)
+            })
+            .disposed(by: trash)
+    }
+    
+    func setup(signUpButton button: UIButton) {
+        button.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                let signUp = SignUpViewController()
+                self?.navigationController?.pushViewController(signUp, animated: true)
             })
             .disposed(by: trash)
     }
