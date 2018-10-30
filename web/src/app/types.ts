@@ -17,6 +17,7 @@ export interface Event {
   startTime: string;
   endTime?: string;
   category: Category;
+  fontColor?: string;
 }
 
 export interface EventFormValue {
@@ -32,6 +33,7 @@ export interface Category {
   id: number;
   name: string;
   color: string;
+  fontColor?: string;
 }
 
 export interface CategoryFormValue {

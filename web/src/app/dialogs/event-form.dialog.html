@@ -29,7 +29,7 @@
     <mat-form-field class="full-width">
       <mat-select formControlName="categoryID">
         <mat-option disabled value="" selected>Select a Category</mat-option>
-        <mat-option *ngFor="let category of categories | async" [value]="category.id" [style.backgroundColor]="category.color">{{category.name}}</mat-option>
+        <mat-option *ngFor="let category of categories | async" [value]="category.id" [style.color]="category.fontColor" [style.backgroundColor]="category.color">{{category.name}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>

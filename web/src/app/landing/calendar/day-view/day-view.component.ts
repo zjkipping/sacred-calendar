@@ -30,6 +30,7 @@ export class DayViewComponent {
   @Output() close = new EventEmitter();
   @Output() deleteEvent = new EventEmitter<Event>();
   @Output() editEvent = new EventEmitter<Event>();
+  @Output() newEvent = new EventEmitter();
 
   constructor() { }
 
@@ -43,5 +44,9 @@ export class DayViewComponent {
 
   deleteClicked(event: Event) {
     this.deleteEvent.emit(event);
+  }
+
+  newClicked() {
+    this.newEvent.emit();
   }
 }

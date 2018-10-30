@@ -17,7 +17,7 @@
       <mat-grid-tile-header class="date-header">{{day.mDate.format('D')}} <span class="today-tag" *ngIf="day.today">(Today)</span></mat-grid-tile-header>
       <div class="tile-body">
         <ng-container *ngFor="let event of day.events; index as i">
-          <div class="event" [style.backgroundColor]="event.category.color" *ngIf="i < 3 || day.events.length <= 4">{{event.name}}</div>
+          <div class="event" [style.borderColor]="event.fontColor" [style.color]="event.fontColor" [style.backgroundColor]="event.category.color" *ngIf="i < 3 || day.events.length <= 4">{{event.name}}</div>
         </ng-container>
         <div class="text-right event-ellipse" *ngIf="day.events.length > 4">+{{day.events.length - 4}}</div>
       </div>

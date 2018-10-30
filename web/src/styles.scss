@@ -114,3 +114,9 @@ a {
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
+
+.ellipse-text {
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

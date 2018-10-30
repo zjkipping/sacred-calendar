@@ -19,7 +19,7 @@ export class CalendarComponent {
   sideNavOpen = false;
   events: Observable<Event[]>;
 
-  constructor(private dialog: MatDialog, private ds: DataService, public cs: CalendarService) {
+  constructor(private dialog: MatDialog, public ds: DataService, public cs: CalendarService) {
     this.events = this.ds.events.pipe(shareReplay(1));
   }
 

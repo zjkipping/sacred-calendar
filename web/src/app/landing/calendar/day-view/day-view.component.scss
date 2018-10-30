@@ -16,17 +16,16 @@
 }
 
 .day-view-container {
-  max-height: 600px;
-  height: 600px;
+  max-height: 620px;
+  height: 620px;
   overflow-y: auto;
-  background-color: mat-color($sc-accent, 500);
-  padding: 10px;
+  background: #262626;
   width: 400px;
   overflow-x: hidden;
+  position: relative;
 }
 
 .divider {
-  margin: 10px 0px;
   border: 1px solid white;
   width: 100%;
 }
@@ -47,16 +46,15 @@
   margin: 10px 0px;
   border-radius: 5px;
   border: 2px solid white;
-  background-color: #262626;
+  background-color: grey;
   color: white;
   cursor: pointer;
 }
 
 .close-button-tab {
   width: 25px;
-  padding: 10px;
-  max-height: 600px;
-  height: 600px;
+  max-height: 620px;
+  height: 620px;
   background: mat-color($sc-primary, 500);
 }
 
@@ -70,4 +68,23 @@
   height: 620px;
   background: mat-color($sc-primary, 500);
   cursor: pointer;
+  border-right: 2px solid white;
+}
+
+.events-list {
+  padding: 10px;
+  height: 546px;
+  overflow-y: auto;
+}
+
+.day-title {
+  padding: 10px;
+  background-color: mat-color($sc-primary, 500);
+  font-size: 19px;
+}
+
+.add-button {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl, ValidationErrors } from '@angular/forms';
 
 import { Category, CategoryFormValue } from '@types';
 import { DataService } from '@services/data.service';
@@ -24,7 +24,11 @@ export class CategoryManagerDialogComponent {
         new: [false],
         delete: [false],
         id: [category.id]
-      }), []));
+      })));
+
+      this.categoriesForm.statusChanges.subscribe(status => {
+        console.log(status);
+      });
     });
   }
 
@@ -43,19 +47,11 @@ export class CategoryManagerDialogComponent {
     }
   }
 
-  getFormGroups() {
-    if (this.categoriesForm) {
-      return this.categoriesForm.controls;
-    } else {
-      return [];
-    }
-  }
-
   addCategory() {
     if (this.categoriesForm) {
       this.categoriesForm.push(this.fb.group({
         name: ['', Validators.required],
-        color: ['', Validators.required],
+        color: ['#ffffff', Validators.required],
         new: [true],
         delete: [false]
       }));
@@ -64,11 +60,11 @@ export class CategoryManagerDialogComponent {
 
   deleteCategory(index: number) {
     if (this.categoriesForm) {
-      if ((this.categoriesForm.controls[index] as FormGroup).value.new) {
+      if ((this.categoriesForm.at(index) as FormGroup).value.new) {
         this.categoriesForm.removeAt(index);
       } else {
-        (this.categoriesForm.controls[index] as FormGroup).value.delete = true;
-        (this.categoriesForm.controls[index] as FormGroup).markAsDirty();
+        (this.categoriesForm.at(index) as FormGroup).value.delete = true;
+        (this.categoriesForm.at(index) as FormGroup).markAsDirty();
       }
     }
   }

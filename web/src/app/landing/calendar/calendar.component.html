@@ -24,6 +24,7 @@
   (close)="closeSideNav()"
   (editEvent)="editEvent($event)"
   (deleteEvent)="deleteEvent($event)"
+  (newEvent)="addEvent()"
   [day]="cs.selected | async"
   [open]="sideNavOpen"
 ></app-day-view>

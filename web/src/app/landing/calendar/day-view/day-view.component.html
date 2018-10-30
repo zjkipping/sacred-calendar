@@ -3,16 +3,28 @@
     <mat-icon>chevron_right</mat-icon>
   </div>
   <div class="day-view-container">
-    <h1 class="text-center">{{day?.mDate.format('dddd MMMM, YYYY')}}</h1>
-    <div class="divider"></div>
-    <div class="event-container" *ngFor="let event of day?.events">
-      <div (click)="eventClicked(event)" class="event" [style.backgroundColor]="event.category?.color">
-        <div>{{event.startTime}} - {{event.name}}</div>
-        <div>{{event.description}}</div>
-      </div>
-      <button mat-mini-fab class="delete-button" (click)="deleteClicked(event)" color="warn">
-        <mat-icon>delete</mat-icon>
-      </button>
+    <div class="day-title">
+      <h2 class="text-center">{{day?.mDate.format('dddd, MMMM Do YYYY')}}</h2>
     </div>
+    <div class="divider"></div>
+    <div class="events-list">
+      <div *ngIf="day?.events.length === 0" class="text-center">You don't have any events on this day.</div>
+      <div class="event-container" *ngFor="let event of day?.events">
+        <div (click)="eventClicked(event)" class="event" [style.borderColor]="event.fontColor" [style.color]="event.fontColor" [style.backgroundColor]="event.category?.color">
+          <div class="ellipse-text">
+            <span>{{event.startTime}}</span><span *ngIf="event.endTime"> - {{event.endTime}}</span>
+            <span *ngIf="event.location"> at {{event.location}}</span>
+          </div>
+          <div class="ellipse-text"><span>{{event.name}}</span></div>
+          <div>{{event.description}}</div>
+        </div>
+        <button mat-mini-fab class="delete-button" (click)="deleteClicked(event)" color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <!-- <button mat-mini-fab class="add-button" (click)="newClicked()" color="accent">
+      <mat-icon>add</mat-icon>
+    </button> -->
   </div>
 </div>

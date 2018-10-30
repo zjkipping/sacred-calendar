@@ -28,7 +28,7 @@ import { TokenInterceptor } from '@services/token-interceptor.service';
     DialogModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     CookieService,
