@@ -5,7 +5,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import * as moment from 'moment';
 
 import { UserDetails, EventFormValue, Event, Category, CategoryFormValue } from '@types';
-import { map, take } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 
@@ -17,15 +17,18 @@ const API_URL = environment.API_URL;
 export class DataService {
   userDetails: Observable<UserDetails>;
   events = new BehaviorSubject<Event[]>([]);
+  loadingEvents: boolean;
 
   constructor(private http: HttpClient, private router: Router) {
     this.userDetails = this.http.get<UserDetails>(API_URL + '/self');
+    this.loadingEvents = true;
     this.fetchEvents();
   }
 
   fetchEvents() {
     this.http.get<any[]>(API_URL + '/events').pipe(
       map(events => events.map(event => ({ ...event, date: moment(event.date, 'YYYY-MM-DD') }))),
+      tap(() => this.loadingEvents = false),
       take(1)
     ).subscribe(res => this.events.next(res));
   }

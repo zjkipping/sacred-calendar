@@ -61,6 +61,7 @@ export class CalendarService implements OnDestroy {
 
   deselectDate() {
     this.selected.next(undefined);
+    this.selectedDate.next(undefined);
   }
 }
 

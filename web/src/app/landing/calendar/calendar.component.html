@@ -5,19 +5,25 @@
       <button mat-raised-button color="primary" (click)="manageCategories()">Manage Categories</button>
     </mat-toolbar-row>
   </mat-toolbar>
-  <app-month-view
-    (dateSelected)="selectDate($event)"
-    (monthBackward)="cs.previousMonth()"
-    (monthForward)="cs.nextMonth()"
-    [current]="cs.current | async"
-    [days]="cs.days | async"
-  ></app-month-view>
+  <ng-container *ngIf="!ds.loadingEvents; else loadingCalendar">
+    <app-month-view
+      (dateSelected)="selectDate($event)"
+      (monthBackward)="cs.previousMonth()"
+      (monthForward)="cs.nextMonth()"
+      [current]="cs.current | async"
+      [days]="cs.days | async"
+    ></app-month-view>
+  </ng-container>
+  <ng-template #loadingCalendar>
+    <div class="loading-spinner"></div>
+    <p class="text-center">Loading Calendar...</p>
+  </ng-template>
 </div>
 
 <app-day-view
-  *ngIf="sideNavOpen"
   (close)="closeSideNav()"
   (editEvent)="editEvent($event)"
   (deleteEvent)="deleteEvent($event)"
   [day]="cs.selected | async"
+  [open]="sideNavOpen"
 ></app-day-view>
