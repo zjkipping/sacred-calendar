@@ -36,6 +36,6 @@
   <div mat-dialog-actions>
     <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
     <div class="spacer"></div>
-    <button mat-raised-button [disabled]="!eventForm.valid" class="success" [mat-dialog-close]="eventForm.value">Submit</button>
+    <button mat-raised-button [disabled]="!eventForm.valid" class="success" [mat-dialog-close]="submitEvent()">Submit</button>
   </div>
 </form>

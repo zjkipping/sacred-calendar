@@ -15,7 +15,7 @@ export class TokenInterceptor implements HttpInterceptor {
     const authReq = setAccessToken(req, this.authService.clientToken);
     return next.handle(authReq).pipe(
       filter((event: HttpEvent<any>) => event instanceof HttpResponse),
-      catchError((err: any, caught: Observable<HttpEvent<any>>) => {
+      catchError((err: any, _caught: Observable<HttpEvent<any>>) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401) {
             return this.authService.getNewClientToken().pipe(
@@ -23,9 +23,9 @@ export class TokenInterceptor implements HttpInterceptor {
             );
           } else if (err.status === 403) {
             this.authService.clearAuth();
-            return caught;
+            return throwError(err);
           } else {
-            return caught;
+            return throwError(err);
           }
         } else {
           return throwError(err);

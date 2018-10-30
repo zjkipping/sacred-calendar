@@ -5,7 +5,19 @@
       <button mat-raised-button color="primary" (click)="manageCategories()">Manage Categories</button>
     </mat-toolbar-row>
   </mat-toolbar>
-  <app-month-view (dateSelected)="selectDate($event)" [events]="events | async" [selected]="selectedDate"></app-month-view>
+  <app-month-view
+    (dateSelected)="selectDate($event)"
+    (monthBackward)="cs.previousMonth()"
+    (monthForward)="cs.nextMonth()"
+    [current]="cs.current | async"
+    [days]="cs.days | async"
+  ></app-month-view>
 </div>
 
-<app-day-view *ngIf="selectedDate" [day]="selectedDate" (deleteEvent)="eventDeleted($event)" (close)="closeSideNav()"></app-day-view>
+<app-day-view
+  *ngIf="sideNavOpen"
+  (close)="closeSideNav()"
+  (editEvent)="editEvent($event)"
+  (deleteEvent)="deleteEvent($event)"
+  [day]="cs.selected | async"
+></app-day-view>

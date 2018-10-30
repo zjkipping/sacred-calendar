@@ -31,6 +31,7 @@ export class EventFormDialogComponent {
     }
 
     this.eventForm = fb.group({
+      id: [event ? event.id : undefined],
       name: [event ? event.name : '', Validators.required],
       description: [event ? event.description : ''],
       location: [event ? event.location : ''],
@@ -41,5 +42,10 @@ export class EventFormDialogComponent {
     });
 
     this.categories = ds.getCategories();
+  }
+
+  submitEvent() {
+    // hack until I figure out how to have a null default selection option instead of ''
+    return { ...this.eventForm.value, categoryID: this.eventForm.value.categoryID === '' ? null : this.eventForm.value.categoryID };
   }
 }

@@ -27,8 +27,8 @@
           <mat-error>Your password is too short! (Minimum of 5 characters)</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width input-space">
-          <input matInput placeholder="Password Confirmation" type="password" name="password_conf" formControlName="password_conf" required>
-          <mat-error>Please confirm your password</mat-error>
+          <input matInput placeholder="Password Confirmation" type="password" name="password_conf" formControlName="password_conf" [errorStateMatcher]="passwordValidation" required>
+          <mat-error *ngIf="registerForm.hasError('passwordsDoNotMatch')">Passwords do not match!</mat-error>
         </mat-form-field>
         <p class="warn-text" *ngIf="error != ''">{{error}}</p>
       </mat-card-content>

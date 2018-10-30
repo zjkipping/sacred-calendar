@@ -1,12 +1,12 @@
 <div class="day-view-container">
   <h1 class="text-center">{{day?.mDate.format('dddd MMMM, YYYY')}}</h1>
   <div class="divider"></div>
-  <div class="event-container" *ngFor="let event of day?.events; index as i">
+  <div class="event-container" *ngFor="let event of day?.events">
     <div (click)="eventClicked(event)" class="event" [style.backgroundColor]="event.category?.color">
       <div>{{event.startTime}} - {{event.name}}</div>
       <div>{{event.description}}</div>
     </div>
-    <button mat-mini-fab class="delete-button" (click)="deleteClicked(i)" color="warn">
+    <button mat-mini-fab class="delete-button" (click)="deleteClicked(event)" color="warn">
       <mat-icon>delete</mat-icon>
     </button>
   </div>

@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
 
 import { CalendarDate, Event, CategoryFormValue } from '@types';
-import { EventFormDialogComponent } from '@dialogs/event-form.dialog';
+import { DIALOG_HEIGHT, DIALOG_WIDTH } from '@constants';
 import { DataService } from '@services/data.service';
+import { CalendarService } from '@services/calendar.service';
+import { EventFormDialogComponent } from '@dialogs/event-form.dialog';
 import { CategoryManagerDialogComponent } from '@dialogs/category-manager.dialog';
 
 @Component({
@@ -13,63 +16,66 @@ import { CategoryManagerDialogComponent } from '@dialogs/category-manager.dialog
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent {
-  selectedDate?: CalendarDate;
   sideNavOpen = false;
   events: Observable<Event[]>;
 
-  constructor(private dialog: MatDialog, private ds: DataService) {
-    this.events = this.ds.getEvents();
+  constructor(private dialog: MatDialog, private ds: DataService, public cs: CalendarService) {
+    this.events = this.ds.events.pipe(shareReplay(1));
   }
 
   selectDate(date: CalendarDate) {
-    if (this.selectedDate && date.mDate.isSame(this.selectedDate.mDate, 'day')) {
-      this.closeSideNav();
-    } else {
-      this.selectedDate = date;
-      this.sideNavOpen = true;
-    }
-  }
-
-  addEvent() {
-    this.dialog.open(EventFormDialogComponent, {
-      height: '600px',
-      width: '500px'
-    }).afterClosed().subscribe(event => {
-      if (event) {
-        this.ds.newEvent(event);
-      }
-    });
-  }
-
-  manageCategories() {
-    this.dialog.open(CategoryManagerDialogComponent, {
-      height: '600px',
-      width: '500px',
-      panelClass: 'category-dialog'
-    }).afterClosed().subscribe((categories: CategoryFormValue[]) => {
-      if (categories) {
-        categories.forEach(category => {
-          if (category.new) {
-            this.ds.newCategory(category);
-          } else if (category.delete) {
-            this.ds.deleteCategory(category);
-          } else {
-            this.ds.updateCategory(category);
-          }
-        });
-      }
-    });
-  }
-
-  eventDeleted(index: number) {
-    if (this.selectedDate) {
-      this.selectedDate.events.splice(index, 1);
-      // refetch events?
-    }
+    this.sideNavOpen = !this.cs.selectDate(date);
   }
 
   closeSideNav() {
     this.sideNavOpen = false;
-    this.selectedDate = undefined;
+    this.cs.deselectDate();
+  }
+
+  addEvent() {
+    this.dialog.open(EventFormDialogComponent, {
+      height: DIALOG_HEIGHT,
+      width: DIALOG_WIDTH
+    }).afterClosed().subscribe(event => {
+      if (event) {
+        this.ds.newEvent(event).subscribe(() => this.ds.fetchEvents());
+      }
+    });
+  }
+
+  editEvent(event: Event) {
+    this.dialog.open(EventFormDialogComponent, {
+      height: DIALOG_HEIGHT,
+      width: DIALOG_WIDTH,
+      data: event
+    }).afterClosed().subscribe(edited => {
+      if (edited) {
+        this.ds.updateEvent(edited).subscribe(() => this.ds.fetchEvents());
+      }
+    });
+  }
+
+  deleteEvent(event: Event) {
+    this.ds.deleteEvent(event).subscribe(() => this.ds.fetchEvents());
+  }
+
+  manageCategories() {
+    this.dialog.open(CategoryManagerDialogComponent, {
+      height: DIALOG_HEIGHT,
+      width: DIALOG_WIDTH,
+      panelClass: 'category-dialog'
+    }).afterClosed().subscribe((categories: CategoryFormValue[]) => {
+      if (categories) {
+        forkJoin(...categories.map(category => {
+          if (category.new) {
+            return this.ds.newCategory(category);
+          } else if (category.delete) {
+            return this.ds.deleteCategory(category);
+          } else {
+            return this.ds.updateCategory(category);
+          }
+        })).subscribe(_res => this.ds.fetchEvents());
+      }
+    });
   }
 }

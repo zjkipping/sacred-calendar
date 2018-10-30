@@ -25,7 +25,6 @@ export class CategoryManagerDialogComponent {
         delete: [false],
         id: [category.id]
       }), []));
-      this.categoriesForm.valueChanges.subscribe(changes => console.log(changes));
     });
   }
 

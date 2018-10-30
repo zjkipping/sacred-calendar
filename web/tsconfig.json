@@ -20,6 +20,7 @@
     ],
     "paths": {
       "@types": ["src/app/types.ts"],
+      "@constants": ["src/app/constants.ts"],
       "@services/*": ["src/app/services/*"],
       "@dialogs/*": ["src/app/dialogs/*"]
     }
