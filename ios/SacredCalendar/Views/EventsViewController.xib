@@ -12,8 +12,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventsViewController" customModule="SacredCalendar" customModuleProvider="target">
             <connections>
                 <outlet property="calendarContainer" destination="QSj-5q-G5z" id="n2y-5b-Hyc"/>
-                <outlet property="label" destination="3Ji-Xt-7Ee" id="N9K-sk-9Sr"/>
-                <outlet property="modeSwitcher" destination="XRz-ph-tJJ" id="npF-x8-n0u"/>
                 <outlet property="view" destination="iN0-l3-epB" id="bss-O5-UMV"/>
             </connections>
         </placeholder>
@@ -22,36 +20,17 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XRz-ph-tJJ">
-                    <rect key="frame" x="37.5" y="40" width="300" height="29"/>
-                    <segments>
-                        <segment title="Monthly"/>
-                        <segment title="Weekly"/>
-                        <segment title="Daily"/>
-                    </segments>
-                </segmentedControl>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ji-Xt-7Ee">
-                    <rect key="frame" x="166.5" y="333" width="42" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QSj-5q-G5z">
-                    <rect key="frame" x="0.0" y="68" width="375" height="599"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="XRz-ph-tJJ" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="94C-zU-jIH"/>
-                <constraint firstItem="3Ji-Xt-7Ee" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="ADq-ob-h5l"/>
-                <constraint firstItem="3Ji-Xt-7Ee" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="Ji7-Zn-UYU"/>
-                <constraint firstItem="QSj-5q-G5z" firstAttribute="top" secondItem="XRz-ph-tJJ" secondAttribute="bottom" id="Llq-7o-NDc"/>
-                <constraint firstItem="XRz-ph-tJJ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="NAk-f6-TsN"/>
                 <constraint firstItem="QSj-5q-G5z" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="U5Q-Fq-pxH"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="QSj-5q-G5z" secondAttribute="bottom" id="fqC-Bg-TNc"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="QSj-5q-G5z" secondAttribute="trailing" id="rMg-LK-Ut6"/>
-                <constraint firstItem="XRz-ph-tJJ" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.8" id="tys-Ea-M6C"/>
+                <constraint firstItem="QSj-5q-G5z" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="vbN-GO-kKu"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="138.40000000000001" y="152.47376311844079"/>

@@ -16,6 +16,17 @@ extension String {
 
 extension UIViewController {
     func set(title: String) {
-        navigationItem.title = title
+        navigationItem.titleLabel.text = title
+    }
+}
+
+extension UIFont {
+    func asBold() -> UIFont? {
+        for fontName in UIFont.fontNames(forFamilyName: familyName) {
+            if let _ = fontName.range(of: "bold", options: .caseInsensitive) {
+                return UIFont(name: fontName, size: pointSize)
+            }
+        }
+        return nil
     }
 }

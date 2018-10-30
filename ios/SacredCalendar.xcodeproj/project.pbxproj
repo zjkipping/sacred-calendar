@@ -22,6 +22,11 @@
 		8B8456E62187BFDC003E49EC /* DayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B8456E52187BFDC003E49EC /* DayView.xib */; };
 		8B8457112187FB20003E49EC /* EventView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B8457102187FB20003E49EC /* EventView.xib */; };
 		8B84571321880727003E49EC /* WeekEventView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B84571221880727003E49EC /* WeekEventView.xib */; };
+		8B845715218814EB003E49EC /* CalendarViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B845714218814EB003E49EC /* CalendarViewer.swift */; };
+		8B84571721881C68003E49EC /* NewEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B84571621881C68003E49EC /* NewEventViewController.swift */; };
+		8B84571921881C77003E49EC /* NewEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B84571821881C77003E49EC /* NewEventViewController.xib */; };
+		8B84571B21882282003E49EC /* CreateEventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B84571A21882282003E49EC /* CreateEventService.swift */; };
+		8B84571D2188C3EF003E49EC /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B84571C2188C3EF003E49EC /* AppNavigationController.swift */; };
 		8B9B13B0217D2474002CB9A0 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13AF217D2474002CB9A0 /* AuthService.swift */; };
 		8B9B13B4217D320A002CB9A0 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13B3217D320A002CB9A0 /* Model.swift */; };
 		8B9B13B6217D345C002CB9A0 /* FetchEventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13B5217D345C002CB9A0 /* FetchEventsService.swift */; };
@@ -73,6 +78,11 @@
 		8B8456E52187BFDC003E49EC /* DayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DayView.xib; sourceTree = "<group>"; };
 		8B8457102187FB20003E49EC /* EventView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventView.xib; sourceTree = "<group>"; };
 		8B84571221880727003E49EC /* WeekEventView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekEventView.xib; sourceTree = "<group>"; };
+		8B845714218814EB003E49EC /* CalendarViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewer.swift; sourceTree = "<group>"; };
+		8B84571621881C68003E49EC /* NewEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventViewController.swift; sourceTree = "<group>"; };
+		8B84571821881C77003E49EC /* NewEventViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewEventViewController.xib; sourceTree = "<group>"; };
+		8B84571A21882282003E49EC /* CreateEventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventService.swift; sourceTree = "<group>"; };
+		8B84571C2188C3EF003E49EC /* AppNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
 		8B9B13AF217D2474002CB9A0 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		8B9B13B3217D320A002CB9A0 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8B9B13B5217D345C002CB9A0 /* FetchEventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchEventsService.swift; sourceTree = "<group>"; };
@@ -148,6 +158,7 @@
 				8B29FFC2218281A500F86BC8 /* LoginViewController.xib */,
 				8B29FFC5218285A600F86BC8 /* SignUpViewController.xib */,
 				8B8456E121879230003E49EC /* EventsViewController.xib */,
+				8B84571821881C77003E49EC /* NewEventViewController.xib */,
 				8B8456E32187A4A0003E49EC /* DayViewCell.xib */,
 				8B8456E52187BFDC003E49EC /* DayView.xib */,
 				8B8457102187FB20003E49EC /* EventView.xib */,
@@ -180,6 +191,7 @@
 			children = (
 				8B9B13AF217D2474002CB9A0 /* AuthService.swift */,
 				8B9B13B5217D345C002CB9A0 /* FetchEventsService.swift */,
+				8B84571A21882282003E49EC /* CreateEventService.swift */,
 				8B9B13B7217D4524002CB9A0 /* CreateUserService.swift */,
 			);
 			path = Services;
@@ -222,9 +234,12 @@
 			isa = PBXGroup;
 			children = (
 				8BA9005B215334BA00FF7733 /* AppDelegate.swift */,
+				8B84571C2188C3EF003E49EC /* AppNavigationController.swift */,
 				8BA9005D215334BA00FF7733 /* LoginViewController.swift */,
 				8BC175F521759501002AFFD2 /* SignUpViewController.swift */,
 				8BC175F321758E54002AFFD2 /* EventsViewController.swift */,
+				8B84571621881C68003E49EC /* NewEventViewController.swift */,
+				8B845714218814EB003E49EC /* CalendarViewer.swift */,
 				8B9B13B2217D31F8002CB9A0 /* Models */,
 				8B9B13B1217D2481002CB9A0 /* Services */,
 				8B495AFA216EDB3900F0A60C /* API */,
@@ -379,6 +394,7 @@
 				8B8457112187FB20003E49EC /* EventView.xib in Resources */,
 				8B8456E221879230003E49EC /* EventsViewController.xib in Resources */,
 				8BA90066215334BA00FF7733 /* LaunchScreen.storyboard in Resources */,
+				8B84571921881C77003E49EC /* NewEventViewController.xib in Resources */,
 				8BA90063215334BA00FF7733 /* Assets.xcassets in Resources */,
 				8B29FFC3218281A500F86BC8 /* LoginViewController.xib in Resources */,
 				8B84571321880727003E49EC /* WeekEventView.xib in Resources */,
@@ -507,16 +523,20 @@
 				8B9B13BA217D6655002CB9A0 /* Environment.swift in Sources */,
 				8B495AF7216EDB0900F0A60C /* Extensions.swift in Sources */,
 				8BA9005E215334BA00FF7733 /* LoginViewController.swift in Sources */,
+				8B84571721881C68003E49EC /* NewEventViewController.swift in Sources */,
 				8B9B13B0217D2474002CB9A0 /* AuthService.swift in Sources */,
 				8B9B13B8217D4524002CB9A0 /* CreateUserService.swift in Sources */,
 				8BA9005C215334BA00FF7733 /* AppDelegate.swift in Sources */,
 				71D90935216DA05D0036AC5E /* API.swift in Sources */,
+				8B84571D2188C3EF003E49EC /* AppNavigationController.swift in Sources */,
 				8B9B13B4217D320A002CB9A0 /* Model.swift in Sources */,
+				8B84571B21882282003E49EC /* CreateEventService.swift in Sources */,
 				8B9B13B6217D345C002CB9A0 /* FetchEventsService.swift in Sources */,
 				8B495AFD216EDB6800F0A60C /* ValidatedResponse.swift in Sources */,
 				8BC175F2217584FD002AFFD2 /* User.swift in Sources */,
 				71D90933216D98390036AC5E /* Event.swift in Sources */,
 				8B495AF9216EDB1F00F0A60C /* Operators.swift in Sources */,
+				8B845715218814EB003E49EC /* CalendarViewer.swift in Sources */,
 				8BC175F0217584A4002AFFD2 /* Category.swift in Sources */,
 				8BC175F421758E54002AFFD2 /* EventsViewController.swift in Sources */,
 			);

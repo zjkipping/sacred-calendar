@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
         let login = LoginViewController()
-        let navigation = UINavigationController(rootViewController: login)
+        let navigation = AppNavigationController(rootViewController: login)
         window?.rootViewController = navigation
         window?.makeKeyAndVisible()
         

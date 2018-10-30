@@ -18,11 +18,11 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hfb-Wa-Rfg">
                     <rect key="frame" x="10" y="9" width="78" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <nil key="textColor"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.31372549020000001" green="0.31764705879999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Hfb-Wa-Rfg" firstAttribute="leading" secondItem="9bs-U4-q6n" secondAttribute="leading" constant="10" id="ArX-sw-etA"/>
                 <constraint firstItem="Hfb-Wa-Rfg" firstAttribute="centerY" secondItem="9bs-U4-q6n" secondAttribute="centerY" id="CyX-Lr-N3P"/>
@@ -31,6 +31,11 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="9bs-U4-q6n"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                    <integer key="value" value="14"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="nameLabel" destination="Hfb-Wa-Rfg" id="TX3-7H-Bie"/>
             </connections>
