@@ -22,7 +22,7 @@ module.exports = {
       const refreshToken = req.body.refreshToken;  
       const decoded = jwt.decode(refreshToken);
       const id = decoded.uid;
-      const [rows, _fields] = await connection.execute('SELECT token from `TokenAuth` where userID = ?', [id]);
+      const [rows, _fields] = await pool.execute('SELECT token from `TokenAuth` where userID = ?', [id]);
       rows.forEach(async (row) => {
         const match = await bcrypt.compareSync(refreshToken, row.token);
         if (match) {
@@ -34,7 +34,7 @@ module.exports = {
               throw 'Token is invalid';
             }
           } catch (err) {
-            await connection.execute('DELETE FROM TokenAuth WHERE userID = ? AND token = ?', [id, row.token]);
+            await pool.execute('DELETE FROM TokenAuth WHERE userID = ? AND token = ?', [id, row.token]);
             res.status(403).send({ error: true, code:'NO_AUTH', message: 'Unauthorized access.' });
           }
           return;

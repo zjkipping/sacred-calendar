@@ -4,7 +4,9 @@ module.exports = {
     host: '',
     user: '',
     password: '',
-    database: ''
+    database: '',
+    connectTimeout: 1000000,
+    connectionLimit: 100
   },
   port: 8080,
   tokenSecret: '',

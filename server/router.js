@@ -3,12 +3,12 @@ const tokenUtil = require('./token-util');
 const auth = require('./auth');
 const user = require('./user');
 const express = require('express');
-const mysql = require('mysql2/promise');
+const mysql = require('mysql2');
 
 const router = express.Router();
 
 const startRoutes = async () => {
-  connection = await mysql.createConnection(CONFIG.dbCredentials);
+  pool = mysql.createPool(CONFIG.dbCredentials).promise();
 
   router.post('/register', auth.register);
 
@@ -19,6 +19,7 @@ const startRoutes = async () => {
   router.post('/token', tokenUtil.refreshToken);
 
   router.use(tokenUtil.checkToken);
+
   // anything below here requires a token to use
   // the user's ID is passed to req.id below here
 
@@ -45,7 +46,6 @@ const startRoutes = async () => {
   router.post('/friends', user.addFriend);
   router.put('/friends', user.updateFriend);
   router.delete('/friends', user.removeFriend);
-
 };
 
 startRoutes();
