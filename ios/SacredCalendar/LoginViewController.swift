@@ -119,6 +119,9 @@ class LoginViewController: UIViewController {
     }
     
     func setup(loginButton button: UIButton) {
+        let events = EventsViewController()
+        navigationController?.pushViewController(events, animated: true)
+        
         let form = Observable.combineLatest(
             usernameField.rx.text.orEmpty,
             passwordField.rx.text.orEmpty

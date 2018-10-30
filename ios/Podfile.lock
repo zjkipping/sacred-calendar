@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (4.7.3)
+  - Cartography (3.1.0)
+  - JTAppleCalendar (7.1.6)
   - Material (2.16.4):
     - Material/Core (= 2.16.4)
   - Material/Core (2.16.4):
@@ -47,6 +49,8 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Cartography
+  - JTAppleCalendar (~> 7.0)
   - Material
   - MaterialComponents/Buttons
   - MaterialComponents/TextFields
@@ -58,6 +62,8 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - Cartography
+    - JTAppleCalendar
     - Material
     - MaterialComponents
     - MDFInternationalization
@@ -70,6 +76,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Cartography: 1988b7578871a56c036e7af17195cb2190edf18c
+  JTAppleCalendar: abb30678f42a4ef8a340a932b1dcb8c85a33dac2
   Material: 4ed78690b09ffd148b5ffab6b4367fb1d8da1cd3
   MaterialComponents: ba0b153b1fa427be83aad80b05784b2cfecec847
   MDFInternationalization: b5b8626628abf026e630e5ebaeee563037712cbb
@@ -80,6 +88,6 @@ SPEC CHECKSUMS:
   SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: 0365c5c13d8d37e86feca2efa5de67dd41b28380
+PODFILE CHECKSUM: 3cb8dd27627833f7ec4b2f7c8e3ef90aab0d8c91
 
 COCOAPODS: 1.5.3

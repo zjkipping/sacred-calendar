@@ -17,6 +17,11 @@
 		8B495AF7216EDB0900F0A60C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B495AF6216EDB0900F0A60C /* Extensions.swift */; };
 		8B495AF9216EDB1F00F0A60C /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B495AF8216EDB1F00F0A60C /* Operators.swift */; };
 		8B495AFD216EDB6800F0A60C /* ValidatedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B495AFC216EDB6800F0A60C /* ValidatedResponse.swift */; };
+		8B8456E221879230003E49EC /* EventsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B8456E121879230003E49EC /* EventsViewController.xib */; };
+		8B8456E42187A4A0003E49EC /* DayViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B8456E32187A4A0003E49EC /* DayViewCell.xib */; };
+		8B8456E62187BFDC003E49EC /* DayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B8456E52187BFDC003E49EC /* DayView.xib */; };
+		8B8457112187FB20003E49EC /* EventView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B8457102187FB20003E49EC /* EventView.xib */; };
+		8B84571321880727003E49EC /* WeekEventView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B84571221880727003E49EC /* WeekEventView.xib */; };
 		8B9B13B0217D2474002CB9A0 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13AF217D2474002CB9A0 /* AuthService.swift */; };
 		8B9B13B4217D320A002CB9A0 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13B3217D320A002CB9A0 /* Model.swift */; };
 		8B9B13B6217D345C002CB9A0 /* FetchEventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13B5217D345C002CB9A0 /* FetchEventsService.swift */; };
@@ -24,7 +29,6 @@
 		8B9B13BA217D6655002CB9A0 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13B9217D6655002CB9A0 /* Environment.swift */; };
 		8BA9005C215334BA00FF7733 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9005B215334BA00FF7733 /* AppDelegate.swift */; };
 		8BA9005E215334BA00FF7733 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9005D215334BA00FF7733 /* LoginViewController.swift */; };
-		8BA90061215334BA00FF7733 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BA9005F215334BA00FF7733 /* Main.storyboard */; };
 		8BA90063215334BA00FF7733 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA90062215334BA00FF7733 /* Assets.xcassets */; };
 		8BA90066215334BA00FF7733 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BA90064215334BA00FF7733 /* LaunchScreen.storyboard */; };
 		8BA90071215334BB00FF7733 /* SacredCalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA90070215334BB00FF7733 /* SacredCalendarTests.swift */; };
@@ -64,6 +68,11 @@
 		8B495AF6216EDB0900F0A60C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8B495AF8216EDB1F00F0A60C /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		8B495AFC216EDB6800F0A60C /* ValidatedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatedResponse.swift; sourceTree = "<group>"; };
+		8B8456E121879230003E49EC /* EventsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventsViewController.xib; sourceTree = "<group>"; };
+		8B8456E32187A4A0003E49EC /* DayViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DayViewCell.xib; sourceTree = "<group>"; };
+		8B8456E52187BFDC003E49EC /* DayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DayView.xib; sourceTree = "<group>"; };
+		8B8457102187FB20003E49EC /* EventView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventView.xib; sourceTree = "<group>"; };
+		8B84571221880727003E49EC /* WeekEventView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekEventView.xib; sourceTree = "<group>"; };
 		8B9B13AF217D2474002CB9A0 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		8B9B13B3217D320A002CB9A0 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8B9B13B5217D345C002CB9A0 /* FetchEventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchEventsService.swift; sourceTree = "<group>"; };
@@ -72,7 +81,6 @@
 		8BA90058215334BA00FF7733 /* SacredCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SacredCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA9005B215334BA00FF7733 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BA9005D215334BA00FF7733 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		8BA90060215334BA00FF7733 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8BA90062215334BA00FF7733 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BA90065215334BA00FF7733 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8BA90067215334BA00FF7733 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -139,6 +147,11 @@
 			children = (
 				8B29FFC2218281A500F86BC8 /* LoginViewController.xib */,
 				8B29FFC5218285A600F86BC8 /* SignUpViewController.xib */,
+				8B8456E121879230003E49EC /* EventsViewController.xib */,
+				8B8456E32187A4A0003E49EC /* DayViewCell.xib */,
+				8B8456E52187BFDC003E49EC /* DayView.xib */,
+				8B8457102187FB20003E49EC /* EventView.xib */,
+				8B84571221880727003E49EC /* WeekEventView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -213,7 +226,6 @@
 				8BC175F521759501002AFFD2 /* SignUpViewController.swift */,
 				8BC175F321758E54002AFFD2 /* EventsViewController.swift */,
 				8B9B13B2217D31F8002CB9A0 /* Models */,
-				8BA9005F215334BA00FF7733 /* Main.storyboard */,
 				8B9B13B1217D2481002CB9A0 /* Services */,
 				8B495AFA216EDB3900F0A60C /* API */,
 				8B495AFB216EDB4D00F0A60C /* Helpers */,
@@ -362,10 +374,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B29FFC6218285A600F86BC8 /* SignUpViewController.xib in Resources */,
+				8B8456E62187BFDC003E49EC /* DayView.xib in Resources */,
+				8B8456E42187A4A0003E49EC /* DayViewCell.xib in Resources */,
+				8B8457112187FB20003E49EC /* EventView.xib in Resources */,
+				8B8456E221879230003E49EC /* EventsViewController.xib in Resources */,
 				8BA90066215334BA00FF7733 /* LaunchScreen.storyboard in Resources */,
 				8BA90063215334BA00FF7733 /* Assets.xcassets in Resources */,
 				8B29FFC3218281A500F86BC8 /* LoginViewController.xib in Resources */,
-				8BA90061215334BA00FF7733 /* Main.storyboard in Resources */,
+				8B84571321880727003E49EC /* WeekEventView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +446,8 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SacredCalendar/Pods-SacredCalendar-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Cartography/Cartography.framework",
+				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
 				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
@@ -443,6 +461,8 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cartography.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
@@ -534,14 +554,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8BA9005F215334BA00FF7733 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8BA90060215334BA00FF7733 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		8BA90064215334BA00FF7733 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
