@@ -161,10 +161,6 @@ class NewEventViewController: UIViewController {
             endDate
         )
         
-//        const description = req.body.description ? req.body.description: null;
-//        const location = req.body.location ? req.body.location : null;
-//        const endTime = req.body.endTime ? req.body.endTime: null;
-        
         button.rx.tap
             .withLatestFrom(form)
             .filter({ [weak self] in
@@ -187,8 +183,8 @@ class NewEventViewController: UIViewController {
                 "endTime" : $4.timeString,
             ]}).flatMap({ [weak self] in
                 self?.viewModel.submit(data: $0) ?? .empty()
-            }).subscribe(onNext: { _ in
-                print("success")
+            }).subscribe(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
             }).disposed(by: trash)
     }
     

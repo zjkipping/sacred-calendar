@@ -6,11 +6,17 @@
 //  Copyright © 2018 CS4320. All rights reserved.
 //
 
-import UIKit
 import Cartography
+import RxCocoa
+import RxSwift
+import UIKit
 
 class CalendarViewer: UIView {
     static let daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    
+    let trash = DisposeBag()
+    
+    let selectedEvent = PublishSubject<Event>()
     
     func show(events: [Event], mode: CalendarView) {
         clear()
@@ -33,6 +39,16 @@ class CalendarViewer: UIView {
         
         for event in events {
             let eventView = EventView.create(event: event)
+            
+            let longPress = UILongPressGestureRecognizer()
+            eventView.addGestureRecognizer(longPress)
+            
+            longPress.rx.event
+                .filter({ $0.state == .began })
+                .withLatestFrom(Observable.just(event))
+                .bind(to: selectedEvent)
+                .disposed(by: eventView.trash)
+            
             dayView.eventsStackView.addArrangedSubview(eventView)
             
             constrain(eventView) {
@@ -67,7 +83,7 @@ class CalendarViewer: UIView {
             let dayView = DayView.create(showSeparator: !isLastDay)
             dayView.dayOfWeekLabel.text = CalendarViewer.daysOfTheWeek[i]
             dayView.dayLabel.text = "\(components.day ?? 0)"
-            
+          
             if isToday {
                 dayView.dayOfWeekLabel.font = dayView.dayOfWeekLabel.font.asBold()
                 dayView.dayLabel.font = dayView.dayLabel.font.asBold()
@@ -99,6 +115,15 @@ class CalendarViewer: UIView {
                 let eventView = WeekEventView.create(event: event)
                 dayView.eventsStackView.addArrangedSubview(eventView)
                 
+                let longPress = UILongPressGestureRecognizer()
+                eventView.addGestureRecognizer(longPress)
+                
+                longPress.rx.event
+                    .filter({ $0.state == .began })
+                    .withLatestFrom(Observable.just(event))
+                    .bind(to: selectedEvent)
+                    .disposed(by: eventView.trash)
+            
                 constrain(eventView) {
                     $0.height == 30
                 }

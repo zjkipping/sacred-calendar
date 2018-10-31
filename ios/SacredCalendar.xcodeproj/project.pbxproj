@@ -27,6 +27,7 @@
 		8B84571921881C77003E49EC /* NewEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B84571821881C77003E49EC /* NewEventViewController.xib */; };
 		8B84571B21882282003E49EC /* CreateEventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B84571A21882282003E49EC /* CreateEventService.swift */; };
 		8B84571D2188C3EF003E49EC /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B84571C2188C3EF003E49EC /* AppNavigationController.swift */; };
+		8B84571F2189458C003E49EC /* DeleteEventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B84571E2189458C003E49EC /* DeleteEventService.swift */; };
 		8B9B13B0217D2474002CB9A0 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13AF217D2474002CB9A0 /* AuthService.swift */; };
 		8B9B13B4217D320A002CB9A0 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13B3217D320A002CB9A0 /* Model.swift */; };
 		8B9B13B6217D345C002CB9A0 /* FetchEventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13B5217D345C002CB9A0 /* FetchEventsService.swift */; };
@@ -83,6 +84,7 @@
 		8B84571821881C77003E49EC /* NewEventViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewEventViewController.xib; sourceTree = "<group>"; };
 		8B84571A21882282003E49EC /* CreateEventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventService.swift; sourceTree = "<group>"; };
 		8B84571C2188C3EF003E49EC /* AppNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
+		8B84571E2189458C003E49EC /* DeleteEventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteEventService.swift; sourceTree = "<group>"; };
 		8B9B13AF217D2474002CB9A0 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		8B9B13B3217D320A002CB9A0 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8B9B13B5217D345C002CB9A0 /* FetchEventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchEventsService.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				8B9B13AF217D2474002CB9A0 /* AuthService.swift */,
 				8B9B13B5217D345C002CB9A0 /* FetchEventsService.swift */,
 				8B84571A21882282003E49EC /* CreateEventService.swift */,
+				8B84571E2189458C003E49EC /* DeleteEventService.swift */,
 				8B9B13B7217D4524002CB9A0 /* CreateUserService.swift */,
 			);
 			path = Services;
@@ -521,6 +524,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B84571F2189458C003E49EC /* DeleteEventService.swift in Sources */,
 				8BC175F621759501002AFFD2 /* SignUpViewController.swift in Sources */,
 				8B9B13BA217D6655002CB9A0 /* Environment.swift in Sources */,
 				8B495AF7216EDB0900F0A60C /* Extensions.swift in Sources */,

@@ -28,10 +28,10 @@ enum Resource: String {
 }
 
 enum Action {
-    case get(id: String)
+    case get(id: Int)
     case create
-    case update(id: String)
-    case delete(id: String)
+    case update(id: Int)
+    case delete(id: Int)
     case list
     case login
     case logout
@@ -108,10 +108,10 @@ class API {
     
     private static func endpoint(for action: Action) -> String {
         switch action {
-        case .get(let id):      return id
+        case .get(let id):      return String(id)
         case .create:           return ""
-        case .update(let id):   return id
-        case .delete(let id):   return id
+        case .update(let id):   return String(id)
+        case .delete(let id):   return String(id)
         case .list:             return ""
         case .login:            return "login"
         case .logout:           return "logout"

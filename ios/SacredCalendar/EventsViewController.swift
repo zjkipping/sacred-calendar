@@ -18,16 +18,18 @@ enum CalendarView: Int {
     case monthly, weekly, daily
 }
 
-class EventsViewModelServices: HasFetchEventsService {
+class EventsViewModelServices: HasFetchEventsService, HasDeleteEventService {
     let events: FetchEventsService
+    let deleteEvent: DeleteEventService
     
-    init(events: FetchEventsService = .init()) {
+    init(events: FetchEventsService = .init(), deleteEvent: DeleteEventService = .init()) {
         self.events = events
+        self.deleteEvent = deleteEvent
     }
 }
 
 class EventsViewModel {
-    typealias Services = HasFetchEventsService
+    typealias Services = HasFetchEventsService & HasDeleteEventService
     
     let services: Services
     
@@ -41,10 +43,14 @@ class EventsViewModel {
         self.services = services
     }
     
-    func fetchEvents(query: [String : Any]) {
-        let newEvents = services.events.execute(query: query).take(1)
+    func fetchEvents(query: [String : Any]) -> Observable<[Event]> {
+        let newEvents = services.events.execute(query: query)
         newEvents.bind(to: events).disposed(by: trash)
-//        return newEvents
+        return newEvents
+    }
+    
+    func delete(event: Event) -> Observable<Bool> {
+        return services.deleteEvent.execute(id: event.id)
     }
 }
 
@@ -89,6 +95,10 @@ class EventsViewController: UIViewController {
        
         setup(newEventButton: IconButton(title: "add"))
         set(title: "Events")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        _ = viewModel.fetchEvents(query: [:])
         
         viewModel.events
             .map({ $0.sorted { $0.startTime < $1.startTime } })
@@ -97,7 +107,37 @@ class EventsViewController: UIViewController {
             })
             .disposed(by: trash)
         
-        viewModel.fetchEvents(query: [:])
+        calendar.selectedEvent
+            .flatMap({ [weak self] in
+                self?.proposeDelete(event: $0) ?? .empty()
+            })
+            .flatMap({ [weak self] in
+                self?.viewModel.delete(event: $0) ?? .empty()
+            })
+            .flatMap({ [weak self] _ in
+                self?.viewModel.fetchEvents(query: [:]) ?? .empty()
+            })
+            .subscribe(onNext: { _ in
+                print("deletion success")
+            })
+            .disposed(by: trash)
+    }
+    
+    func proposeDelete(event: Event) -> Observable<Event> {
+        return Observable.create { observer in
+            let alert = UIAlertController(title: "Delete Event", message: "Are you sure you want to delete this event?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "cancel", style: .cancel) { _ in
+                observer.onCompleted()
+            })
+            alert.addAction(UIAlertAction(title: "delete", style: .destructive) { _ in
+                observer.onNext(event)
+                observer.onCompleted()
+            })
+            self.present(alert, animated: true, completion: nil)
+            return Disposables.create {
+                alert.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     func setup(newEventButton button: UIButton) {
@@ -157,6 +197,8 @@ class DayView: UIView {
 class EventView: UIView {
     @IBOutlet weak var nameLabel: UILabel!
     
+    let trash = DisposeBag()
+    
     var color: UIColor? {
         get { return backgroundColor }
         set { backgroundColor = newValue }
@@ -179,6 +221,8 @@ class EventView: UIView {
 
 class WeekEventView: UIView {
     @IBOutlet weak var nameLabel: UILabel!
+    
+    let trash = DisposeBag()
     
     var color: UIColor? {
         get { return backgroundColor }
