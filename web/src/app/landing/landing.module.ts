@@ -31,7 +31,7 @@ import { DayViewComponent } from './calendar/day-view/day-view.component';
     CommonModule,
     MaterialModule,
     LandingRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class LandingModule { }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl, ValidationErrors, FormControl } from '@angular/forms';
 
 import { Category, CategoryFormValue } from '@types';
 import { DataService } from '@services/data.service';
@@ -66,6 +66,14 @@ export class CategoryManagerDialogComponent {
         (this.categoriesForm.at(index) as FormGroup).value.delete = true;
         (this.categoriesForm.at(index) as FormGroup).markAsDirty();
       }
+    }
+  }
+
+  setColor(hex: string, category: FormGroup) {
+    const color = category.get('color');
+    if (color && hex !== color.value) {
+      (category.get('color') as FormControl).setValue(hex);
+      (category.get('color') as FormControl).markAsDirty();
     }
   }
 }

@@ -6,9 +6,19 @@
   <div mat-dialog-content class="category-manager-body">
     <ng-container *ngFor="let category of categoriesForm?.controls; index as i">
       <form [formGroup]="category" *ngIf="!category.value.delete">
-        <mat-form-field class="color-picker">
-          <input matInput formControlName="color" type="color">
-        </mat-form-field>
+          <input
+            class="color-picker-input"
+            [style.background]="category.get('color')?.value"
+            [cpPosition]="'right'"
+            [colorPicker]="category.get('color')?.value"
+            (colorPickerSelect)="setColor($event, category)"
+            [cpOKButton]="true"
+            [cpOKButtonText]="'Save'"
+            [cpOKButtonClass]="'mat-raised-button'"
+            [cpCancelButton]="true"
+            [cpCancelButtonText]="'Cancel'"
+            [cpCancelButtonClass]="'mat-raised-button'"
+          >
         <mat-form-field class="category-name">
           <input matInput formControlName="name" placeholder="Category Name">
         </mat-form-field>

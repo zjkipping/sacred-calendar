@@ -3,9 +3,19 @@
   overflow-y: auto;
 }
 
-.color-picker {
+.color-picker-input {
   width: 23px;
-  margin-right: 5px;
+  margin-right: 10px;
+  vertical-align: initial;
+  position: relative;
+  color: transparent;
+  text-shadow: 0 0 0 transparent;
+  border: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .category-name {

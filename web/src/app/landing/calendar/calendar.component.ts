@@ -17,11 +17,8 @@ import { CategoryManagerDialogComponent } from '@dialogs/category-manager.dialog
 })
 export class CalendarComponent {
   sideNavOpen = false;
-  events: Observable<Event[]>;
 
-  constructor(private dialog: MatDialog, public ds: DataService, public cs: CalendarService) {
-    this.events = this.ds.events.pipe(shareReplay(1));
-  }
+  constructor(private dialog: MatDialog, public ds: DataService, public cs: CalendarService) { }
 
   selectDate(date: CalendarDate) {
     this.sideNavOpen = !this.cs.selectDate(date);

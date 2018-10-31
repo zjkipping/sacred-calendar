@@ -4779,6 +4779,11 @@ neo-async@^2.5.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
   integrity sha512-MFh0d/Wa7vkKO3Y3LlacqAEeHK0mckVqzDieUKTT+KGxi+zIpeVsFxymkIiRpbpDziHc290Xr9A1O4Om7otoRA==
 
+ngx-color-picker@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-color-picker/-/ngx-color-picker-7.0.1.tgz#a50ef3f217f795a27c85f8b9e8a0321454d2b98a"
+  integrity sha512-QPv4LA0OE8fWBguM06mMMILufBvV2KbROT5CvFPNxW1Z1TwOuE6nixXHi0k2aPSszHKsjppxZlVc2kXOmv5voQ==
+
 ngx-cookie-service@^1.0.10:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/ngx-cookie-service/-/ngx-cookie-service-1.0.10.tgz#dc17ff4f1a0224cf3b0c7a7f52bff2b798396e3d"

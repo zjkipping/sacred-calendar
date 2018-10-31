@@ -13,10 +13,8 @@
     <mat-form-field class="full-width">
       <input matInput [matDatepicker]="datePicker" formControlName="date" placeholder="Choose a date"  required>
       <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
-      <mat-datepicker #datePicker></mat-datepicker>
+      <mat-datepicker touchUi #datePicker></mat-datepicker>
     </mat-form-field>
-
-    <!-- TODO: make these dark themed -->
     <ngx-material-timepicker #pickerStart></ngx-material-timepicker>
     <mat-form-field class="full-width">
       <input matInput [ngxTimepicker]="pickerStart" formControlName="startTime" placeholder="Start Time"  required>
@@ -25,9 +23,8 @@
     <mat-form-field class="full-width">
       <input matInput [ngxTimepicker]="pickerEnd" formControlName="endTime" placeholder="End Time">
     </mat-form-field>
-
     <mat-form-field class="full-width">
-      <mat-select formControlName="categoryID">
+      <mat-select formControlName="categoryID" placeholder="Category">
         <mat-option disabled value="" selected>Select a Category</mat-option>
         <mat-option *ngFor="let category of categories | async" [value]="category.id" [style.color]="category.fontColor" [style.backgroundColor]="category.color">{{category.name}}</mat-option>
       </mat-select>

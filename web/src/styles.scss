@@ -120,3 +120,52 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+// ngx-color-picker dark theme overrides
+
+.color-picker .hex-text .box div {
+  color: white !important;
+}
+
+.color-picker {
+  border: #fff solid 1px !important;
+  border-radius: 3px !important;
+  background-color: #464646 !important;
+  color: white !important;
+}
+
+.color-picker .type-policy {
+  color: white !important;
+  background-color: white !important;
+}
+
+.button-area button:nth-child(1) {
+  background-color: mat-color($sc-warn, 400) !important;
+  margin-right: 68px;
+}
+
+.button-area button:nth-child(2) {
+  background-color: mat-color($sc-primary, 500) !important;
+}
+
+div.box div {
+  color: white !important;
+}
+
+// ngx-time-picker dark theme overrides
+
+.clock-face__number span {
+  color: white !important;
+}
+
+.clock-face {
+  background-color: mat-color($sc-accent, 500) !important;
+}
+
+.timepicker__body {
+  background-color: #363636 !important;
+}
+
+.timepicker__actions {
+  background-color: #363636 !important;
+}
