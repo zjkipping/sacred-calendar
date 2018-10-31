@@ -14,9 +14,10 @@ target 'SacredCalendar' do
   pod 'MaterialComponents/Buttons'
   pod 'MaterialComponents/TextFields'
   pod 'Material'
-  pod 'JTAppleCalendar', '~> 7.0'
   pod 'Cartography'
   pod 'MaterialTextField', '~> 0.2'
+  pod 'Color-Picker-for-iOS', '~> 2.0'
+  pod 'iOSDropDown'
 
   target 'SacredCalendarTests' do
     inherit! :search_paths

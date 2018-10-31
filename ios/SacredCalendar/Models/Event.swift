@@ -11,6 +11,7 @@ import Foundation
 class Event: Model {
     let id: Int
 
+    let name: String
     let date: Date
     var category: Category?
     var startTime: Date
@@ -30,7 +31,8 @@ class Event: Model {
         return data
     }
     
-    init(date: Date, category: Category, id: Int, description:String, startTime: Date, endTime: Date) {
+    init(name: String, date: Date, category: Category, id: Int, description:String, startTime: Date, endTime: Date) {
+        self.name = name
         self.date = date
         self.category = category
         self.id = id
@@ -40,12 +42,14 @@ class Event: Model {
     }
     
     required init?(id: Int, json: JSON) {
+        guard let name = json["name"].string else { return nil }
         guard let date = Date.from(dateString: json["date"].string) else { return nil }
         guard let description = json["description"].string else { return nil }
         guard let startTime = Date.from(timeString: json["startTime"].string) else { return nil }
         guard let endTime = Date.from(timeString: json["endTime"].string) else { return nil }
         
         self.id = id
+        self.name = name
         self.date = date
         self.category = Category(json: json["category"])
         self.description = description

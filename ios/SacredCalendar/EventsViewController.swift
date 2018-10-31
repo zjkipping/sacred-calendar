@@ -9,7 +9,6 @@
 import UIKit
 
 import Cartography
-import JTAppleCalendar
 import Material
 import RxCocoa
 import RxSwift
@@ -94,6 +93,7 @@ class EventsViewController: UIViewController {
             }).disposed(by: trash)
        
         setup(newEventButton: IconButton(title: "add"))
+        setup(newCategoryButton: IconButton(title: "add cat"))
         set(title: "Events")
     }
     
@@ -108,6 +108,7 @@ class EventsViewController: UIViewController {
             .disposed(by: trash)
         
         calendar.selectedEvent
+            .debug()
             .flatMap({ [weak self] in
                 self?.proposeDelete(event: $0) ?? .empty()
             })
@@ -147,6 +148,16 @@ class EventsViewController: UIViewController {
             .subscribe(onNext: { [weak self] _ in
                 let newEvent = NewEventViewController()
                 self?.navigationController?.pushViewController(newEvent, animated: true)
+            }).disposed(by: trash)
+    }
+    
+    func setup(newCategoryButton button: UIButton) {
+        navigationItem.rightViews.append(button)
+        
+        button.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                let newCategory = NewCategoryViewController()
+                self?.navigationController?.pushViewController(newCategory, animated: true)
             }).disposed(by: trash)
     }
     
@@ -214,7 +225,7 @@ class EventView: UIView {
         
         let hourString = String(format: "%02d", hour > 12 ? hour - 12 : hour)
         let minuteString = String(format: "%02d", minute)
-        view.nameLabel.text = "\(hourString):\(minuteString) \(period) - \(event.description)"
+        view.nameLabel.text = "\(hourString):\(minuteString) \(period) - \(event.name)"
         return view
     }
 }
@@ -231,7 +242,7 @@ class WeekEventView: UIView {
     
     class func create(event: Event) -> WeekEventView {
         let view = UINib(nibName: "WeekEventView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! WeekEventView
-        view.nameLabel.text = event.description
+        view.nameLabel.text = event.name
         return view
     }
 }

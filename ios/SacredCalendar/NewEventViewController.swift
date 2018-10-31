@@ -9,20 +9,23 @@
 import UIKit
 
 import Cartography
+import iOSDropDown
 import MaterialComponents
 import RxCocoa
 import RxSwift
 
-class NewEventViewModelServices: HasCreateEventService {
+class NewEventViewModelServices: HasCreateEventService, HasFetchCategoryService {
     let events: CreateEventService
+    let fetchCategories: FetchCategoryService
     
-    init(events: CreateEventService = .init()) {
+    init(events: CreateEventService = .init(), fetchCategories: FetchCategoryService = .init()) {
         self.events = events
+        self.fetchCategories = fetchCategories
     }
 }
 
 class NewEventViewModel {
-    typealias Services = HasCreateEventService
+    typealias Services = HasCreateEventService & HasFetchCategoryService
     
     let services: Services
     
@@ -38,6 +41,10 @@ class NewEventViewModel {
     
     func submit(data: [String : Any]) -> Observable<Bool> {
         return services.events.execute(data: data)
+    }
+    
+    func fetchCategories() -> Observable<[Category]> {
+        return services.fetchCategories.execute()
     }
 }
 
@@ -58,6 +65,8 @@ class NewEventViewController: UIViewController {
     
     @IBOutlet weak var startDateLabel: UILabel!
     @IBOutlet weak var endDateLabel: UILabel!
+    
+    @IBOutlet weak var categoryDropdown: DropDown!
     
     let startDate = BehaviorSubject<Date>(value: Date())
     let endDate = BehaviorSubject<Date>(value: Date())
@@ -95,6 +104,12 @@ class NewEventViewController: UIViewController {
         formErrors.subscribe(onNext: {
             print($0)
         }).disposed(by: trash)
+        
+        viewModel.fetchCategories()
+            .subscribe(onNext: { [weak self] categories in
+                self?.categoryDropdown.optionArray = categories.map { $0.name }
+                self?.categoryDropdown.optionIds = categories.map { $0.id }
+            }).disposed(by: trash)
     }
     
     func formated(date: Observable<Date>) -> Observable<String> {
@@ -174,14 +189,22 @@ class NewEventViewController: UIViewController {
                     self.formErrors.onNext(reasons)
                     return false
                 }
-            }).map({[
-                "name" : $0,
-                "description" : $1,
-                "location" : $2,
-                "date" : $3.dateString,
-                "startTime" : $3.timeString,
-                "endTime" : $4.timeString,
-            ]}).flatMap({ [weak self] in
+            }).map({ [weak self] in
+                var data: [String : Any] = [
+                    "name" : $0,
+                    "description" : $1,
+                    "location" : $2,
+                    "date" : $3.dateString,
+                    "startTime" : $3.timeString,
+                    "endTime" : $4.timeString,
+                ]
+                
+                if let selected = self?.categoryDropdown.selectedIndex,
+                    let id = self?.categoryDropdown.optionIds?[selected] {
+                    data["categoryID"] = id
+                }
+                return data
+            }).flatMap({ [weak self] in
                 self?.viewModel.submit(data: $0) ?? .empty()
             }).subscribe(onNext: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)

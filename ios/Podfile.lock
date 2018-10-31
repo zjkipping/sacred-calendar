@@ -1,7 +1,8 @@
 PODS:
   - Alamofire (4.7.3)
   - Cartography (3.1.0)
-  - JTAppleCalendar (7.1.6)
+  - Color-Picker-for-iOS (2.0.2)
+  - iOSDropDown (0.2.6)
   - Material (2.16.4):
     - Material/Core (= 2.16.4)
   - Material/Core (2.16.4):
@@ -51,7 +52,8 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - Cartography
-  - JTAppleCalendar (~> 7.0)
+  - Color-Picker-for-iOS (~> 2.0)
+  - iOSDropDown
   - Material
   - MaterialComponents/Buttons
   - MaterialComponents/TextFields
@@ -65,7 +67,8 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Cartography
-    - JTAppleCalendar
+    - Color-Picker-for-iOS
+    - iOSDropDown
     - Material
     - MaterialComponents
     - MaterialTextField
@@ -80,7 +83,8 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   Cartography: 1988b7578871a56c036e7af17195cb2190edf18c
-  JTAppleCalendar: abb30678f42a4ef8a340a932b1dcb8c85a33dac2
+  Color-Picker-for-iOS: 4980589b3e3cfe7198f227dd50be9adb02d8bc0b
+  iOSDropDown: 90608a7270234c503260ef13314907b6703b39aa
   Material: 4ed78690b09ffd148b5ffab6b4367fb1d8da1cd3
   MaterialComponents: ba0b153b1fa427be83aad80b05784b2cfecec847
   MaterialTextField: f876a39d571eeece872af6a4da421e3bd065fe0b
@@ -92,6 +96,6 @@ SPEC CHECKSUMS:
   SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: 58d3a1c025ebd9629c201beb883bd9feda14112c
+PODFILE CHECKSUM: 8c965e57d081d4f84c452649de29a274bb1009f1
 
 COCOAPODS: 1.5.3

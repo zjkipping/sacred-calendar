@@ -24,7 +24,7 @@ enum HeaderKey: String {
 }
 
 enum Resource: String {
-    case auth = "", event, events, categories, users
+    case auth = "", event, events, category, categories, users
 }
 
 enum Action {

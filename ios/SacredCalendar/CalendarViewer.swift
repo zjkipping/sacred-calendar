@@ -16,12 +16,12 @@ class CalendarViewer: UIView {
     
     let trash = DisposeBag()
     
+    var rerenderTrash = DisposeBag()
+    
     let selectedEvent = PublishSubject<Event>()
     
     func show(events: [Event], mode: CalendarView) {
         clear()
-        
-        print("Displaying \(events.count) events")
         
         switch mode {
         case .monthly: showWeekly(events: events)
@@ -32,10 +32,13 @@ class CalendarViewer: UIView {
     
     private func clear() {
         subviews.forEach({ $0.removeFromSuperview() })
+        rerenderTrash = DisposeBag()
     }
     
     func showDaily(events: [Event]) {
         let dayView = DayView.create()
+        
+        var longPresses: [Observable<Event>] = []
         
         for event in events {
             let eventView = EventView.create(event: event)
@@ -43,11 +46,14 @@ class CalendarViewer: UIView {
             let longPress = UILongPressGestureRecognizer()
             eventView.addGestureRecognizer(longPress)
             
-            longPress.rx.event
-                .filter({ $0.state == .began })
-                .withLatestFrom(Observable.just(event))
-                .bind(to: selectedEvent)
-                .disposed(by: eventView.trash)
+            let longPressed = longPress.rx.event
+                                .filter({
+                                    print($0.state == .began)
+                                    return $0.state == .began
+                                })
+                                .withLatestFrom(Observable.just(event))
+
+            longPresses.append(longPressed)
             
             dayView.eventsStackView.addArrangedSubview(eventView)
             
@@ -55,6 +61,11 @@ class CalendarViewer: UIView {
                 $0.height == 44
             }
         }
+        
+        Observable.merge(longPresses)
+            .debug()
+            .bind(to: selectedEvent)
+            .disposed(by: rerenderTrash)
         
         addSubview(dayView)
         constrain(dayView, self) {

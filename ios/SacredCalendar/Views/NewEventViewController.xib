@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewEventViewController" customModule="SacredCalendar" customModuleProvider="target">
             <connections>
                 <outlet property="cancelButton" destination="4NU-r5-a4v" id="B6c-Y9-sgR"/>
+                <outlet property="categoryDropdown" destination="j8A-51-KfX" id="kXT-bu-NhR"/>
                 <outlet property="descriptionField" destination="1A8-o0-XSJ" id="tfq-JA-ccx"/>
                 <outlet property="editEndTimeButton" destination="H4Y-bh-wfG" id="oaC-3d-Z8g"/>
                 <outlet property="editStartTimeButton" destination="8dB-c8-XrW" id="NE9-JL-o1U"/>
@@ -129,6 +130,10 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j8A-51-KfX" customClass="DropDown" customModule="iOSDropDown">
+                    <rect key="frame" x="82.5" y="366" width="210" height="30"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -141,8 +146,11 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kTy-Ii-7fM" secondAttribute="trailing" constant="44" id="K8Y-ny-xYC"/>
                 <constraint firstItem="gxG-Xj-Fm4" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="KPH-n0-Xnr"/>
                 <constraint firstItem="4NU-r5-a4v" firstAttribute="centerY" secondItem="kTy-Ii-7fM" secondAttribute="centerY" id="L5b-Wj-nbz"/>
+                <constraint firstItem="j8A-51-KfX" firstAttribute="width" secondItem="m4r-dF-VEd" secondAttribute="width" multiplier="0.8" id="MoC-03-BjR"/>
                 <constraint firstItem="8dB-c8-XrW" firstAttribute="top" secondItem="aeh-gH-MEd" secondAttribute="bottom" constant="20" id="PEx-LK-xP4"/>
                 <constraint firstItem="m4r-dF-VEd" firstAttribute="width" secondItem="1A8-o0-XSJ" secondAttribute="width" id="UI2-1U-L5f"/>
+                <constraint firstItem="j8A-51-KfX" firstAttribute="centerX" secondItem="m4r-dF-VEd" secondAttribute="centerX" id="ekq-Q8-46f"/>
+                <constraint firstItem="j8A-51-KfX" firstAttribute="height" secondItem="m4r-dF-VEd" secondAttribute="height" id="hSK-Um-Kqk"/>
                 <constraint firstItem="YDW-yC-tya" firstAttribute="top" secondItem="m4r-dF-VEd" secondAttribute="bottom" constant="44" id="ifT-ze-8lS"/>
                 <constraint firstItem="H4Y-bh-wfG" firstAttribute="top" secondItem="YDW-yC-tya" secondAttribute="bottom" constant="20" id="kGq-E0-14X"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="kTy-Ii-7fM" secondAttribute="bottom" constant="60" id="oid-Iz-BWL"/>
@@ -153,6 +161,7 @@
                 <constraint firstItem="m4r-dF-VEd" firstAttribute="centerX" secondItem="1A8-o0-XSJ" secondAttribute="centerX" id="v99-vO-HfZ"/>
                 <constraint firstItem="1A8-o0-XSJ" firstAttribute="top" secondItem="gxG-Xj-Fm4" secondAttribute="bottom" constant="20" id="wTZ-Ht-REc"/>
                 <constraint firstItem="1A8-o0-XSJ" firstAttribute="width" secondItem="gxG-Xj-Fm4" secondAttribute="width" id="yBk-Bz-Lvp"/>
+                <constraint firstItem="j8A-51-KfX" firstAttribute="top" secondItem="8dB-c8-XrW" secondAttribute="bottom" constant="61.5" id="yUd-6d-pCA"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="125.59999999999999" y="122.78860569715144"/>
