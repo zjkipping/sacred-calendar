@@ -20,11 +20,11 @@ protocol Cancelable {
 extension DataRequest: Cancelable { }
 
 enum HeaderKey: String {
-    case authToken = "x-auth-token"
+    case authToken = "x-access-token"
 }
 
 enum Resource: String {
-    case auth = "", events, categories, users
+    case auth = "", event, events, categories, users
 }
 
 enum Action {
@@ -39,9 +39,9 @@ enum Action {
 }
 
 class API {
-
+    
     static let apiEndpoint = Configuration.environment
-     
+    
     static func request(_ resource: Resource,
                           _ action: Action,
                       _ parameters: Parameters? = nil,
@@ -57,17 +57,25 @@ class API {
         
         print("API \(method.rawValue) : \(url)")
         
-        var options = headers
+        var options = headers ?? [:]
         
         if let authToken = KeychainWrapper.standard.string(forKey: TokenKey.auth.rawValue) {
-            options?[HeaderKey.authToken.rawValue] = authToken
+            options[HeaderKey.authToken.rawValue] = authToken
         }
 
-        return Alamofire.request(url, method: method, parameters: parameters, encoding: encoding, headers: headers).responseJSON {
+        return Alamofire.request(url, method: method, parameters: parameters, encoding: encoding, headers: options).responseJSON {
             
             guard let response = API.validate(data: $0) else { return }
-            
-            guard response.statusCode != 401 || isRetrying else {
+
+            if let error = response.error {
+                print("API Error Response : \(error)")
+            } else {
+                print("API Response : \(response.data)")
+            }
+
+            let isRefreshingToken = url.contains(endpoint(for: .refreshToken))
+
+            guard response.statusCode != 401 || isRetrying || isRefreshingToken else {
                 let auth = AuthService()
                 _ = auth.refreshToken()
                     .take(1)
@@ -76,7 +84,7 @@ class API {
                     })
                 return
             }
-            
+
             callback(response)
         }
     }
@@ -85,7 +93,7 @@ class API {
         switch action {
         case .get:          return .get
         case .list:         return .get
-        case .create:       return .put
+        case .create:       return .post
         case .update:       return .patch
         case .delete:       return .delete
         case .login:        return .post
@@ -104,7 +112,7 @@ class API {
         case .create:           return ""
         case .update(let id):   return id
         case .delete(let id):   return id
-        case .list:             return "list"
+        case .list:             return ""
         case .login:            return "login"
         case .logout:           return "logout"
         case .refreshToken:     return "refreshToken"
@@ -112,7 +120,8 @@ class API {
     }
     
     private static func url(for resource: Resource) -> String {
-        return apiEndpoint / resource.rawValue
+        let resourceUrl = resource.rawValue
+        return resourceUrl.isEmpty ? apiEndpoint : apiEndpoint / resourceUrl
     }
     
     static func validate(data: DataResponse<Any>) -> ValidatedResponse? {

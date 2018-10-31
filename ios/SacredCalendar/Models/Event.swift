@@ -9,25 +9,28 @@
 import Foundation
 
 class Event: Model {
-    let id: String
+    let id: Int
 
     let date: Date
-    var category: Category
+    var category: Category?
     var startTime: Date
     var endTime: Date
     var description: String
     
     var transportable: TransportFormat {
-        return [
-            "date" : date.string,
-            "category" : category.transportable,
-            "startTime" : startTime.string,
-            "endTime" : endTime.string,
+        var data: TransportFormat = [
+            "date" : date.dateString,
+            "startTime" : startTime.timeString,
+            "endTime" : endTime.timeString,
             "description" : description,
         ]
+        if let category = category?.transportable {
+            data["category"] = category
+        }
+        return data
     }
     
-    init(date: Date, category: Category, id: String = UUID().uuidString, description:String, startTime: Date, endTime: Date) {
+    init(date: Date, category: Category, id: Int, description:String, startTime: Date, endTime: Date) {
         self.date = date
         self.category = category
         self.id = id
@@ -36,16 +39,15 @@ class Event: Model {
         self.endTime = endTime
     }
     
-    required init?(id: String, json: JSON) {
-        guard let date = Date.from(isoString: json["date"].string) else { return nil }
-        guard let categoryString = json["category"].string else { return nil }
+    required init?(id: Int, json: JSON) {
+        guard let date = Date.from(dateString: json["date"].string) else { return nil }
         guard let description = json["description"].string else { return nil }
-        guard let startTime = Date.from(isoString: json["startTime"].string) else { return nil }
-        guard let endTime = Date.from(isoString: json["endTime"].string) else { return nil }
+        guard let startTime = Date.from(timeString: json["startTime"].string) else { return nil }
+        guard let endTime = Date.from(timeString: json["endTime"].string) else { return nil }
         
         self.id = id
         self.date = date
-        self.category = Category(name: categoryString)
+        self.category = Category(json: json["category"])
         self.description = description
         self.startTime = startTime
         self.endTime = endTime
@@ -70,12 +72,43 @@ extension ISO8601DateFormatter {
 }
 
 extension Date {
+    
     static func from(isoString: String? = nil) -> Date? {
         guard let string = isoString else { return nil }
         return ISO8601DateFormatter.shared.date(from: string)
     }
     
-    var string: String {
+    static func from(dateString: String? = nil) -> Date? {
+        guard let string = dateString else { return nil }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd"
+        return formatter.date(from: string)
+    }
+    
+    static func from(timeString: String? = nil) -> Date? {
+        guard let string = timeString else { return nil }
+        let formatter = DateFormatter()
+        formatter.amSymbol = "AM"
+        formatter.pmSymbol = "PM"
+        formatter.dateFormat = "HH:mm a"
+        return formatter.date(from: string)
+    }
+    
+    var isoString: String {
         return ISO8601DateFormatter.shared.string(from: self)
+    }
+    
+    var dateString: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd"
+        return formatter.string(from: self)
+    }
+    
+    var timeString: String {
+        let formatter = DateFormatter()
+        formatter.amSymbol = "AM"
+        formatter.pmSymbol = "PM"
+        formatter.dateFormat = "HH:mm a"
+        return formatter.string(from: self)
     }
 }

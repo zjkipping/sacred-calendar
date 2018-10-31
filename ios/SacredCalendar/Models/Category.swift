@@ -9,22 +9,26 @@
 import Foundation
 
 struct Category: Model {
-    let id: String
+    let id: Int
     let name: String
+    let color: String
     
     var transportable: TransportFormat {
         return ["name": name]
     }
     
-    init(name: String, id: String = UUID().uuidString) {
-        self.name = name
+    init(id: Int, name: String, color: String) {
         self.id = id
+        self.name = name
+        self.color = color
     }
     
-    init?(id: String, json: JSON) {
+    init?(id: Int, json: JSON) {
         guard let name = json["name"].string else { return nil }
-        
+        guard let color = json["color"].string else { return nil }
+
         self.id = id
         self.name = name
+        self.color = color
     }
 }

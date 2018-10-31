@@ -107,11 +107,11 @@ class LoginViewController: UIViewController {
     func validateForm(username: String, password: String) -> FormValidationState {
         var messages: [String] = []
         
-        if FormValidator.validate(username: username) {
+        if !FormValidator.validate(username: username) {
             messages.append("username required")
         }
         
-        if FormValidator.validate(password: password) {
+        if !FormValidator.validate(password: password) {
             messages.append("password required")
         }
         
@@ -119,9 +119,6 @@ class LoginViewController: UIViewController {
     }
     
     func setup(loginButton button: UIButton) {
-        let events = EventsViewController()
-        navigationController?.pushViewController(events, animated: true)
-        
         let form = Observable.combineLatest(
             usernameField.rx.text.orEmpty,
             passwordField.rx.text.orEmpty
@@ -130,11 +127,12 @@ class LoginViewController: UIViewController {
         button.rx.tap
             .withLatestFrom(form)
             .filter({ [weak self] in
-                guard let status = self?.validateForm(username: $0, password: $1) else { return false }
-                switch status {
+                guard let self = self else { return false }
+                
+                switch self.validateForm(username: $0, password: $1) {
                 case .valid: return true
                 case .invalid(let reasons):
-                    self?.formErrors.onNext(reasons)
+                    self.formErrors.onNext(reasons)
                     return false
                 }
             })

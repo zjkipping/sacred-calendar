@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigation = AppNavigationController(rootViewController: login)
         window?.rootViewController = navigation
         window?.makeKeyAndVisible()
-        
+
         return true
     }
 

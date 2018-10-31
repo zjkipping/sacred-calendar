@@ -35,7 +35,7 @@ class AuthService {
                     KeychainWrapper.standard.set(authToken, forKey: TokenKey.auth.rawValue)
                 }
                 
-                if let refreshToken = response.data[TokenKey.refresh.rawValue].string {
+                if let refreshToken = response.data["refreshToken"].string {
                     KeychainWrapper.standard.set(refreshToken, forKey: TokenKey.refresh.rawValue)
                 }
                 
@@ -77,7 +77,6 @@ class AuthService {
 
             let request = API.request(.auth, .refreshToken, params) { response in
                 guard response.success else {
-                    observer.onError(response.error!)
                     return
                 }
                 

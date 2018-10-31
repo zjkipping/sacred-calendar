@@ -36,6 +36,7 @@ PODS:
   - MaterialComponents/Typography (67.0.0):
     - MaterialComponents/private/Application
     - MaterialComponents/private/Math
+  - MaterialTextField (0.2.1)
   - MDFInternationalization (1.1.0)
   - MDFTextAccessibility (1.2.0)
   - Motion (1.4.3):
@@ -54,6 +55,7 @@ DEPENDENCIES:
   - Material
   - MaterialComponents/Buttons
   - MaterialComponents/TextFields
+  - MaterialTextField (~> 0.2)
   - RxCocoa
   - RxSwift
   - SwiftKeychainWrapper
@@ -66,6 +68,7 @@ SPEC REPOS:
     - JTAppleCalendar
     - Material
     - MaterialComponents
+    - MaterialTextField
     - MDFInternationalization
     - MDFTextAccessibility
     - Motion
@@ -80,6 +83,7 @@ SPEC CHECKSUMS:
   JTAppleCalendar: abb30678f42a4ef8a340a932b1dcb8c85a33dac2
   Material: 4ed78690b09ffd148b5ffab6b4367fb1d8da1cd3
   MaterialComponents: ba0b153b1fa427be83aad80b05784b2cfecec847
+  MaterialTextField: f876a39d571eeece872af6a4da421e3bd065fe0b
   MDFInternationalization: b5b8626628abf026e630e5ebaeee563037712cbb
   MDFTextAccessibility: 94098925e0853551c5a311ce7c1ecefbe297cdb6
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
@@ -88,6 +92,6 @@ SPEC CHECKSUMS:
   SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: 3cb8dd27627833f7ec4b2f7c8e3ef90aab0d8c91
+PODFILE CHECKSUM: 58d3a1c025ebd9629c201beb883bd9feda14112c
 
 COCOAPODS: 1.5.3

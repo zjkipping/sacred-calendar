@@ -9,15 +9,15 @@
 typealias TransportFormat = [String : Any]
 
 protocol Model: JSONCreatable, Transportable {
-    var id: String { get }
+    var id: Int { get }
     
     init?(json: JSON)
-    init?(id: String, json: JSON)
+    init?(id: Int, json: JSON)
 }
 
 extension Model {
     init?(json: JSON) {
-        guard let id = json["_id"].string else { return nil }
+        guard let id = json["id"].int else { return nil }
         self.init(id: id, json: json)
     }
 }

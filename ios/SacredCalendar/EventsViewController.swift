@@ -41,10 +41,10 @@ class EventsViewModel {
         self.services = services
     }
     
-    func fetchEvents(query: [String : Any]) -> Observable<[Event]> {
-        let newEvents = services.events.execute(query: query)
-        newEvents.take(1).bind(to: events).disposed(by: trash)
-        return newEvents
+    func fetchEvents(query: [String : Any]) {
+        let newEvents = services.events.execute(query: query).take(1)
+        newEvents.bind(to: events).disposed(by: trash)
+//        return newEvents
     }
 }
 
@@ -56,7 +56,7 @@ class EventsViewController: UIViewController {
 
     let viewModel: EventsViewModel
     
-    let orientation = PublishSubject<Bool>()
+    let orientation = BehaviorSubject<Bool>(value: UIDevice.current.orientation.isPortrait)
     
     let trash = DisposeBag()
     
@@ -86,24 +86,18 @@ class EventsViewController: UIViewController {
             .subscribe(onNext: { [weak self] in
                 self?.show(events: $0, mode: $1)
             }).disposed(by: trash)
-        
-        
-        
-        
-        let events = [
-            (Category(name: "something"), "Birthday", Date(), Date().addingTimeInterval(60*60)),
-            (Category(name: "something"), "Birthday", Date(), Date().addingTimeInterval(60*60)),
-            (Category(name: "something"), "Birthday", Date(), Date().addingTimeInterval(60*60)),
-            ].map {
-                Event(date: Date(), category: $0, description: $1, startTime: $2, endTime: $3)
-        }
-        
-        viewModel.events.onNext(events)
-        
-//        fetchEvents()
-        
+       
         setup(newEventButton: IconButton(title: "add"))
         set(title: "Events")
+        
+        viewModel.events
+            .map({ $0.sorted { $0.startTime < $1.startTime } })
+            .subscribe(onNext: {
+                print("events: ", $0)
+            })
+            .disposed(by: trash)
+        
+        viewModel.fetchEvents(query: [:])
     }
     
     func setup(newEventButton button: UIButton) {
@@ -134,16 +128,6 @@ class EventsViewController: UIViewController {
             cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 20)
             cell.backgroundColor = .clear
         }.disposed(by: trash)
-    }
-    
-    func fetchEvents() {
-        Observable.just(User.current.id)
-            .map({ ["userId" : $0] })
-            .flatMap({ [weak self] in
-                self?.viewModel.fetchEvents(query: $0) ?? .empty()
-            })
-            .subscribe()
-            .disposed(by: trash)
     }
 }
 

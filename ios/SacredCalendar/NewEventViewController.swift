@@ -8,6 +8,8 @@
 
 import UIKit
 
+import Cartography
+import MaterialComponents
 import RxCocoa
 import RxSwift
 
@@ -40,12 +42,25 @@ class NewEventViewModel {
 }
 
 class NewEventViewController: UIViewController {
+    enum EventTime {
+        case start, end
+    }
+    
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var descriptionField: UITextField!
     @IBOutlet weak var locationField: UITextField!
     
+    @IBOutlet weak var editStartTimeButton: UIButton!
+    @IBOutlet weak var editEndTimeButton: UIButton!
+    
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    
+    @IBOutlet weak var startDateLabel: UILabel!
+    @IBOutlet weak var endDateLabel: UILabel!
+    
+    let startDate = BehaviorSubject<Date>(value: Date())
+    let endDate = BehaviorSubject<Date>(value: Date())
     
     let viewModel: NewEventViewModel
     
@@ -66,22 +81,97 @@ class NewEventViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        set(title: "New Event")
+        
         setup(submitButton: submitButton)
         setup(cancelButton: cancelButton)
+        
+        setup(editTimeButton: editStartTimeButton, time: .start)
+        setup(editTimeButton: editEndTimeButton, time: .end)
+        
+        bind(observable: formated(date: startDate), to: startDateLabel.rx.text)
+        bind(observable: formated(date: endDate), to: endDateLabel.rx.text)
+        
+        formErrors.subscribe(onNext: {
+            print($0)
+        }).disposed(by: trash)
+    }
+    
+    func formated(date: Observable<Date>) -> Observable<String> {
+        return date.map({ $0.timeString })
+    }
+    
+    func bind(observable: Observable<String>, to property: Binder<String?>) {
+        observable.bind(to: property).disposed(by: trash)
+    }
+    
+    func showDatePicker(date: Date?) -> Observable<Date> {
+        let container = UIView()
+        container.backgroundColor = .darkGray
+        
+        let picker = UIDatePicker()
+        picker.date = date ?? Date()
+        
+        let done = MDCRaisedButton()
+        done.setTitle("DONE", for: .normal)
+        done.setTitleColor(.white, for: .normal)
+        done.setBackgroundColor(.blue, for: .normal)
+        
+        container.addSubview(done)
+        container.addSubview(picker)
+        constrain(picker, done, container) {
+            $1.height == 44
+            $1.centerX == $2.centerX
+            
+            $0.top == $2.top
+            $0.bottom == $1.top
+            $1.bottom == $2.bottom
+        }
+        
+        view.addSubview(container)
+        constrain(container, view) {
+            $0.center == $1.center
+            $0.width == $1.width
+        }
+        
+        return done.rx.tap
+                    .withLatestFrom(picker.rx.date)
+                    .take(1)
+                    .do(onCompleted: container.removeFromSuperview)
+    }
+    
+    func setup(editTimeButton button: UIButton, time: EventTime) {
+        let dateOption = time == .start ? startDate : endDate
+        
+        button.rx.tap
+            .withLatestFrom(dateOption)
+            .flatMap({ [weak self] in
+                self?.showDatePicker(date: $0) ?? .empty()
+            })
+            .bind(to: dateOption)
+            .disposed(by: trash)
     }
     
     func setup(submitButton button: UIButton) {
         let form = Observable.combineLatest(
             nameField.rx.text.orEmpty,
             descriptionField.rx.text.orEmpty,
-            locationField.rx.text.orEmpty
+            locationField.rx.text.orEmpty,
+            startDate,
+            endDate
         )
+        
+//        const description = req.body.description ? req.body.description: null;
+//        const location = req.body.location ? req.body.location : null;
+//        const endTime = req.body.endTime ? req.body.endTime: null;
         
         button.rx.tap
             .withLatestFrom(form)
             .filter({ [weak self] in
                 guard let self = self else { return false }
-
+                _ = $3
+                _ = $4
+                
                 switch self.validateForm(name: $0, description: $1, location: $2) {
                 case .valid: return true
                 case .invalid(let reasons):
@@ -92,6 +182,9 @@ class NewEventViewController: UIViewController {
                 "name" : $0,
                 "description" : $1,
                 "location" : $2,
+                "date" : $3.dateString,
+                "startTime" : $3.timeString,
+                "endTime" : $4.timeString,
             ]}).flatMap({ [weak self] in
                 self?.viewModel.submit(data: $0) ?? .empty()
             }).subscribe(onNext: { _ in
@@ -113,15 +206,15 @@ class NewEventViewController: UIViewController {
     func validateForm(name: String, description: String, location: String) -> FormValidationState {
         var messages: [String] = []
         
-        if FormValidator.validate(name: name) {
+        if !FormValidator.validate(name: name) {
             messages.append("name required")
         }
         
-        if FormValidator.validate(description: description) {
+        if !FormValidator.validate(description: description) {
             messages.append("description required")
         }
         
-        if FormValidator.validate(location: location) {
+        if !FormValidator.validate(location: location) {
             messages.append("location required")
         }
         

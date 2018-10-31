@@ -12,7 +12,7 @@ import RxSwift
 class CreateEventService {
     func execute(data: [String : Any]) -> Observable<Bool> {
         return Observable.create { observer in
-            let request = API.request(.events, .create, data) { response in
+            let request = API.request(.event, .create, data) { response in
                 guard response.success else {
                     observer.onError(response.error!)
                     return

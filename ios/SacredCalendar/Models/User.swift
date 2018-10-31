@@ -11,7 +11,7 @@ class User: Model {
     
     static var current: User!
     
-    let id: String
+    let id: Int
     
     let name: Name
     
@@ -30,12 +30,12 @@ class User: Model {
     }
     
     init(name: Name, username: String) {
-        self.id = "NONE"
+        self.id = 0
         self.name = name
         self.username = username
     }
     
-    required init?(id: String, json: JSON) {
+    required init?(id: Int, json: JSON) {
         guard let firstName = json["firstName"].string else { return nil }
         guard let lastName = json["lastName"].string else { return nil }
         guard let username = json["username"].string else { return nil }
