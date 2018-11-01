@@ -22,7 +22,7 @@ Calendar sharing happens by having a friend click on your name and then they wil
 * Sacred calendar makes it easy to share your calendar with your friends and view your friends calendars
 * This allows for better time management between friends
 
-## Links to respective system part's READMEs
+## Links to respective system parts' READMEs
 * [Web Client](./web/README.md)
 * [iOS Client](./ios/README.md)
 * [Server](./server/README.md)
