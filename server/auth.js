@@ -21,7 +21,8 @@ module.exports = {
       // commits the transaction in the DB
       pool.query('COMMIT');
       // sending back a '200' OK message to the client
-      res.status(200).send();
+      // {} is a workaround for the alamoFire parsing issue
+      res.status(200).send({});
     } catch (err) {
       console.log(err);
       // catches any duplicate errors from the DB (username & email are UNIQUE in their respective tables)
