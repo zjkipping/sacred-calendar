@@ -10,9 +10,5 @@ import { UserDetails } from '@types';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
-  user: Observable<UserDetails>;
-
-  constructor(private dataService: DataService) {
-    this.user = this.dataService.userDetails;
-  }
+  constructor() {}
 }

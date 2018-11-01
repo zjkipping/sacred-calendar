@@ -17,13 +17,16 @@ export class AuthService {
   clientToken = '';
 
   constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
+    // grabs the refreshToken from the browser's cookies (whether it exists or not)
     this.refreshToken = this.cookieService.get('token');
   }
 
+  // used to send the register info to the proper route in the API
   registerUser(username: string, firstName: string, lastName: string, email: string, password: string): Observable<any> {
     return this.http.post(API_URL + '/register', { username, firstName, lastName, email, password }).pipe(take(1));
   }
 
+  // used to send the login information to the proper route in the API
   loginUser(username: string, password: string, remember: boolean): Observable<any> {
     return this.http.post(API_URL + '/login', { username, password }).pipe(
       take(1),
@@ -37,6 +40,7 @@ export class AuthService {
     );
   }
 
+  // used to log the user out of the system by contacting the API
   logoutUser(): void {
     this.http.post(API_URL + '/logout', { refreshToken: this.refreshToken }).pipe(
       take(1)
@@ -45,6 +49,7 @@ export class AuthService {
     });
   }
 
+  // clears the local auth variables/cookies, redirects to the login page
   clearAuth(): void {
     this.cookieService.delete('token');
     this.refreshToken = '';
@@ -52,6 +57,7 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
+  // used to get a new clientToken from the API
   getNewClientToken(): Observable<any> {
     return this.http.post(API_URL + '/token', { refreshToken: this.refreshToken }).pipe(
       take(1),

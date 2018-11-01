@@ -17,7 +17,6 @@ export class CategoryManagerDialogComponent {
   constructor(private fb: FormBuilder, ds: DataService, private ref: MatDialogRef<CategoryManagerDialogComponent>) {
     ds.getCategories().subscribe(data => {
       this.categories = data;
-      // TODO: custom validator for categories FormArray
       this.categoriesForm = fb.array(data.map(category => fb.group({
         name: [category.name, Validators.required],
         color: [category.color, Validators.required],

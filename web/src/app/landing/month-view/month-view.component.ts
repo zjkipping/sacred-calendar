@@ -17,8 +17,6 @@ export class MonthViewComponent {
   @Output() monthForward = new EventEmitter();
   @Output() monthBackward = new EventEmitter();
 
-  // TODO: allow for yearForward/yearBackward
-
   constructor() { }
 
   nextMonth() {

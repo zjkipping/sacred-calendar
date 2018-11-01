@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { LoggedInGuardService } from '@services/logged-in-guard.service';
 import { AuthGuardService } from '@services/auth-guard.service';
 
+// setting up the parent routes of the application
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [LoggedInGuardService] },
   { path: 'register', component: RegisterComponent, canActivate: [LoggedInGuardService] },
