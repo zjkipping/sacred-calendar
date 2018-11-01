@@ -101,7 +101,7 @@ export class DataService {
 */
 // returns back either 'white' or 'black' depending on the background hex provided
 // provides contrast so the text ontop of the background color is readable
-function getContrastYIQ(hexcolor: string) {
+export function getContrastYIQ(hexcolor: string) {
   hexcolor = hexcolor.slice(1, hexcolor.length - 1);
   const r = parseInt(hexcolor.substr(0, 2), 16);
   const g = parseInt(hexcolor.substr(2, 2), 16);

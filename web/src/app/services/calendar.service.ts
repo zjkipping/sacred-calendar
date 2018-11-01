@@ -75,7 +75,7 @@ export class CalendarService implements OnDestroy {
   }
 }
 
-function GenerateDates(events: Event[], current: moment.Moment, selected: moment.Moment | undefined): CalendarDate[] {
+export function GenerateDates(events: Event[], current: moment.Moment, selected: moment.Moment | undefined): CalendarDate[] {
   // grabs the start of the 6 week period
   const start = moment(current).startOf('month').subtract(moment(current).startOf('month').day(), 'days');
   const startDate = start.date();

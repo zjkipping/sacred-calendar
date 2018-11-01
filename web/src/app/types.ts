@@ -11,6 +11,7 @@ export interface UserDetails {
 export interface Event {
   id: number;
   name: string;
+  created: number;
   description?: string;
   location?: string;
   date: moment.Moment;

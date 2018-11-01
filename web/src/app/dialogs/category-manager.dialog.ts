@@ -24,10 +24,6 @@ export class CategoryManagerDialogComponent {
         delete: [false],
         id: [category.id]
       })));
-
-      this.categoriesForm.statusChanges.subscribe(status => {
-        console.log(status);
-      });
     });
   }
 
