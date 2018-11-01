@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NC5-tJ-WHY" customClass="MDCRaisedButton">
-                    <rect key="frame" x="137.5" y="543" width="100" height="44"/>
+                    <rect key="frame" x="137.5" y="579" width="100" height="44"/>
                     <color key="backgroundColor" red="0.14901960780000001" green="0.65098039220000004" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="UjS-LF-R0i"/>
@@ -33,29 +33,35 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                 </button>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i9r-8Z-6Ln" customClass="MFTextField">
-                    <rect key="frame" x="75" y="122.5" width="225" height="30"/>
-                    <nil key="textColor"/>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i9r-8Z-6Ln" customClass="MFTextField">
+                    <rect key="frame" x="75" y="36.5" width="225" height="30"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultPlaceholderColor">
+                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XZI-Ya-oum">
-                    <rect key="frame" x="75" y="196.5" width="225" height="300"/>
+                    <rect key="frame" x="37.5" y="86.5" width="300" height="472.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="XZI-Ya-oum" secondAttribute="height" multiplier="3:4" id="wkB-CE-pbs"/>
-                    </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.31372549020000001" green="0.31764705879999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="i9r-8Z-6Ln" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="0.4" id="2iX-Km-kZ3"/>
+                <constraint firstItem="i9r-8Z-6Ln" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="0.15" id="2iX-Km-kZ3"/>
                 <constraint firstItem="XZI-Ya-oum" firstAttribute="centerX" secondItem="i9r-8Z-6Ln" secondAttribute="centerX" id="APE-6O-0H3"/>
-                <constraint firstItem="NC5-tJ-WHY" firstAttribute="top" secondItem="XZI-Ya-oum" secondAttribute="bottom" constant="46.5" id="Go3-4j-Eu3"/>
-                <constraint firstItem="XZI-Ya-oum" firstAttribute="top" secondItem="i9r-8Z-6Ln" secondAttribute="bottom" constant="44" id="UuW-03-4R9"/>
+                <constraint firstItem="NC5-tJ-WHY" firstAttribute="top" secondItem="XZI-Ya-oum" secondAttribute="bottom" constant="20" id="Go3-4j-Eu3"/>
+                <constraint firstItem="XZI-Ya-oum" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.8" id="O9W-mu-98R"/>
+                <constraint firstItem="XZI-Ya-oum" firstAttribute="top" secondItem="i9r-8Z-6Ln" secondAttribute="bottom" constant="20" id="UuW-03-4R9"/>
                 <constraint firstItem="i9r-8Z-6Ln" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.6" id="Wfe-DS-QFg"/>
                 <constraint firstItem="i9r-8Z-6Ln" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Wnx-an-XUF"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="NC5-tJ-WHY" secondAttribute="bottom" constant="80" id="a9O-dD-bAp"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="NC5-tJ-WHY" secondAttribute="bottom" constant="44" id="a9O-dD-bAp"/>
                 <constraint firstItem="NC5-tJ-WHY" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="dvT-7W-he0"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

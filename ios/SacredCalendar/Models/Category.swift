@@ -6,12 +6,22 @@
 //  Copyright © 2018 CS4320. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Category: Model {
     let id: Int
     let name: String
-    let color: String
+    let _color: String
+    var color: UIColor {
+        let index = _color.index(_color.startIndex, offsetBy: 1)
+
+        let hex = _color[index...]
+        if let hexNumber = Int(hex, radix: 16) {
+            return UIColor(rgb: UInt32(hexNumber))
+        } else {
+            return .black
+        }
+    }
     
     var transportable: TransportFormat {
         return ["name": name]
@@ -20,7 +30,7 @@ struct Category: Model {
     init(id: Int, name: String, color: String) {
         self.id = id
         self.name = name
-        self.color = color
+        self._color = color
     }
     
     init?(id: Int, json: JSON) {
@@ -29,6 +39,6 @@ struct Category: Model {
 
         self.id = id
         self.name = name
-        self.color = color
+        self._color = color
     }
 }

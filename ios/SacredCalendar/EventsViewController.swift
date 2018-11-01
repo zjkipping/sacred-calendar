@@ -34,7 +34,7 @@ class EventsViewModel {
     
     let viewMode = PublishSubject<CalendarView>()
     
-    let events = PublishSubject<[Event]>()
+    let events = BehaviorSubject<[Event]>(value: [])
     
     let trash = DisposeBag()
     
@@ -88,27 +88,22 @@ class EventsViewController: UIViewController {
         
         Observable.combineLatest(viewModel.events, orientation)
             .map({ ($0, $1 ? .daily : .weekly) })
+            .map({ events, orientation in
+                (events.sorted { $0.startTime < $1.startTime }, orientation)
+            })
             .subscribe(onNext: { [weak self] in
                 self?.show(events: $0, mode: $1)
             }).disposed(by: trash)
        
-        setup(newEventButton: IconButton(title: "add"))
-        setup(newCategoryButton: IconButton(title: "add cat"))
+        setup(newEventButton: IconButton(type: .contactAdd))
+        
         set(title: "Events")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         _ = viewModel.fetchEvents(query: [:])
         
-        viewModel.events
-            .map({ $0.sorted { $0.startTime < $1.startTime } })
-            .subscribe(onNext: {
-                print("events: ", $0)
-            })
-            .disposed(by: trash)
-        
         calendar.selectedEvent
-            .debug()
             .flatMap({ [weak self] in
                 self?.proposeDelete(event: $0) ?? .empty()
             })
@@ -148,16 +143,6 @@ class EventsViewController: UIViewController {
             .subscribe(onNext: { [weak self] _ in
                 let newEvent = NewEventViewController()
                 self?.navigationController?.pushViewController(newEvent, animated: true)
-            }).disposed(by: trash)
-    }
-    
-    func setup(newCategoryButton button: UIButton) {
-        navigationItem.rightViews.append(button)
-        
-        button.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                let newCategory = NewCategoryViewController()
-                self?.navigationController?.pushViewController(newCategory, animated: true)
             }).disposed(by: trash)
     }
     
@@ -226,6 +211,7 @@ class EventView: UIView {
         let hourString = String(format: "%02d", hour > 12 ? hour - 12 : hour)
         let minuteString = String(format: "%02d", minute)
         view.nameLabel.text = "\(hourString):\(minuteString) \(period) - \(event.name)"
+        view.backgroundColor = event.category?.color
         return view
     }
 }
@@ -243,6 +229,7 @@ class WeekEventView: UIView {
     class func create(event: Event) -> WeekEventView {
         let view = UINib(nibName: "WeekEventView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! WeekEventView
         view.nameLabel.text = event.name
+        view.backgroundColor = event.category?.color
         return view
     }
 }

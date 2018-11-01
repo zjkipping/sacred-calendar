@@ -19,7 +19,7 @@ enum TokenKey: String {
 
 class AuthService {
     
-    func login(credentials: Credentials) -> Observable<Bool> {
+    func login(credentials: Credentials) -> Observable<(Bool, String?)> {
         return Observable.create { observer in
             let params = [
                 "username" : credentials.username,
@@ -27,7 +27,12 @@ class AuthService {
             ]
             let request = API.request(.auth, .login, params) { response in
                 guard response.success else {
-                    observer.onError(response.error!)
+                    
+                    let error = response.error! as NSError
+                    
+                    let message = error.userInfo["message"] as? String
+                   
+                    observer.onNext((false, message ?? ""))
                     return
                 }
                 
@@ -39,7 +44,7 @@ class AuthService {
                     KeychainWrapper.standard.set(refreshToken, forKey: TokenKey.refresh.rawValue)
                 }
                 
-                observer.onNext(true)
+                observer.onNext((true, nil))
             }
             
             return Disposables.create {

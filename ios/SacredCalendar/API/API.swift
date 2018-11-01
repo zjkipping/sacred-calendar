@@ -63,7 +63,17 @@ class API {
             options[HeaderKey.authToken.rawValue] = authToken
         }
 
-        return Alamofire.request(url, method: method, parameters: parameters, encoding: encoding, headers: options).responseJSON {
+        return Alamofire.request(url, method: method, parameters: parameters, encoding: encoding, headers: options).validate({ request, response, data -> Request.ValidationResult in
+            
+            if !(200..<300).contains(response.statusCode) {
+                let error = NSError(domain: "none",
+                                      code: response.statusCode,
+                                  userInfo: JSON(data).dictionaryObject)
+                return .failure(error)
+            } else {
+                return .success
+            }
+        }).responseJSON {
             
             guard let response = API.validate(data: $0) else { return }
 

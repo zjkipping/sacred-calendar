@@ -63,10 +63,13 @@ class NewCategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        set(title: "New Category")
         
         setup(submitButton: submitButton)
         
         let colorPicker = HRColorPickerView()
+        colorPicker.addTarget(self, action: #selector(colorChanged(colorPicker:)), for: .valueChanged)
         colorPickerContainer.addSubview(colorPicker)
         constrain(colorPicker, colorPickerContainer) {
             $0.size == $1.size
@@ -74,12 +77,16 @@ class NewCategoryViewController: UIViewController {
         }
     }
     
+    @objc func colorChanged(colorPicker: HRColorPickerView) {
+        selectedColor.onNext(colorPicker.color)
+    }
+    
     func setup(submitButton button: UIButton) {
         let form = Observable.combineLatest(
             nameField.rx.text.orEmpty,
             selectedColor
         )
-
+        
         button.rx.tap
             .withLatestFrom(form)
             .map({ ($0, $1.hexString) })
@@ -102,16 +109,10 @@ class NewCategoryViewController: UIViewController {
 
 extension UIColor {
     var hexString: String {
-        return "NOT VALID HEX"
         guard let components = cgColor.components else { return "" }
-        let r = components[0]
-        let g = components[1]
-        let b = components[2]
-        
-        return String(format: "#%02lX%02lX%02lX",
-            lroundf(Float(r * 255)),
-            lroundf(Float(g * 255)),
-            lroundf(Float(b * 255))
-        )
+        let r = lroundf(Float(components[0] * 255))
+        let g = lroundf(Float(components[1] * 255))
+        let b = lroundf(Float(components[2] * 255))
+        return String(format: "#%02lX%02lX%02lX", r, g, b)
     }
 }

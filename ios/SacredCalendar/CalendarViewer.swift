@@ -38,22 +38,26 @@ class CalendarViewer: UIView {
     func showDaily(events: [Event]) {
         let dayView = DayView.create()
         
-        var longPresses: [Observable<Event>] = []
+        let today = Date()
         
-        for event in events {
+        let todaysEvents = events.filter {
+            Calendar.current.compare($0.date, to: today, toGranularity: .day) == .orderedSame
+        }
+        
+        for event in todaysEvents {
             let eventView = EventView.create(event: event)
             
             let longPress = UILongPressGestureRecognizer()
             eventView.addGestureRecognizer(longPress)
             
-            let longPressed = longPress.rx.event
-                                .filter({
-                                    print($0.state == .began)
-                                    return $0.state == .began
-                                })
-                                .withLatestFrom(Observable.just(event))
-
-            longPresses.append(longPressed)
+            longPress.rx.event
+                .filter({
+                    print($0.state == .began)
+                    return $0.state == .began
+                })
+                .withLatestFrom(Observable.just(event))
+                .bind(to: selectedEvent)
+                .disposed(by: rerenderTrash)
             
             dayView.eventsStackView.addArrangedSubview(eventView)
             
@@ -61,11 +65,6 @@ class CalendarViewer: UIView {
                 $0.height == 44
             }
         }
-        
-        Observable.merge(longPresses)
-            .debug()
-            .bind(to: selectedEvent)
-            .disposed(by: rerenderTrash)
         
         addSubview(dayView)
         constrain(dayView, self) {
@@ -122,7 +121,11 @@ class CalendarViewer: UIView {
                 }
             }
             
-            for event in events {
+            let todaysEvents = events.filter {
+                Calendar.current.compare($0.date, to: date, toGranularity: .day) == .orderedSame
+            }
+            
+            for event in todaysEvents {
                 let eventView = WeekEventView.create(event: event)
                 dayView.eventsStackView.addArrangedSubview(eventView)
                 
@@ -133,7 +136,7 @@ class CalendarViewer: UIView {
                     .filter({ $0.state == .began })
                     .withLatestFrom(Observable.just(event))
                     .bind(to: selectedEvent)
-                    .disposed(by: eventView.trash)
+                    .disposed(by: rerenderTrash)
             
                 constrain(eventView) {
                     $0.height == 30

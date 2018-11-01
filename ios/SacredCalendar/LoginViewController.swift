@@ -28,7 +28,7 @@ class AuthViewModel {
         self.services = services
     }
     
-    func login(credentials: Credentials) -> Observable<Bool> {
+    func login(credentials: Credentials) -> Observable<(Bool, String?)> {
         return services.auth.login(credentials: credentials)
     }
     
@@ -47,12 +47,14 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
+    @IBOutlet weak var errorLabel: UILabel!
+    
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
     
     let viewModel: AuthViewModel
     
-    let formErrors = PublishSubject<[String]>()
+    let formErrors = BehaviorSubject<[String]>(value: [""])
     
     let trash = DisposeBag()
     
@@ -95,13 +97,9 @@ class LoginViewController: UIViewController {
     
     func attachFormErrorObserver() {
         formErrors
-            .filter({ $0.count > 0 })
-            .subscribe(onNext: {
-                
-                // TODO: display form errors
-                print($0)
-                
-            }).disposed(by: trash)
+            .map({ $0.first })
+            .bind(to: errorLabel.rx.text)
+            .disposed(by: trash)
     }
     
     func validateForm(username: String, password: String) -> FormValidationState {
@@ -136,17 +134,22 @@ class LoginViewController: UIViewController {
                     return false
                 }
             })
-            .flatMap({ [weak self] username, password -> Observable<Bool> in
+            .flatMap({ [weak self] username, password -> Observable<(Bool, String?)> in
                 let credentials = (username: username, password: password)
                 return self?.viewModel.login(credentials: credentials) ?? .empty()
             })
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] success, errorMessage in
 //                User.current = $0
                 
 //                print("logged in: \($0.fullName)")
                 
-                let events = EventsViewController()
-                self?.navigationController?.pushViewController(events, animated: true)
+                if success {
+                    let events = EventsViewController()
+                    self?.navigationController?.pushViewController(events, animated: true)
+                } else if let errorMessage = errorMessage {
+                    self?.formErrors.onNext([errorMessage])
+                }
+                
             })
             .disposed(by: trash)
     }

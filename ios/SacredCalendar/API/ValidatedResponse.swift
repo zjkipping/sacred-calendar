@@ -18,8 +18,8 @@ class ValidatedResponse {
         return (200..<300).contains(statusCode)
     }
     
-    var error: Error? {
-        return raw.error
+    var error: NSError? {
+        return raw.error as? NSError
     }
     
     init(raw: DataResponse<Any>, statusCode: Int, data: JSON) {

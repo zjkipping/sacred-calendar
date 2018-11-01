@@ -10,6 +10,7 @@ import UIKit
 
 import Cartography
 import iOSDropDown
+import Material
 import MaterialComponents
 import RxCocoa
 import RxSwift
@@ -53,20 +54,12 @@ class NewEventViewController: UIViewController {
         case start, end
     }
     
-    @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var descriptionField: UITextField!
-    @IBOutlet weak var locationField: UITextField!
-    
-    @IBOutlet weak var editStartTimeButton: UIButton!
-    @IBOutlet weak var editEndTimeButton: UIButton!
+    @IBOutlet weak var formView: NewEventFormView!
     
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
-    @IBOutlet weak var startDateLabel: UILabel!
-    @IBOutlet weak var endDateLabel: UILabel!
-    
-    @IBOutlet weak var categoryDropdown: DropDown!
+    let date = BehaviorSubject<Date>(value: Date())
     
     let startDate = BehaviorSubject<Date>(value: Date())
     let endDate = BehaviorSubject<Date>(value: Date())
@@ -95,11 +88,20 @@ class NewEventViewController: UIViewController {
         setup(submitButton: submitButton)
         setup(cancelButton: cancelButton)
         
-        setup(editTimeButton: editStartTimeButton, time: .start)
-        setup(editTimeButton: editEndTimeButton, time: .end)
+        date
+            .map({
+                let formatter = DateFormatter()
+                formatter.dateFormat = "MM/dd/YYYY"
+                return formatter.string(from: $0)
+            })
+            .bind(to: formView.dateLabel.rx.text)
+            .disposed(by: trash)
+        setup(editDateButton: formView.editDateButton)
+        setup(editTimeButton: formView.editStartTimeButton, time: .start)
+        setup(editTimeButton: formView.editEndTimeButton, time: .end)
         
-        bind(observable: formated(date: startDate), to: startDateLabel.rx.text)
-        bind(observable: formated(date: endDate), to: endDateLabel.rx.text)
+        bind(observable: formated(date: startDate), to: formView.startDateLabel.rx.text)
+        bind(observable: formated(date: endDate), to: formView.endDateLabel.rx.text)
         
         formErrors.subscribe(onNext: {
             print($0)
@@ -107,8 +109,18 @@ class NewEventViewController: UIViewController {
         
         viewModel.fetchCategories()
             .subscribe(onNext: { [weak self] categories in
-                self?.categoryDropdown.optionArray = categories.map { $0.name }
-                self?.categoryDropdown.optionIds = categories.map { $0.id }
+                self?.formView.categoryDropdown.optionArray = categories.map { $0.name }
+                self?.formView.categoryDropdown.optionIds = categories.map { $0.id }
+            }).disposed(by: trash)
+        
+        setup(newCategoryButton: formView.newCategoryButton)
+    }
+    
+    func setup(newCategoryButton button: UIButton) {        
+        button.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                let newCategory = NewCategoryViewController()
+                self?.navigationController?.pushViewController(newCategory, animated: true)
             }).disposed(by: trash)
     }
     
@@ -120,11 +132,22 @@ class NewEventViewController: UIViewController {
         observable.bind(to: property).disposed(by: trash)
     }
     
-    func showDatePicker(date: Date?) -> Observable<Date> {
-        let container = UIView()
-        container.backgroundColor = .darkGray
+    func showDatePicker(mode: UIDatePicker.Mode, title: String, date: Date?) -> Observable<Date> {
+        let blur = UIBlurEffect(style: .dark)
+        let blurred = UIVisualEffectView(effect: blur)
+        blurred.layer.cornerRadius = 14
+        blurred.clipsToBounds = true
+        let container = blurred.contentView
         
         let picker = UIDatePicker()
+        let color = "26A69A"
+        let index = color.index(color.startIndex, offsetBy: 1)
+        
+        let hex = color[index...]
+        if let hexNumber = Int(hex, radix: 16) {
+            picker.setValue(UIColor(rgb: UInt32(hexNumber)), forKeyPath: "textColor")
+        }
+        picker.datePickerMode = mode
         picker.date = date ?? Date()
         
         let done = MDCRaisedButton()
@@ -132,21 +155,32 @@ class NewEventViewController: UIViewController {
         done.setTitleColor(.white, for: .normal)
         done.setBackgroundColor(.blue, for: .normal)
         
+        let label = UILabel()
+        label.textColor = .white
+        label.textAlignment = .center
+        label.text = title
+        label.font = label.font.asBold()
+        label.fontSize = 40
+        
+        container.addSubview(label)
         container.addSubview(done)
         container.addSubview(picker)
-        constrain(picker, done, container) {
-            $1.height == 44
-            $1.centerX == $2.centerX
+        constrain(picker, done, label, container) {
+            $2.top == $3.top + 10
+            $2.centerX == $3.centerX
             
-            $0.top == $2.top
+            $1.height == 44
+            $1.centerX == $3.centerX
+            
+            $0.top == $2.top + 20
             $0.bottom == $1.top
-            $1.bottom == $2.bottom
+            $1.bottom == $3.bottom - 10
         }
         
-        view.addSubview(container)
-        constrain(container, view) {
+        view.addSubview(blurred)
+        constrain(blurred, view) {
             $0.center == $1.center
-            $0.width == $1.width
+            $0.width == $1.width * 0.95
         }
         
         return done.rx.tap
@@ -155,13 +189,24 @@ class NewEventViewController: UIViewController {
                     .do(onCompleted: container.removeFromSuperview)
     }
     
+    func setup(editDateButton button: UIButton) {
+        button.rx.tap
+            .withLatestFrom(date)
+            .flatMap({ [weak self] in
+                self?.showDatePicker(mode: .date, title: "Date", date: $0) ?? .empty()
+            })
+            .bind(to: date)
+            .disposed(by: trash)
+    }
+    
     func setup(editTimeButton button: UIButton, time: EventTime) {
         let dateOption = time == .start ? startDate : endDate
+        let title = time == .start ? "Start Time" : "End Time"
         
         button.rx.tap
             .withLatestFrom(dateOption)
             .flatMap({ [weak self] in
-                self?.showDatePicker(date: $0) ?? .empty()
+                self?.showDatePicker(mode: .time, title: title, date: $0) ?? .empty()
             })
             .bind(to: dateOption)
             .disposed(by: trash)
@@ -169,9 +214,10 @@ class NewEventViewController: UIViewController {
     
     func setup(submitButton button: UIButton) {
         let form = Observable.combineLatest(
-            nameField.rx.text.orEmpty,
-            descriptionField.rx.text.orEmpty,
-            locationField.rx.text.orEmpty,
+            formView.nameField.rx.text.orEmpty,
+            formView.descriptionField.rx.text.orEmpty,
+            formView.locationField.rx.text.orEmpty,
+            date,
             startDate,
             endDate
         )
@@ -182,6 +228,7 @@ class NewEventViewController: UIViewController {
                 guard let self = self else { return false }
                 _ = $3
                 _ = $4
+                _ = $5
                 
                 switch self.validateForm(name: $0, description: $1, location: $2) {
                 case .valid: return true
@@ -195,12 +242,13 @@ class NewEventViewController: UIViewController {
                     "description" : $1,
                     "location" : $2,
                     "date" : $3.dateString,
-                    "startTime" : $3.timeString,
-                    "endTime" : $4.timeString,
+                    "startTime" : $4.timeString,
+                    "endTime" : $5.timeString,
                 ]
                 
-                if let selected = self?.categoryDropdown.selectedIndex,
-                    let id = self?.categoryDropdown.optionIds?[selected] {
+                if let dropdown = self?.formView.categoryDropdown,
+                   let selected = dropdown.selectedIndex,
+                   let id = dropdown.optionIds?[selected] {
                     data["categoryID"] = id
                 }
                 return data

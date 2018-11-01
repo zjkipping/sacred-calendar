@@ -32,6 +32,8 @@
 		8B8457232189FF44003E49EC /* CreateCategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8457222189FF44003E49EC /* CreateCategoryService.swift */; };
 		8B845725218A039D003E49EC /* NewCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B845724218A039D003E49EC /* NewCategoryViewController.xib */; };
 		8B845727218A2D17003E49EC /* FetchCategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B845726218A2D17003E49EC /* FetchCategoryService.swift */; };
+		8B8A1782218A8B04001A811F /* NewEventFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B8A1781218A8B04001A811F /* NewEventFormView.xib */; };
+		8B8A1784218A8BA6001A811F /* NewEventFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1783218A8BA6001A811F /* NewEventFormView.swift */; };
 		8B9B13B0217D2474002CB9A0 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13AF217D2474002CB9A0 /* AuthService.swift */; };
 		8B9B13B4217D320A002CB9A0 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13B3217D320A002CB9A0 /* Model.swift */; };
 		8B9B13B6217D345C002CB9A0 /* FetchEventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13B5217D345C002CB9A0 /* FetchEventsService.swift */; };
@@ -93,6 +95,8 @@
 		8B8457222189FF44003E49EC /* CreateCategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryService.swift; sourceTree = "<group>"; };
 		8B845724218A039D003E49EC /* NewCategoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewCategoryViewController.xib; sourceTree = "<group>"; };
 		8B845726218A2D17003E49EC /* FetchCategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchCategoryService.swift; sourceTree = "<group>"; };
+		8B8A1781218A8B04001A811F /* NewEventFormView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewEventFormView.xib; sourceTree = "<group>"; };
+		8B8A1783218A8BA6001A811F /* NewEventFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventFormView.swift; sourceTree = "<group>"; };
 		8B9B13AF217D2474002CB9A0 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		8B9B13B3217D320A002CB9A0 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8B9B13B5217D345C002CB9A0 /* FetchEventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchEventsService.swift; sourceTree = "<group>"; };
@@ -169,6 +173,7 @@
 				8B29FFC5218285A600F86BC8 /* SignUpViewController.xib */,
 				8B8456E121879230003E49EC /* EventsViewController.xib */,
 				8B84571821881C77003E49EC /* NewEventViewController.xib */,
+				8B8A1781218A8B04001A811F /* NewEventFormView.xib */,
 				8B845724218A039D003E49EC /* NewCategoryViewController.xib */,
 				8B8456E32187A4A0003E49EC /* DayViewCell.xib */,
 				8B8456E52187BFDC003E49EC /* DayView.xib */,
@@ -254,6 +259,7 @@
 				8BC175F321758E54002AFFD2 /* EventsViewController.swift */,
 				8B84571621881C68003E49EC /* NewEventViewController.swift */,
 				8B8457202189FD9E003E49EC /* NewCategoryViewController.swift */,
+				8B8A1783218A8BA6001A811F /* NewEventFormView.swift */,
 				8B845714218814EB003E49EC /* CalendarViewer.swift */,
 				8B9B13B2217D31F8002CB9A0 /* Models */,
 				8B9B13B1217D2481002CB9A0 /* Services */,
@@ -407,6 +413,7 @@
 				8B8456E62187BFDC003E49EC /* DayView.xib in Resources */,
 				8B8456E42187A4A0003E49EC /* DayViewCell.xib in Resources */,
 				8B8457112187FB20003E49EC /* EventView.xib in Resources */,
+				8B8A1782218A8B04001A811F /* NewEventFormView.xib in Resources */,
 				8B845725218A039D003E49EC /* NewCategoryViewController.xib in Resources */,
 				8B8456E221879230003E49EC /* EventsViewController.xib in Resources */,
 				8BA90066215334BA00FF7733 /* LaunchScreen.storyboard in Resources */,
@@ -540,6 +547,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B84571F2189458C003E49EC /* DeleteEventService.swift in Sources */,
+				8B8A1784218A8BA6001A811F /* NewEventFormView.swift in Sources */,
 				8BC175F621759501002AFFD2 /* SignUpViewController.swift in Sources */,
 				8B9B13BA217D6655002CB9A0 /* Environment.swift in Sources */,
 				8B495AF7216EDB0900F0A60C /* Extensions.swift in Sources */,

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewEventFormView" customModule="SacredCalendar" customModuleProvider="target">
+            <connections>
+                <outlet property="categoryDropdown" destination="JAA-aQ-W3v" id="Swp-8s-JyM"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="3KC-PP-sCd"/>
+                <outlet property="dateLabel" destination="apF-rM-9vN" id="qKm-Vf-vDe"/>
+                <outlet property="descriptionField" destination="Mh8-5Z-BDT" id="Gc9-CH-wDY"/>
+                <outlet property="editDateButton" destination="w44-ht-9Nj" id="hCH-4c-HtO"/>
+                <outlet property="editEndTimeButton" destination="HgS-RI-XSa" id="CVG-vZ-Kan"/>
+                <outlet property="editStartTimeButton" destination="ac9-z3-g2L" id="BV6-di-4u5"/>
+                <outlet property="endDateLabel" destination="fwD-La-o3a" id="cfT-4t-QiK"/>
+                <outlet property="locationField" destination="h9h-hD-rIt" id="ppD-v6-wlY"/>
+                <outlet property="nameField" destination="k3W-3k-Krg" id="90h-WL-z5G"/>
+                <outlet property="newCategoryButton" destination="Qp5-dy-wDu" id="BJe-JG-rOn"/>
+                <outlet property="startDateLabel" destination="7Gu-O2-x0g" id="xJe-eG-GY1"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="374" height="598"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Gu-O2-x0g">
+                    <rect key="frame" x="56" y="233" width="46" height="27"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apF-rM-9vN">
+                    <rect key="frame" x="164.5" y="156" width="45" height="27"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JAA-aQ-W3v" customClass="DropDown" customModule="iOSDropDown">
+                    <rect key="frame" x="82" y="358" width="210" height="30"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="7aS-bh-W6Q"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k6k-xB-r3N">
+                    <rect key="frame" x="82" y="330" width="80.5" height="24"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ac9-z3-g2L" customClass="MDCRaisedButton">
+                    <rect key="frame" x="56" y="280" width="80" height="30"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="wE8-qp-LvC"/>
+                        <constraint firstAttribute="width" constant="80" id="zlm-rz-HCQ"/>
+                    </constraints>
+                    <state key="normal" title="EDIT">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mh8-5Z-BDT" customClass="MFTextField">
+                    <rect key="frame" x="56" y="50" width="262" height="30"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="description"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                            <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultPlaceholderColor">
+                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h9h-hD-rIt" customClass="MFTextField">
+                    <rect key="frame" x="56" y="100" width="262" height="30"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="location"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                            <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultPlaceholderColor">
+                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HgS-RI-XSa" customClass="MDCRaisedButton">
+                    <rect key="frame" x="238" y="280" width="80" height="30"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="UN3-9C-dyX"/>
+                        <constraint firstAttribute="height" constant="30" id="WJH-2y-dnW"/>
+                    </constraints>
+                    <state key="normal" title="EDIT">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fwD-La-o3a">
+                    <rect key="frame" x="281" y="233" width="37" height="27"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k3W-3k-Krg" customClass="MFTextField">
+                    <rect key="frame" x="56" y="0.0" width="262" height="30"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="event name"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                            <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultPlaceholderColor">
+                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w44-ht-9Nj">
+                    <rect key="frame" x="127" y="183" width="120" height="30"/>
+                    <color key="backgroundColor" red="0.0" green="0.4550089813" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="RIi-Dj-BIA"/>
+                        <constraint firstAttribute="width" constant="120" id="RYZ-b4-Mcg"/>
+                    </constraints>
+                    <state key="normal" title="CHANGE DATE">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qp5-dy-wDu" customClass="MDCRaisedButton">
+                    <rect key="frame" x="137" y="396" width="100" height="30"/>
+                    <color key="backgroundColor" red="0.066666666669999999" green="0.43921568630000002" blue="0.41568627450000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="5ca-tA-Ofy"/>
+                        <constraint firstAttribute="height" constant="30" id="qTO-Sl-mpp"/>
+                    </constraints>
+                    <state key="normal" title="NEW">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="JAA-aQ-W3v" firstAttribute="width" secondItem="h9h-hD-rIt" secondAttribute="width" multiplier="0.8" id="2N4-jL-Ft2"/>
+                <constraint firstItem="k6k-xB-r3N" firstAttribute="top" secondItem="ac9-z3-g2L" secondAttribute="bottom" constant="20" id="3oa-o8-X3W"/>
+                <constraint firstItem="apF-rM-9vN" firstAttribute="centerX" secondItem="h9h-hD-rIt" secondAttribute="centerX" id="4dH-hS-zr2"/>
+                <constraint firstItem="Mh8-5Z-BDT" firstAttribute="width" secondItem="k3W-3k-Krg" secondAttribute="width" id="6gA-OU-Bx9"/>
+                <constraint firstItem="Qp5-dy-wDu" firstAttribute="top" secondItem="JAA-aQ-W3v" secondAttribute="bottom" constant="8" id="8ko-gu-MdV"/>
+                <constraint firstItem="w44-ht-9Nj" firstAttribute="centerX" secondItem="apF-rM-9vN" secondAttribute="centerX" id="96s-9h-stA"/>
+                <constraint firstItem="Qp5-dy-wDu" firstAttribute="centerX" secondItem="JAA-aQ-W3v" secondAttribute="centerX" id="9gd-Gg-C5N"/>
+                <constraint firstItem="JAA-aQ-W3v" firstAttribute="top" secondItem="k6k-xB-r3N" secondAttribute="bottom" constant="4" id="COk-eu-533"/>
+                <constraint firstItem="fwD-La-o3a" firstAttribute="centerY" secondItem="7Gu-O2-x0g" secondAttribute="centerY" id="EoY-Gv-Ex5"/>
+                <constraint firstItem="apF-rM-9vN" firstAttribute="top" secondItem="h9h-hD-rIt" secondAttribute="bottom" constant="26" id="FSH-Xr-HyU"/>
+                <constraint firstItem="ac9-z3-g2L" firstAttribute="leading" secondItem="7Gu-O2-x0g" secondAttribute="leading" id="GPc-V4-mAd"/>
+                <constraint firstItem="ac9-z3-g2L" firstAttribute="top" secondItem="7Gu-O2-x0g" secondAttribute="bottom" constant="20" id="GoL-l9-Rxh"/>
+                <constraint firstItem="h9h-hD-rIt" firstAttribute="top" secondItem="Mh8-5Z-BDT" secondAttribute="bottom" constant="20" id="Hkj-Sm-5ag"/>
+                <constraint firstItem="7Gu-O2-x0g" firstAttribute="leading" secondItem="h9h-hD-rIt" secondAttribute="leading" id="UgQ-R7-ml8"/>
+                <constraint firstItem="h9h-hD-rIt" firstAttribute="height" secondItem="k3W-3k-Krg" secondAttribute="height" id="UmE-2Z-O6K"/>
+                <constraint firstItem="HgS-RI-XSa" firstAttribute="top" secondItem="fwD-La-o3a" secondAttribute="bottom" constant="20" id="Vxr-z8-eUt"/>
+                <constraint firstItem="k3W-3k-Krg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="YC1-Q2-dhE"/>
+                <constraint firstItem="k6k-xB-r3N" firstAttribute="leading" secondItem="JAA-aQ-W3v" secondAttribute="leading" id="Znb-ZS-xE7"/>
+                <constraint firstItem="Mh8-5Z-BDT" firstAttribute="top" secondItem="k3W-3k-Krg" secondAttribute="bottom" constant="20" id="cQE-Um-fo6"/>
+                <constraint firstItem="Mh8-5Z-BDT" firstAttribute="height" secondItem="k3W-3k-Krg" secondAttribute="height" id="eX2-zI-ZLG"/>
+                <constraint firstItem="h9h-hD-rIt" firstAttribute="width" secondItem="Mh8-5Z-BDT" secondAttribute="width" id="iAO-3h-wde"/>
+                <constraint firstItem="Mh8-5Z-BDT" firstAttribute="centerX" secondItem="k3W-3k-Krg" secondAttribute="centerX" id="jQw-5n-kRH"/>
+                <constraint firstItem="fwD-La-o3a" firstAttribute="trailing" secondItem="h9h-hD-rIt" secondAttribute="trailing" id="llb-74-PN0"/>
+                <constraint firstItem="JAA-aQ-W3v" firstAttribute="centerX" secondItem="h9h-hD-rIt" secondAttribute="centerX" id="nrx-Rt-i9j"/>
+                <constraint firstItem="h9h-hD-rIt" firstAttribute="centerX" secondItem="Mh8-5Z-BDT" secondAttribute="centerX" id="o9m-SJ-mcf"/>
+                <constraint firstItem="HgS-RI-XSa" firstAttribute="trailing" secondItem="fwD-La-o3a" secondAttribute="trailing" id="tFi-LZ-aHM"/>
+                <constraint firstItem="k3W-3k-Krg" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.7" constant="0.59999999999999998" id="tI4-7P-GW5"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="JAA-aQ-W3v" secondAttribute="bottom" constant="100" id="tLU-GQ-Luu"/>
+                <constraint firstItem="k3W-3k-Krg" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="tNP-6h-uxd"/>
+                <constraint firstItem="7Gu-O2-x0g" firstAttribute="top" secondItem="w44-ht-9Nj" secondAttribute="bottom" constant="20" id="tj5-23-Vmg"/>
+                <constraint firstItem="w44-ht-9Nj" firstAttribute="top" secondItem="apF-rM-9vN" secondAttribute="bottom" id="uE9-ut-GAF"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="44.799999999999997" y="-36.881559220389811"/>
+        </view>
+    </objects>
+</document>

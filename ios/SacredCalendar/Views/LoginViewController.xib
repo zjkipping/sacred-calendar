@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="SacredCalendar" customModuleProvider="target">
             <connections>
+                <outlet property="errorLabel" destination="Cor-AQ-G9w" id="4rS-cP-VGC"/>
                 <outlet property="passwordField" destination="WhJ-td-fxQ" id="Cyq-dA-beg"/>
                 <outlet property="signUpButton" destination="nzL-tM-fh9" id="Oke-Uf-Svw"/>
                 <outlet property="submitButton" destination="DOy-92-VIt" id="uZ9-vK-Rax"/>
@@ -46,7 +47,6 @@
                 </textField>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WhJ-td-fxQ" customClass="MFTextField">
                     <rect key="frame" x="94" y="200" width="187.5" height="30"/>
-                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
@@ -70,16 +70,25 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="error message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cor-AQ-G9w">
+                    <rect key="frame" x="47" y="238" width="281" height="63.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="nzL-tM-fh9" firstAttribute="centerX" secondItem="DOy-92-VIt" secondAttribute="centerX" id="4ut-rE-SmG"/>
+                <constraint firstItem="Cor-AQ-G9w" firstAttribute="centerX" secondItem="WhJ-td-fxQ" secondAttribute="centerX" id="6DL-tI-RLb"/>
                 <constraint firstItem="DOy-92-VIt" firstAttribute="top" secondItem="WhJ-td-fxQ" secondAttribute="bottom" constant="91.5" id="6Yk-1Q-O9w"/>
                 <constraint firstItem="DOy-92-VIt" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="HdZ-8H-QTt"/>
                 <constraint firstItem="WhJ-td-fxQ" firstAttribute="top" secondItem="rpG-Md-cJg" secondAttribute="bottom" constant="13" id="Th5-gn-ABR"/>
                 <constraint firstItem="rpG-Md-cJg" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="0.5" id="ThT-w4-UUR"/>
+                <constraint firstItem="DOy-92-VIt" firstAttribute="top" secondItem="Cor-AQ-G9w" secondAttribute="bottom" constant="20" id="Tvc-Mk-AfP"/>
                 <constraint firstItem="rpG-Md-cJg" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.5" id="V7L-zE-BOM"/>
                 <constraint firstItem="WhJ-td-fxQ" firstAttribute="centerX" secondItem="rpG-Md-cJg" secondAttribute="centerX" id="WVy-s3-fD9"/>
+                <constraint firstItem="Cor-AQ-G9w" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.75" id="hek-Lu-rcP"/>
+                <constraint firstItem="Cor-AQ-G9w" firstAttribute="top" secondItem="WhJ-td-fxQ" secondAttribute="bottom" constant="8" id="iDf-Bv-dyH"/>
                 <constraint firstItem="nzL-tM-fh9" firstAttribute="height" secondItem="DOy-92-VIt" secondAttribute="height" id="j3w-Vq-g8P"/>
                 <constraint firstItem="nzL-tM-fh9" firstAttribute="width" secondItem="DOy-92-VIt" secondAttribute="width" id="kMH-J7-R8R"/>
                 <constraint firstItem="rpG-Md-cJg" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="nwd-5K-Ps4"/>
