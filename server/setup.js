@@ -4,8 +4,10 @@ const mysql = require('mysql2/promise');
 module.exports = { 
   setup: async () => {
     try {
+      // creates a one-time connection to the DB
       const connection = await mysql.createConnection(CONFIG.dbCredentials);
   
+      // creates the UserLogin table in the DB
       await connection.execute(`
         CREATE TABLE IF NOT EXISTS UserLogin (
           id int AUTO_INCREMENT PRIMARY KEY,
@@ -13,7 +15,8 @@ module.exports = {
           password varchar(256) NOT NULL
         )
       `);
-  
+          
+      // creates the UserDetails table in the DB
       await connection.execute(`
         CREATE TABLE IF NOT EXISTS UserDetails (
           userID int NOT NULL,
@@ -25,6 +28,7 @@ module.exports = {
         )
       `);
   
+      // creates the TokenAuth table in the DB
       await connection.execute(`
         CREATE TABLE IF NOT EXISTS TokenAuth (
           userID int NOT NULL,
@@ -32,6 +36,7 @@ module.exports = {
         )
       `);
 
+      // creates the Category table in the DB
       await connection.execute(`
         CREATE TABLE IF NOT EXISTS Category (
           id int AUTO_INCREMENT PRIMARY KEY,
@@ -42,6 +47,7 @@ module.exports = {
         )
       `);
 
+      // creates the Event table in the DB
       await connection.execute(`
         CREATE TABLE IF NOT EXISTS Event (
           id int AUTO_INCREMENT PRIMARY KEY,
@@ -59,7 +65,7 @@ module.exports = {
         )
       `);
 
-      // kinda depressing...
+      // creates the Friendship table in the DB
       await connection.execute(`
         CREATE TABLE IF NOT EXISTS Friendship (
           id int AUTO_INCREMENT PRIMARY KEY,
@@ -71,6 +77,7 @@ module.exports = {
         )
       `);
 
+      // creates the FriendRequest table in the DB
       await connection.execute(`
         CREATE TABLE IF NOT EXISTS FriendRequest (
           id int AUTO_INCREMENT PRIMARY KEY,
@@ -80,6 +87,7 @@ module.exports = {
         )
       `);
 
+      // creates the EventInvite table in the DB
       await connection.execute(`
         CREATE TABLE IF NOT EXISTS EventInvite (
           id int AUTO_INCREMENT PRIMARY KEY,
@@ -90,10 +98,12 @@ module.exports = {
           FOREIGN KEY (eventID) REFERENCES Event (id)
         )
       `);
+      connection.end();
     } catch (err) {
       console.log(err);
     }
     console.log('Finished Setup!');
+    // if the system isn't in production full exit the program, otherwise let it continue
     if (!CONFIG.production) {
       process.exit(0);
     }

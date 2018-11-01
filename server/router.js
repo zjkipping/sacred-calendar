@@ -5,11 +5,14 @@ const user = require('./user');
 const express = require('express');
 const mysql = require('mysql2');
 
+// creates an express router instance
 const router = express.Router();
 
 const startRoutes = async () => {
+  // creates a pool of connections to the Database, using the config DB credentials supplied
   pool = mysql.createPool(CONFIG.dbCredentials).promise();
 
+  // routes below are involved in auth (register, login, logout, tokenRefresh)
   router.post('/register', auth.register);
 
   router.post('/login', auth.login);
@@ -18,6 +21,7 @@ const startRoutes = async () => {
 
   router.post('/token', tokenUtil.refreshToken);
 
+  // used to check the user's token for a valid auth for the rest of the routes below
   router.use(tokenUtil.checkToken);
 
   // anything below here requires a token to use
@@ -48,6 +52,8 @@ const startRoutes = async () => {
   router.delete('/friends', user.removeFriend);
 };
 
+// starts the router in an asynchronous fashion
 startRoutes();
 
+// exports the router
 module.exports = router;
