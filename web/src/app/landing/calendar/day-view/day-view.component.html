@@ -16,7 +16,7 @@
             <span *ngIf="event.location"> at {{event.location}}</span>
           </div>
           <div class="ellipse-text"><span>{{event.name}}</span></div>
-          <div class="divider-event" [style.borderColor]="event.fontColor"></div>
+          <div class="divider-event" *ngIf="event.description" [style.borderColor]="event.fontColor"></div>
           <div>{{event.description}}</div>
         </div>
         <button mat-mini-fab class="delete-button" (click)="deleteClicked(event)" color="warn">

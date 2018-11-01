@@ -93,7 +93,17 @@ function SetDate(date: moment.Moment, rawEvents: Event[], current: moment.Moment
       return event.date.isSame(date, 'day');
     })
     // sorting the filtered events by their start time (early -> late)
-    .sortBy((event: Event) => event.startTime)
+    .sortBy((event: Event) => {
+      // hack to get around time sorting until we use UNIX time stamps...
+      const parts = event.startTime.split(':');
+      const right = parts[1].split(' ');
+      let hours = Number.parseInt(parts[0] + '00', undefined);
+      const minutes = Number.parseInt(right[0], undefined);
+      if (right[1] === 'pm') {
+        hours += 1200;
+      }
+      return hours + minutes;
+    })
     .value();
 
   // return the calendarDate object back
