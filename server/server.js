@@ -16,6 +16,11 @@ app.options('*', cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// useful for when pinging the server
+app.get('/', async (req, res) => {
+  return res.status(200).send({});
+});
+
 // runs the router.js for any routes going to /api (this is the only parent route)
 app.use('/api', require('./router'));
 
