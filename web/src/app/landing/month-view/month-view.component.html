@@ -19,7 +19,7 @@
         <ng-container *ngFor="let event of day.events; index as i">
           <div class="event" [style.borderColor]="event.fontColor" [style.color]="event.fontColor" [style.backgroundColor]="event.category.color" *ngIf="i < 3 || day.events.length <= 4">{{event.name}}</div>
         </ng-container>
-        <div class="text-right event-ellipse" *ngIf="day.events.length > 4">+{{day.events.length - 4}}</div>
+        <div class="text-right event-ellipse" *ngIf="day.events.length > 4">+{{day.events.length - 3}}</div>
       </div>
       <div class="disabled" *ngIf="day.disabled"></div>
     </mat-grid-tile>
