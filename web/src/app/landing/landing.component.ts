@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from '@services/data.service';
 
 @Component({
   selector: 'app-landing',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent {
-  constructor() { }
+  constructor(ds: DataService) {
+    ds.loadEvents();
+  }
 }

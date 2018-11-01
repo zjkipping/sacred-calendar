@@ -25,7 +25,13 @@
   position: relative;
 }
 
-.divider {
+.divider-event {
+  margin: 5px 0px;
+  border: 1px solid white;
+  width: 100%;
+}
+
+.divider-title {
   border: 1px solid white;
   width: 100%;
 }

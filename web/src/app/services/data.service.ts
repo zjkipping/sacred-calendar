@@ -17,10 +17,13 @@ const API_URL = environment.API_URL;
 export class DataService {
   userDetails: Observable<UserDetails>;
   events = new BehaviorSubject<Event[]>([]);
-  loadingEvents: boolean;
+  loadingEvents = false;
 
   constructor(private http: HttpClient, private router: Router) {
     this.userDetails = this.http.get<UserDetails>(API_URL + '/self');
+  }
+
+  loadEvents() {
     this.loadingEvents = true;
     this.fetchEvents();
   }

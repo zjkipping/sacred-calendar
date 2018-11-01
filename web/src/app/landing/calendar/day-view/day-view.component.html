@@ -6,7 +6,7 @@
     <div class="day-title">
       <h2 class="text-center">{{day?.mDate.format('dddd, MMMM Do YYYY')}}</h2>
     </div>
-    <div class="divider"></div>
+    <div class="divider-title"></div>
     <div class="events-list">
       <div *ngIf="day?.events.length === 0" class="text-center">You don't have any events on this day.</div>
       <div class="event-container" *ngFor="let event of day?.events">
@@ -16,6 +16,7 @@
             <span *ngIf="event.location"> at {{event.location}}</span>
           </div>
           <div class="ellipse-text"><span>{{event.name}}</span></div>
+          <div class="divider-event" [style.borderColor]="event.fontColor"></div>
           <div>{{event.description}}</div>
         </div>
         <button mat-mini-fab class="delete-button" (click)="deleteClicked(event)" color="warn">
