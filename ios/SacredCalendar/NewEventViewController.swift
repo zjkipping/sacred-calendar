@@ -150,7 +150,12 @@ class NewEventViewController: UIViewController {
         observable.bind(to: property).disposed(by: trash)
     }
     
-    func showDatePicker(mode: UIDatePicker.Mode, title: String, date: Date?) -> Observable<Date> {
+    func showDatePicker(mode: UIDatePicker.Mode, title: String, date initial: Date?) -> Observable<Date> {
+        let adjustment = NSDateComponents()
+        adjustment.hour = -2
+        
+        let date = Calendar.current.date(byAdding: adjustment as DateComponents, to: initial ?? Date())!
+        
         let blur = UIBlurEffect(style: .dark)
         let blurred = UIVisualEffectView(effect: blur)
         blurred.layer.cornerRadius = 14
@@ -203,6 +208,13 @@ class NewEventViewController: UIViewController {
         
         return done.rx.tap
                     .withLatestFrom(picker.rx.date)
+                    .map({
+                        let adjustment = NSDateComponents()
+                        adjustment.hour = 2
+                        
+                        let adjusted = Calendar.current.date(byAdding: adjustment as DateComponents, to: $0)!
+                        return adjusted
+                    })
                     .take(1)
                     .do(onCompleted: container.removeFromSuperview)
     }
@@ -271,8 +283,8 @@ class NewEventViewController: UIViewController {
                     "description" : $1,
                     "location" : $2,
                     "date" : $3.dateString,
-                    "startTime" : start.timeString,
-                    "endTime" : end.timeString,
+                    "startTime" : start.timeString.lowercased(),
+                    "endTime" : end.timeString.lowercased(),
 //                    "startTime" : formatter.string(from: start),
 //                    "endTime" : formatter.string(from: end),
                 ]

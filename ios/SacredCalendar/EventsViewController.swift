@@ -239,7 +239,7 @@ class EventView: UIView {
 //        let minuteString = String(format: "%02d", minute)
 //        view.nameLabel.text = "\(hourString):\(minuteString) \(period) - \(event.name)"
 //        view.nameLabel.text = "\(adjusted.timeString) - \(event.name)"
-        view.nameLabel.text = "\(event.startTime) - \(event.name)"
+        view.nameLabel.text = "\(event.startTime.lowercased()) - \(event.name)"
         view.backgroundColor = event.category?.color
         return view
     }
