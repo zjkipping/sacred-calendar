@@ -1,6 +1,7 @@
 # SacredCalendar
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.3.
+## Setup
+  run `yarn install` to install all the node packages that are needed.
 
 ## Development server
 
