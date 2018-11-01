@@ -58,7 +58,7 @@ class EventsViewController: UIViewController {
     @IBOutlet weak var label: UILabel!
     
     @IBOutlet weak var calendarContainer: UIView!
-
+    
     let viewModel: EventsViewModel
     
     let orientation = BehaviorSubject<Bool>(value: UIDevice.current.orientation.isPortrait)
@@ -86,13 +86,27 @@ class EventsViewController: UIViewController {
             $0.size == $1.size
         }
         
-        Observable.combineLatest(viewModel.events, orientation)
-            .map({ ($0, $1 ? .daily : .weekly) })
-            .map({ events, orientation in
-                (events.sorted { $0.startTime < $1.startTime }, orientation)
+        let rerender = Observable.combineLatest(viewModel.events, orientation)
+            .map({ args -> ([Event], CalendarView) in
+                return (args.0, args.1 ? .daily : .weekly)
             })
-            .subscribe(onNext: { [weak self] in
-                self?.show(events: $0, mode: $1)
+            .map({ args -> ([Event], CalendarView) in
+                
+                let sorted: [Event] = args.0.sorted {
+                    if $0.startTime.contains("am") && !$1.startTime.contains("am") {
+                        return true
+                    } else if !$0.startTime.contains("am") && $1.startTime.contains("am") {
+                        return false
+                    } else {
+                        return $0.startTime < $1.startTime
+                    }
+                }
+                return (sorted, args.1)
+            })
+        
+        rerender
+            .subscribe(onNext: { [weak self] data in
+                self?.show(events: data.0, mode: data.1)
             }).disposed(by: trash)
        
         setup(newEventButton: IconButton(type: .contactAdd))
@@ -101,6 +115,8 @@ class EventsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        show(events: [], mode: .daily)
+        
         _ = viewModel.fetchEvents(query: [:])
         
         calendar.selectedEvent
@@ -181,10 +197,15 @@ class DayView: UIView {
     @IBOutlet weak var dayOfWeekLabel: UILabel!
     @IBOutlet weak var eventsStackView: UIStackView!
     
+    @IBOutlet weak var shiftLeftButton: UIButton!
+    @IBOutlet weak var shiftRightButton: UIButton!
+    
     @IBOutlet weak var separator: UIView!
     
-    class func create(showSeparator: Bool = false) -> DayView {
+    class func create(showControls: Bool, showSeparator: Bool = false) -> DayView {
         let view = UINib(nibName: "DayView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! DayView
+        view.shiftLeftButton.isHidden = !showControls
+        view.shiftRightButton.isHidden = !showControls
         view.separator.isHidden = !showSeparator
         return view
     }
@@ -202,15 +223,23 @@ class EventView: UIView {
     
     class func create(event: Event) -> EventView {
         let view = UINib(nibName: "EventView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! EventView
+    
+//        let components = Calendar.current.dateComponents([.hour, .minute], from: event.startTime)
+//        let hour = components.hour!
+//        let minute = components.minute!
+//        let period = hour < 12 ? "am" : "pm"
+//
+//
+//        let adjustment = NSDateComponents()
+//        adjustment.hour = 0
+//
+//        let adjusted = Calendar.current.date(byAdding: adjustment as DateComponents, to: event.startTime)!
         
-        let components = Calendar.current.dateComponents([.hour, .minute], from: event.startTime)
-        let hour = components.hour!
-        let minute = components.minute!
-        let period = hour < 12 ? "am" : "pm"
-        
-        let hourString = String(format: "%02d", hour > 12 ? hour - 12 : hour)
-        let minuteString = String(format: "%02d", minute)
-        view.nameLabel.text = "\(hourString):\(minuteString) \(period) - \(event.name)"
+//        let hourString = String(format: "%02d", hour > 12 ? hour - 12 : hour)
+//        let minuteString = String(format: "%02d", minute)
+//        view.nameLabel.text = "\(hourString):\(minuteString) \(period) - \(event.name)"
+//        view.nameLabel.text = "\(adjusted.timeString) - \(event.name)"
+        view.nameLabel.text = "\(event.startTime) - \(event.name)"
         view.backgroundColor = event.category?.color
         return view
     }
@@ -218,6 +247,9 @@ class EventView: UIView {
 
 class WeekEventView: UIView {
     @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var shiftLeftButton: UIButton!
+    @IBOutlet weak var shiftRightButton: UIButton!
     
     let trash = DisposeBag()
     

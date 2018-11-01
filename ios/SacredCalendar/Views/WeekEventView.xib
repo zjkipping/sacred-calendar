@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hfb-Wa-Rfg">
-                    <rect key="frame" x="10" y="9" width="78" height="17"/>
+                    <rect key="frame" x="10" y="9" width="258" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -26,6 +26,7 @@
             <constraints>
                 <constraint firstItem="Hfb-Wa-Rfg" firstAttribute="leading" secondItem="9bs-U4-q6n" secondAttribute="leading" constant="10" id="ArX-sw-etA"/>
                 <constraint firstItem="Hfb-Wa-Rfg" firstAttribute="centerY" secondItem="9bs-U4-q6n" secondAttribute="centerY" id="CyX-Lr-N3P"/>
+                <constraint firstItem="9bs-U4-q6n" firstAttribute="trailing" secondItem="Hfb-Wa-Rfg" secondAttribute="trailing" id="vpi-eQ-4sF"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

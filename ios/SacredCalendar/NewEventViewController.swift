@@ -107,13 +107,17 @@ class NewEventViewController: UIViewController {
             print($0)
         }).disposed(by: trash)
         
+        setup(newCategoryButton: formView.newCategoryButton)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         viewModel.fetchCategories()
             .subscribe(onNext: { [weak self] categories in
                 self?.formView.categoryDropdown.optionArray = categories.map { $0.name }
                 self?.formView.categoryDropdown.optionIds = categories.map { $0.id }
             }).disposed(by: trash)
-        
-        setup(newCategoryButton: formView.newCategoryButton)
     }
     
     func setup(newCategoryButton button: UIButton) {        
@@ -125,7 +129,21 @@ class NewEventViewController: UIViewController {
     }
     
     func formated(date: Observable<Date>) -> Observable<String> {
-        return date.map({ $0.timeString })
+        return date.map({
+            
+            let adjustment = NSDateComponents()
+            adjustment.hour = -2
+            
+            
+            TimeZone.ReferenceType.default = TimeZone(abbreviation: "ADT")!
+            let formatter = DateFormatter()
+            formatter.timeZone = TimeZone.ReferenceType.default
+            formatter.dateFormat = "HH:mm a"
+
+            let adjusted = Calendar.current.date(byAdding: adjustment as DateComponents, to: $0)!
+            return adjusted.timeString
+            return formatter.string(from: adjusted)
+        })
     }
     
     func bind(observable: Observable<String>, to property: Binder<String?>) {
@@ -237,13 +255,26 @@ class NewEventViewController: UIViewController {
                     return false
                 }
             }).map({ [weak self] in
+                let adjustment = NSDateComponents()
+                adjustment.hour = -2
+                
+                TimeZone.ReferenceType.default = TimeZone(abbreviation: "ADT")!
+                let formatter = DateFormatter()
+                formatter.timeZone = TimeZone.ReferenceType.default
+                formatter.dateFormat = "HH:mm a"
+                
+                let start = Calendar.current.date(byAdding: adjustment as DateComponents, to: $4)!
+                let end = Calendar.current.date(byAdding: adjustment as DateComponents, to: $5)!
+                
                 var data: [String : Any] = [
                     "name" : $0,
                     "description" : $1,
                     "location" : $2,
                     "date" : $3.dateString,
-                    "startTime" : $4.timeString,
-                    "endTime" : $5.timeString,
+                    "startTime" : start.timeString,
+                    "endTime" : end.timeString,
+//                    "startTime" : formatter.string(from: start),
+//                    "endTime" : formatter.string(from: end),
                 ]
                 
                 if let dropdown = self?.formView.categoryDropdown,

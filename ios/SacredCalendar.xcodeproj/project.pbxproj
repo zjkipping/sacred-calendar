@@ -34,6 +34,7 @@
 		8B845727218A2D17003E49EC /* FetchCategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B845726218A2D17003E49EC /* FetchCategoryService.swift */; };
 		8B8A1782218A8B04001A811F /* NewEventFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B8A1781218A8B04001A811F /* NewEventFormView.xib */; };
 		8B8A1784218A8BA6001A811F /* NewEventFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1783218A8BA6001A811F /* NewEventFormView.swift */; };
+		8B8A1786218B41C3001A811F /* FetchUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1785218B41C3001A811F /* FetchUserService.swift */; };
 		8B9B13B0217D2474002CB9A0 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13AF217D2474002CB9A0 /* AuthService.swift */; };
 		8B9B13B4217D320A002CB9A0 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13B3217D320A002CB9A0 /* Model.swift */; };
 		8B9B13B6217D345C002CB9A0 /* FetchEventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13B5217D345C002CB9A0 /* FetchEventsService.swift */; };
@@ -97,6 +98,7 @@
 		8B845726218A2D17003E49EC /* FetchCategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchCategoryService.swift; sourceTree = "<group>"; };
 		8B8A1781218A8B04001A811F /* NewEventFormView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewEventFormView.xib; sourceTree = "<group>"; };
 		8B8A1783218A8BA6001A811F /* NewEventFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventFormView.swift; sourceTree = "<group>"; };
+		8B8A1785218B41C3001A811F /* FetchUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserService.swift; sourceTree = "<group>"; };
 		8B9B13AF217D2474002CB9A0 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		8B9B13B3217D320A002CB9A0 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8B9B13B5217D345C002CB9A0 /* FetchEventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchEventsService.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				8B84571A21882282003E49EC /* CreateEventService.swift */,
 				8B84571E2189458C003E49EC /* DeleteEventService.swift */,
 				8B9B13B7217D4524002CB9A0 /* CreateUserService.swift */,
+				8B8A1785218B41C3001A811F /* FetchUserService.swift */,
 				8B8457222189FF44003E49EC /* CreateCategoryService.swift */,
 				8B845726218A2D17003E49EC /* FetchCategoryService.swift */,
 			);
@@ -563,6 +566,7 @@
 				8B84571D2188C3EF003E49EC /* AppNavigationController.swift in Sources */,
 				8B9B13B4217D320A002CB9A0 /* Model.swift in Sources */,
 				8B84571B21882282003E49EC /* CreateEventService.swift in Sources */,
+				8B8A1786218B41C3001A811F /* FetchUserService.swift in Sources */,
 				8B9B13B6217D345C002CB9A0 /* FetchEventsService.swift in Sources */,
 				8B495AFD216EDB6800F0A60C /* ValidatedResponse.swift in Sources */,
 				8BC175F2217584FD002AFFD2 /* User.swift in Sources */,

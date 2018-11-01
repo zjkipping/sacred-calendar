@@ -17,7 +17,8 @@ protocol Model: JSONCreatable, Transportable {
 
 extension Model {
     init?(json: JSON) {
-        guard let id = json["id"].int else { return nil }
+//        guard let id = json["id"].int else { return nil }
+        let id = json["id"].int ?? 0
         self.init(id: id, json: json)
     }
 }

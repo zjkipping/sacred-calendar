@@ -36,6 +36,8 @@ enum Action {
     case login
     case logout
     case refreshToken
+    case register
+    case `self`
 }
 
 class API {
@@ -65,10 +67,12 @@ class API {
 
         return Alamofire.request(url, method: method, parameters: parameters, encoding: encoding, headers: options).validate({ request, response, data -> Request.ValidationResult in
             
+            let userInfo = data == nil ? nil : JSON(data).dictionaryObject
+            
             if !(200..<300).contains(response.statusCode) {
                 let error = NSError(domain: "none",
                                       code: response.statusCode,
-                                  userInfo: JSON(data).dictionaryObject)
+                                      userInfo: userInfo)
                 return .failure(error)
             } else {
                 return .success
@@ -109,6 +113,8 @@ class API {
         case .login:        return .post
         case .logout:       return .post
         case .refreshToken: return .post
+        case .register:     return .post
+        case .`self`:       return .get
         }
     }
     
@@ -126,6 +132,8 @@ class API {
         case .login:            return "login"
         case .logout:           return "logout"
         case .refreshToken:     return "refreshToken"
+        case .register:         return "register"
+        case .`self`:           return "self"
         }
     }
     

@@ -22,25 +22,43 @@
                     <rect key="frame" x="0.0" y="0.0" width="315" height="64"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVK-be-Ots">
-                            <rect key="frame" x="23" y="10" width="58" height="20"/>
+                            <rect key="frame" x="128.5" y="6" width="58" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="dWx-i0-x7G"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YjF-HX-8JT">
+                            <rect key="frame" x="275" y="5.5" width="30" height="53"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                            <state key="normal" title="&gt;"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQ0-Aj-BgZ">
+                            <rect key="frame" x="10" y="5.5" width="30" height="53"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                            <state key="normal" title="&lt;"/>
+                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47R-zE-7e7">
-                            <rect key="frame" x="23" y="30" width="9.5" height="20"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                            <rect key="frame" x="149" y="26" width="17" height="38"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" red="0.066666666666666666" green="0.4392156862745098" blue="0.41568627450980389" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="47R-zE-7e7" firstAttribute="leading" secondItem="gVK-be-Ots" secondAttribute="leading" id="0iE-ze-a0s"/>
+                        <constraint firstItem="KQ0-Aj-BgZ" firstAttribute="leading" secondItem="PmQ-uf-u7o" secondAttribute="leading" constant="10" id="2AO-LY-8D8"/>
+                        <constraint firstItem="gVK-be-Ots" firstAttribute="top" secondItem="PmQ-uf-u7o" secondAttribute="top" constant="6" id="2nx-4P-owF"/>
                         <constraint firstAttribute="height" constant="64" id="3iY-QQ-jvi"/>
-                        <constraint firstItem="gVK-be-Ots" firstAttribute="top" secondItem="PmQ-uf-u7o" secondAttribute="top" constant="10" id="539-lV-Pws"/>
-                        <constraint firstItem="47R-zE-7e7" firstAttribute="top" secondItem="gVK-be-Ots" secondAttribute="bottom" id="G9P-PH-8t4"/>
-                        <constraint firstItem="gVK-be-Ots" firstAttribute="leading" secondItem="PmQ-uf-u7o" secondAttribute="leading" constant="23" id="KbA-tb-GQC"/>
+                        <constraint firstItem="47R-zE-7e7" firstAttribute="top" secondItem="gVK-be-Ots" secondAttribute="bottom" id="5Yc-1F-Nrp"/>
+                        <constraint firstItem="gVK-be-Ots" firstAttribute="centerX" secondItem="PmQ-uf-u7o" secondAttribute="centerX" id="IZJ-Aa-EQJ"/>
+                        <constraint firstItem="KQ0-Aj-BgZ" firstAttribute="centerY" secondItem="PmQ-uf-u7o" secondAttribute="centerY" id="JyW-n4-AFH"/>
+                        <constraint firstItem="47R-zE-7e7" firstAttribute="centerX" secondItem="gVK-be-Ots" secondAttribute="centerX" id="NdA-PA-Gia"/>
+                        <constraint firstAttribute="bottom" secondItem="47R-zE-7e7" secondAttribute="bottom" id="eFU-vT-umr"/>
+                        <constraint firstItem="YjF-HX-8JT" firstAttribute="centerY" secondItem="PmQ-uf-u7o" secondAttribute="centerY" id="r7I-UV-BYp"/>
+                        <constraint firstAttribute="trailing" secondItem="YjF-HX-8JT" secondAttribute="trailing" constant="10" id="zLU-Bz-fui"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PEd-XZ-hlO">
@@ -72,6 +90,8 @@
                 <outlet property="dayOfWeekLabel" destination="gVK-be-Ots" id="v6s-CC-L77"/>
                 <outlet property="eventsStackView" destination="rDk-2g-eE4" id="EaC-EW-wNa"/>
                 <outlet property="separator" destination="PEd-XZ-hlO" id="JPP-pV-Rgc"/>
+                <outlet property="shiftLeftButton" destination="KQ0-Aj-BgZ" id="qV8-DC-Y3M"/>
+                <outlet property="shiftRightButton" destination="YjF-HX-8JT" id="ccU-uT-w7f"/>
             </connections>
             <point key="canvasLocation" x="90.400000000000006" y="190.25487256371815"/>
         </view>

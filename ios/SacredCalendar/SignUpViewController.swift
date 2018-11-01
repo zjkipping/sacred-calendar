@@ -11,16 +11,20 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class SignUpViewModelServices: HasCreateUserService {
+class SignUpViewModelServices: HasCreateUserService, HasAuthService, HasFetchUserService {
     let user: CreateUserService
-    
-    init(user: CreateUserService = .init()) {
+    let auth: AuthService
+    let fetchUser: FetchUserService
+
+    init(user: CreateUserService = .init(), auth: AuthService = .init(), fetchUser: FetchUserService = .init()) {
         self.user = user
+        self.auth = auth
+        self.fetchUser = fetchUser
     }
 }
 
 class SignUpViewModel {
-    typealias Services = HasCreateUserService
+    typealias Services = HasCreateUserService & HasAuthService & HasFetchUserService
     
     private let services: Services
     
@@ -28,8 +32,16 @@ class SignUpViewModel {
         self.services = services
     }
     
-    func createUser() -> Observable<User> {
-        return services.user.execute()
+    func createUser(data: [String : Any]) -> Observable<Bool> {
+        return services.user.execute(data: data)
+    }
+    
+    func login(credentials: Credentials) -> Observable<(Bool, String?)> {
+        return services.auth.login(credentials: credentials)
+    }
+    
+    func fetchUser() -> Observable<User> {
+        return services.fetchUser.execute()
     }
 }
 
@@ -108,6 +120,11 @@ class SignUpViewController: UIViewController {
     
     
     func setup(submitButton button: UIButton) {
+        let credentials = Observable.combineLatest(
+            usernameField.rx.text.orEmpty,
+            passwordField.rx.text.orEmpty
+        )
+        
         let passwords = Observable.combineLatest(
             passwordField.rx.text.orEmpty,
             verifyPasswordField.rx.text.orEmpty
@@ -138,14 +155,24 @@ class SignUpViewController: UIViewController {
             })
             .withLatestFrom(form)
             .map({ first, last, username, email, password in
-                User.from(name: (first: first, last: last), username: username)
+                User.from(name: (first: first, last: last),
+                      username: username,
+                         email: email,
+                      password: password)
+            })
+            .flatMap({ [weak self] in
+                self?.viewModel.createUser(data: $0) ?? .empty()
+            })
+            .withLatestFrom(credentials)
+            .flatMap({ [weak self] in
+                self?.viewModel.login(credentials: (username: $0, password: $1)) ?? .empty()
             })
             .flatMap({ [weak self] _ in
-                self?.viewModel.createUser() ?? .empty()
+                self?.viewModel.fetchUser() ?? .empty()
             })
             .subscribe(onNext: { [weak self] in
                 User.current = $0
-
+                
                 print("signed up: \($0.fullName)")
 
                 let events = EventsViewController()

@@ -16,7 +16,10 @@ class User: Model {
     let name: Name
     
     let username: String
+    let password: String
 
+    let email: String
+    
     var fullName: String {
         return "\(name.first) \(name.last)"
     }
@@ -26,26 +29,33 @@ class User: Model {
             "firstName": name.first,
             "lastName": name.last,
             "username": username,
+            "email": email,
+            "password": password,
         ]
     }
     
-    init(name: Name, username: String) {
+    init(name: Name, username: String, email: String, password: String) {
         self.id = 0
         self.name = name
         self.username = username
+        self.email = email
+        self.password = password
     }
     
     required init?(id: Int, json: JSON) {
         guard let firstName = json["firstName"].string else { return nil }
         guard let lastName = json["lastName"].string else { return nil }
         guard let username = json["username"].string else { return nil }
-        
+        guard let email = json["email"].string else { return nil }
+    
         self.id = id
         self.name = (first: firstName, last: lastName)
         self.username = username
+        self.email = email
+        self.password = ""
     }
     
-    static func from(name: Name, username: String) -> TransportFormat {
-        return User(name: name, username: username).transportable
+    static func from(name: Name, username: String, email: String, password: String) -> TransportFormat {
+        return User(name: name, username: username, email: email, password: password).transportable
     }
 }

@@ -75,7 +75,7 @@
                     <rect key="frame" x="94" y="236.5" width="187.5" height="30"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="verify password"/>
                         <userDefinedRuntimeAttribute type="color" keyPath="defaultPlaceholderColor">
@@ -101,7 +101,7 @@
                     <rect key="frame" x="94" y="186.5" width="187.5" height="30"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="password"/>
                         <userDefinedRuntimeAttribute type="color" keyPath="defaultPlaceholderColor">

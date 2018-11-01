@@ -14,15 +14,15 @@ class Event: Model {
     let name: String
     let date: Date
     var category: Category?
-    var startTime: Date
-    var endTime: Date
+    var startTime: String
+    var endTime: String
     var description: String
     
     var transportable: TransportFormat {
         var data: TransportFormat = [
             "date" : date.dateString,
-            "startTime" : startTime.timeString,
-            "endTime" : endTime.timeString,
+            "startTime" : startTime,
+            "endTime" : endTime,
             "description" : description,
         ]
         if let category = category?.transportable {
@@ -37,24 +37,24 @@ class Event: Model {
         self.category = category
         self.id = id
         self.description = description
-        self.startTime = startTime
-        self.endTime = endTime
+        self.startTime = startTime.timeString
+        self.endTime = endTime.timeString
     }
     
     required init?(id: Int, json: JSON) {
         guard let name = json["name"].string else { return nil }
         guard let date = Date.from(dateString: json["date"].string) else { return nil }
-        guard let description = json["description"].string else { return nil }
+        let description = json["description"].string ?? ""
         guard let startTime = Date.from(timeString: json["startTime"].string) else { return nil }
-        guard let endTime = Date.from(timeString: json["endTime"].string) else { return nil }
+        let endTime = Date.from(timeString: json["endTime"].string) ?? Date()
         
         self.id = id
         self.name = name
         self.date = date
         self.category = Category(json: json["category"])
         self.description = description
-        self.startTime = startTime
-        self.endTime = endTime
+        self.startTime = json["startTime"].string ?? ""
+        self.endTime = json["endTime"].string ?? ""
     }
     
     func validate(startTime: Date, endTime: Date) -> Bool {
@@ -112,7 +112,7 @@ extension Date {
         let formatter = DateFormatter()
         formatter.amSymbol = "AM"
         formatter.pmSymbol = "PM"
-        formatter.dateFormat = "HH:mm a"
+        formatter.dateFormat = "hh:mm a"
         return formatter.string(from: self)
     }
 }
