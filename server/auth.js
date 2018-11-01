@@ -1,7 +1,7 @@
 const CONFIG = require('./config');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const util = require('util');
+const util = require('./util');
 
 module.exports = {
   register: async (req, res) => {
@@ -26,7 +26,7 @@ module.exports = {
           res.status(400).send({ error: true, code: 'DUP_VALUE', message: err.message });
         }
       } else {
-        util.handleAPIError(err);
+        util.handleUncaughtError(err);
       }
     }
   },
@@ -52,7 +52,7 @@ module.exports = {
         }
       }
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
   },
   logout: async (req, res) => {
@@ -69,7 +69,7 @@ module.exports = {
       });
       res.status(200).send();
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
   }
 };

@@ -1,8 +1,8 @@
 const _ = require('lodash');
-const util = require('util');
+const util = require('./util');
 
 module.exports = {
-  // returns the details the authenticated user
+  // returns the details of the authenticated user
   self: async (req, res) => {
     try {
       const [rows, _fields] = await pool.execute(
@@ -11,7 +11,7 @@ module.exports = {
       );
       res.status(200).send(rows[0]);
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
   },
   events: async (req, res) => {
@@ -41,7 +41,7 @@ module.exports = {
         }
       }));
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
   },
   categories: async (req, res) => {
@@ -52,7 +52,7 @@ module.exports = {
       );
       res.status(200).send(rows);
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
   },
   friends: async (req, res) => {
@@ -63,37 +63,37 @@ module.exports = {
       );
       res.status(200).send(rows);
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
   },
   availability: async (req, res) => {
     try {
 
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
     res.status(404).send();
   },
   newEvent: async (req, res) => {
     try {
-      const description = req.body.description ? req.body.description: null;
+      const description = req.body.description ? req.body.description : null;
       const location = req.body.location ? req.body.location : null;
-      const endTime = req.body.endTime ? req.body.endTime: null;
-      const categoryID = req.body.categoryID ? req.body.categoryID: null;
+      const endTime = req.body.endTime ? req.body.endTime : null;
+      const categoryID = req.body.categoryID ? req.body.categoryID : null;
       await pool.execute(
         'INSERT INTO Event (userID, created, name, description, location, date, startTime, endTime, categoryID) VALUES (?, UNIX_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?)',
         [req.id, req.body.name, description, location, req.body.date, req.body.startTime, endTime, categoryID]
       );
       res.status(200).send();
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
   },
   updateEvent: async (req, res) => {
-    const description = req.body.description ? req.body.description: null;
+    const description = req.body.description ? req.body.description : null;
     const location = req.body.location ? req.body.location : null;
-    const endTime = req.body.endTime ? req.body.endTime: null;
-    const categoryID = req.body.categoryID ? req.body.categoryID: null;
+    const endTime = req.body.endTime ? req.body.endTime : null;
+    const categoryID = req.body.categoryID ? req.body.categoryID : null;
 
     try {
       await pool.execute(
@@ -102,7 +102,7 @@ module.exports = {
       );
       res.status(200).send();
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
   },
   deleteEvent: async (req, res) => {
@@ -113,7 +113,7 @@ module.exports = {
       )
       res.status(200).send();
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
   },
   newCategory: async (req, res) => {
@@ -124,7 +124,7 @@ module.exports = {
       );
       res.status(200).send();
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
   },
   updateCategory: async (req, res) => {
@@ -135,7 +135,7 @@ module.exports = {
       );
       res.status(200).send();
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
   },
   deleteCategory: async (req, res) => {
@@ -150,14 +150,14 @@ module.exports = {
       );
       res.status(200).send();
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
   },
   addFriend: async (req, res) => {
     try {
 
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
     res.status(404).send();
   },
@@ -165,7 +165,7 @@ module.exports = {
     try {
 
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
     res.status(404).send();
   },
@@ -173,7 +173,7 @@ module.exports = {
     try {
 
     } catch (err) {
-      util.handleAPIError(err);
+      util.handleUncaughtError(err);
     }
     res.status(404).send();
   }
