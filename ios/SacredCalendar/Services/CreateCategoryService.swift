@@ -9,6 +9,7 @@
 import RxCocoa
 import RxSwift
 
+/// Async operations for creating categories.
 class CreateCategoryService {
     
     func execute(data: [String : Any]) -> Observable<Bool> {

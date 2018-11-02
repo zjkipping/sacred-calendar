@@ -6,6 +6,7 @@
 //  Copyright © 2018 CS4320. All rights reserved.
 //
 
+/// Data model definition of a user
 class User: Model {
     typealias Name = (first: String, last: String)
     
@@ -20,10 +21,12 @@ class User: Model {
 
     let email: String
     
+    /// Combines a user's first and last name, whitespace separated.
     var fullName: String {
         return "\(name.first) \(name.last)"
     }
     
+    /// Transportable representation.
     var transportable: TransportFormat {
         return [
             "firstName": name.first,
@@ -42,6 +45,7 @@ class User: Model {
         self.password = password
     }
     
+    /// Creates an new instance from JSON. Fails if missing a required field.
     required init?(id: Int, json: JSON) {
         guard let firstName = json["firstName"].string else { return nil }
         guard let lastName = json["lastName"].string else { return nil }
@@ -55,6 +59,7 @@ class User: Model {
         self.password = ""
     }
     
+    /// Creates a transportable representation of a potential user instance.
     static func from(name: Name, username: String, email: String, password: String) -> TransportFormat {
         return User(name: name, username: username, email: email, password: password).transportable
     }

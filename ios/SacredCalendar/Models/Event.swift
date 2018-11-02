@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Data model definition of an event
 class Event: Model {
     let id: Int
 
@@ -18,6 +19,7 @@ class Event: Model {
     var endTime: String
     var description: String
     
+    /// Transportable representation.
     var transportable: TransportFormat {
         var data: TransportFormat = [
             "date" : date.dateString,
@@ -41,6 +43,7 @@ class Event: Model {
         self.endTime = endTime.timeString
     }
     
+    /// Creates an new instance from JSON. Fails if missing a required field.
     required init?(id: Int, json: JSON) {
         guard let name = json["name"].string else { return nil }
         guard let date = Date.from(dateString: json["date"].string) else { return nil }
@@ -57,9 +60,9 @@ class Event: Model {
         self.endTime = json["endTime"].string ?? ""
     }
     
+    /// Validates event start and end time.
     func validate(startTime: Date, endTime: Date) -> Bool {
           if (startTime > endTime) {
-               // Do something
                return false
           } else {
                return true

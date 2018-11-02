@@ -9,6 +9,7 @@
 import RxCocoa
 import RxSwift
 
+/// Async operations for fetching categories.
 class FetchCategoryService {
     
     func execute() -> Observable<[Category]> {

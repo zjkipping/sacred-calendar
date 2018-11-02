@@ -8,6 +8,7 @@
 
 import Alamofire
 
+/// Wrapper for response from HTTP library.
 class ValidatedResponse {
     let raw: DataResponse<Any>
     let statusCode: Int

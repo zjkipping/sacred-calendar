@@ -9,6 +9,7 @@
 import iOSDropDown
 import UIKit
 
+/// Visuals for the form for creating a new event.
 class NewEventFormView: UIView {
     
     @IBOutlet weak var nameField: UITextField!
@@ -28,17 +29,20 @@ class NewEventFormView: UIView {
     @IBOutlet weak var newCategoryButton: UIButton!
     
     @IBOutlet weak var contentView: UIView!
-    
+
+    /// Constructor - Delegates to the common init.
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
     
+    /// Constructor - Delegates to the common init.
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
     }
     
+    /// 'Constructor' - Shared constructor for attaching owner to visuals from .nib.
     func commonInit() {
         Bundle.main.loadNibNamed("NewEventFormView", owner: self, options: nil)
         addSubview(contentView)

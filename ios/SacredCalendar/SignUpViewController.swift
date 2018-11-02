@@ -23,28 +23,35 @@ class SignUpViewModelServices: HasCreateUserService, HasAuthService, HasFetchUse
     }
 }
 
+/// Container for the logic associated with the sign up flow
 class SignUpViewModel {
     typealias Services = HasCreateUserService & HasAuthService & HasFetchUserService
     
+    /// Provides the async operations necessary for the container.
     private let services: Services
     
     init(services: SignUpViewModelServices = .init()) {
         self.services = services
     }
     
+    /// Creates a user in the database. Returns a success flag.
     func createUser(data: [String : Any]) -> Observable<Bool> {
         return services.user.execute(data: data)
     }
     
+    /// Logs in the user with the provided credential. Returns a success flag and optional error
+    /// message.
     func login(credentials: Credentials) -> Observable<(Bool, String?)> {
         return services.auth.login(credentials: credentials)
     }
     
+    /// Fetches info for the currently authenticated user on the backend.
     func fetchUser() -> Observable<User> {
         return services.fetchUser.execute()
     }
 }
 
+/// Responsible for displaying data to the sign up screen.
 class SignUpViewController: UIViewController {
 
     @IBOutlet weak var firstNameField: UITextField!
@@ -59,7 +66,8 @@ class SignUpViewController: UIViewController {
     let viewModel: SignUpViewModel
     
     let trash = DisposeBag()
-    
+
+    /// Constructor - Assigns the logic container and reads the visuals from the .nib.
     init(viewModel: SignUpViewModel = .init()) {
         self.viewModel = viewModel
         
@@ -96,6 +104,7 @@ class SignUpViewController: UIViewController {
         }
     }
     
+    /// Observes a field input to display form validation errors.
     func observe(fieldCompletion field: ControlProperty<String>, fieldName: String) {
         field
             .skip(2)
@@ -106,6 +115,7 @@ class SignUpViewController: UIViewController {
             .disposed(by: trash)
     }
     
+    /// Observes changes to the password fields to update validation error fields.
     func observe(passwords: Observable<(String, String)>) {
         passwords
             .withLatestFrom(passwords)
@@ -118,7 +128,8 @@ class SignUpViewController: UIViewController {
             .disposed(by: trash)
     }
     
-    
+    /// Attaches observers to provide form validation followed by a network request to create
+    /// the new user in the database.
     func setup(submitButton button: UIButton) {
         let credentials = Observable.combineLatest(
             usernameField.rx.text.orEmpty,
@@ -181,6 +192,7 @@ class SignUpViewController: UIViewController {
             .disposed(by: trash)
     }
     
+    /// Displays form errors to the user.
     func display(error: FormError) {
         switch error {
         case .passwordsDoNotMatch:
@@ -190,11 +202,13 @@ class SignUpViewController: UIViewController {
         }
     }
     
+    /// Validates form input.
     func validate(password: String, verification: String) -> Bool {
         return password == verification
     }
 }
 
+/// Possible form validation errors.
 enum FormError {
     case passwordsDoNotMatch
     case fieldNotCompleted(fieldName: String)

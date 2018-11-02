@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Container for configuration.
 struct Configuration {
     static let environment = Bundle.main.infoDictionary!["API_BASE_URL"] as! String
 }

@@ -8,17 +8,20 @@
 
 import Material
 
+/// Custom navigation controller subclass for Material experience.
 class AppNavigationController: NavigationController {
+    
+    /// Overridden to provide custom look and feel.
     open override func prepare() {
         super.prepare()
+       
         isMotionEnabled = true
         motionNavigationTransitionType = .auto
-        guard let v = navigationBar as? NavigationBar else {
-            return
-        }
         
-        v.backgroundColor = .white
-        v.depthPreset = .none
-        v.dividerColor = Color.grey.lighten2
+        guard let navbar = navigationBar as? NavigationBar else { return }
+        
+        navbar.backgroundColor = .white
+        navbar.depthPreset = .none
+        navbar.dividerColor = Color.grey.lighten2
     }
 }

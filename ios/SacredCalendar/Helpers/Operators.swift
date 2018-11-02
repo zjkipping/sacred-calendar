@@ -8,6 +8,7 @@
 
 infix operator /
 
+/// Appends two strings with a forward slash '/' in between.
 func / (left: String, right: String) -> String {
     return left.pathAppend(right)
 }

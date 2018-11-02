@@ -17,6 +17,7 @@ enum TokenKey: String {
     case refresh = "refresh-token"
 }
 
+/// Async operations for auth.
 class AuthService {
     
     func login(credentials: Credentials) -> Observable<(Bool, String?)> {

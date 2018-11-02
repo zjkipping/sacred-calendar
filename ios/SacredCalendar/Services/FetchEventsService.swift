@@ -9,6 +9,7 @@
 import RxCocoa
 import RxSwift
 
+/// Async operations for fetching events.
 class FetchEventsService {
     
     func execute(query: [String : Any]) -> Observable<[Event]> {

@@ -9,6 +9,7 @@
 import RxCocoa
 import RxSwift
 
+/// Async operations for creating users.
 class CreateUserService {
     func execute(data: [String : Any]) -> Observable<Bool> {
         return Observable.create { observer in

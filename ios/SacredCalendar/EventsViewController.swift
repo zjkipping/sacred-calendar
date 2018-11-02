@@ -13,10 +13,12 @@ import Material
 import RxCocoa
 import RxSwift
 
+/// View modes for the calendar view.
 enum CalendarView: Int {
     case monthly, weekly, daily
 }
 
+/// Container for the services required by the events view model logic container.
 class EventsViewModelServices: HasFetchEventsService, HasDeleteEventService {
     let events: FetchEventsService
     let deleteEvent: DeleteEventService
@@ -27,9 +29,11 @@ class EventsViewModelServices: HasFetchEventsService, HasDeleteEventService {
     }
 }
 
+/// Logic container for the events view.
 class EventsViewModel {
     typealias Services = HasFetchEventsService & HasDeleteEventService
     
+    /// Contains the required async operations
     let services: Services
     
     let viewMode = PublishSubject<CalendarView>()
@@ -42,17 +46,20 @@ class EventsViewModel {
         self.services = services
     }
     
+    /// Fetches events and pushes them to the events stream.
     func fetchEvents(query: [String : Any]) -> Observable<[Event]> {
         let newEvents = services.events.execute(query: query)
         newEvents.bind(to: events).disposed(by: trash)
         return newEvents
     }
     
+    /// Deletes the provided event. Returns a success flag.
     func delete(event: Event) -> Observable<Bool> {
         return services.deleteEvent.execute(id: event.id)
     }
 }
 
+/// Responsible for displaying the calendar view.
 class EventsViewController: UIViewController {
 
     @IBOutlet weak var label: UILabel!
@@ -67,6 +74,7 @@ class EventsViewController: UIViewController {
     
     let calendar = CalendarViewer()
     
+    /// Constructor - Assigns the logic container and reads the visuals from the .nib.
     init(viewModel: EventsViewModel = .init()) {
         self.viewModel = viewModel
         
@@ -80,12 +88,16 @@ class EventsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // adds the calendar view to the display
         calendarContainer.addSubview(calendar)
         constrain(calendar, calendarContainer) {
             $0.center == $1.center
             $0.size == $1.size
         }
         
+        // creates an observable combination of the events list and current orientation
+        // for any changes to either, the events are sorted and displayed in the appropriate
+        // calendar view mode
         let rerender = Observable.combineLatest(viewModel.events, orientation)
             .map({ args -> ([Event], CalendarView) in
                 return (args.0, args.1 ? .daily : .weekly)
@@ -117,8 +129,10 @@ class EventsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         show(events: [], mode: .daily)
         
+        // initiates a refresh of the events for the calendar view
         _ = viewModel.fetchEvents(query: [:])
         
+        // observes the selected event property of the calendar for event deletion
         calendar.selectedEvent
             .flatMap({ [weak self] in
                 self?.proposeDelete(event: $0) ?? .empty()
@@ -135,6 +149,7 @@ class EventsViewController: UIViewController {
             .disposed(by: trash)
     }
     
+    /// Returns an observable modal confirming witht the user their intention to delete a given event.
     func proposeDelete(event: Event) -> Observable<Event> {
         return Observable.create { observer in
             let alert = UIAlertController(title: "Delete Event", message: "Are you sure you want to delete this event?", preferredStyle: .alert)
@@ -152,6 +167,8 @@ class EventsViewController: UIViewController {
         }
     }
     
+    /// Adds the new event button to the view and observes it for taps to display the new event
+    /// flow.
     func setup(newEventButton button: UIButton) {
         navigationItem.rightViews.append(button)
         
@@ -162,18 +179,23 @@ class EventsViewController: UIViewController {
             }).disposed(by: trash)
     }
     
+    /// Shows a given set of events in a desired view mode on the calendar.
     func show(events: [Event], mode: CalendarView) {
         calendar.show(events: events, mode: mode)
     }
     
+    /// Delegate callback for when the orientation of the device changes.
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        // relays the current device orientation to an observable stream
         orientation.onNext(UIDevice.current.orientation.isPortrait)
     }
     
+    /// Binds two CalendarView streams together.
     func bind(_ observer: PublishSubject<CalendarView>, to property: Observable<CalendarView>) {
         property.bind(to: observer).disposed(by: trash)
     }
     
+    /// Binds a table view to an observable event stream.
     func bind(_ tableView: UITableView, to observable: Observable<[Event]>) {
         observable.bind(to: tableView.rx.items(cellIdentifier: "Cell")) { row, element, cell in
             cell.textLabel?.text = element.description
@@ -183,15 +205,7 @@ class EventsViewController: UIViewController {
     }
 }
 
-class DayViewCell: UIView {
-    @IBOutlet weak var dayLabel: UILabel!
-    @IBOutlet weak var dayOfWeekLabel: UILabel!
-    
-    class func create() -> DayViewCell {
-        return UINib(nibName: "DayViewCell", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! DayViewCell
-    }
-}
-
+/// Visual for representing a day in both the daily and weekly calendar views.
 class DayView: UIView {
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var dayOfWeekLabel: UILabel!
@@ -202,6 +216,7 @@ class DayView: UIView {
     
     @IBOutlet weak var separator: UIView!
     
+    /// Creates a new view day view
     class func create(showControls: Bool, showSeparator: Bool = false) -> DayView {
         let view = UINib(nibName: "DayView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! DayView
         view.shiftLeftButton.isHidden = !showControls
@@ -211,40 +226,28 @@ class DayView: UIView {
     }
 }
 
+/// Visual for an event in the daily view of the calendar.
 class EventView: UIView {
     @IBOutlet weak var nameLabel: UILabel!
     
     let trash = DisposeBag()
     
+    /// Sets the background color
     var color: UIColor? {
         get { return backgroundColor }
         set { backgroundColor = newValue }
     }
     
+    /// Creates a new event view for a given event
     class func create(event: Event) -> EventView {
         let view = UINib(nibName: "EventView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! EventView
-    
-//        let components = Calendar.current.dateComponents([.hour, .minute], from: event.startTime)
-//        let hour = components.hour!
-//        let minute = components.minute!
-//        let period = hour < 12 ? "am" : "pm"
-//
-//
-//        let adjustment = NSDateComponents()
-//        adjustment.hour = 0
-//
-//        let adjusted = Calendar.current.date(byAdding: adjustment as DateComponents, to: event.startTime)!
-        
-//        let hourString = String(format: "%02d", hour > 12 ? hour - 12 : hour)
-//        let minuteString = String(format: "%02d", minute)
-//        view.nameLabel.text = "\(hourString):\(minuteString) \(period) - \(event.name)"
-//        view.nameLabel.text = "\(adjusted.timeString) - \(event.name)"
         view.nameLabel.text = "\(event.startTime.lowercased()) - \(event.name)"
         view.backgroundColor = event.category?.color
         return view
     }
 }
 
+/// Visual for an event in the week view of the calendar.
 class WeekEventView: UIView {
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -253,11 +256,13 @@ class WeekEventView: UIView {
     
     let trash = DisposeBag()
     
+    /// Sets the background color
     var color: UIColor? {
         get { return backgroundColor }
         set { backgroundColor = newValue }
     }
     
+    /// Creates a new event view for a given event
     class func create(event: Event) -> WeekEventView {
         let view = UINib(nibName: "WeekEventView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! WeekEventView
         view.nameLabel.text = event.name

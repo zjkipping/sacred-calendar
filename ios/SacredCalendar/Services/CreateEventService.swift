@@ -9,6 +9,7 @@
 import RxCocoa
 import RxSwift
 
+/// Async operations for creating events.
 class CreateEventService {
     func execute(data: [String : Any]) -> Observable<Bool> {
         return Observable.create { observer in

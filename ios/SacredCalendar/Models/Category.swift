@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Data model definition of a category
 struct Category: Model {
     let id: Int
     let name: String
@@ -23,6 +24,7 @@ struct Category: Model {
         }
     }
     
+    /// Transportable representation.
     var transportable: TransportFormat {
         return ["name": name]
     }
@@ -33,6 +35,7 @@ struct Category: Model {
         self._color = color
     }
     
+    /// Creates an new instance from JSON. Fails if missing a required field.
     init?(id: Int, json: JSON) {
         guard let name = json["name"].string else { return nil }
         guard let color = json["color"].string else { return nil }

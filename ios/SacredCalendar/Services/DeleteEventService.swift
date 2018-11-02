@@ -9,6 +9,7 @@
 import RxCocoa
 import RxSwift
 
+/// Async operations for deleting events.
 class DeleteEventService {
     func execute(id: Int) -> Observable<Bool> {
         return Observable.create { observer in

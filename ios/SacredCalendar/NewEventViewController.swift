@@ -15,6 +15,7 @@ import MaterialComponents
 import RxCocoa
 import RxSwift
 
+/// Container for the services for the new event view model.
 class NewEventViewModelServices: HasCreateEventService, HasFetchCategoryService {
     let events: CreateEventService
     let fetchCategories: FetchCategoryService
@@ -25,9 +26,11 @@ class NewEventViewModelServices: HasCreateEventService, HasFetchCategoryService 
     }
 }
 
+/// Logic container for the new event view.
 class NewEventViewModel {
     typealias Services = HasCreateEventService & HasFetchCategoryService
     
+    /// Container for the async operations.
     let services: Services
     
     let viewMode = PublishSubject<CalendarView>()
@@ -40,20 +43,25 @@ class NewEventViewModel {
         self.services = services
     }
     
+    /// Creates a new event in the database.
     func submit(data: [String : Any]) -> Observable<Bool> {
         return services.events.execute(data: data)
     }
     
+    /// Fetches the custom categories for the current user.
     func fetchCategories() -> Observable<[Category]> {
         return services.fetchCategories.execute()
     }
 }
 
+/// Responsible for displaying the new event view.
 class NewEventViewController: UIViewController {
+    /// Options for time inputs.
     enum EventTime {
         case start, end
     }
     
+    /// Reference to modular form view.
     @IBOutlet weak var formView: NewEventFormView!
     
     @IBOutlet weak var submitButton: UIButton!
@@ -70,6 +78,7 @@ class NewEventViewController: UIViewController {
     
     let formErrors = PublishSubject<[String]>()
     
+    /// Constructor - Assigns the logic container and reads the visuals from the .nib.
     init(viewModel: NewEventViewModel = .init()) {
         self.viewModel = viewModel
         
@@ -88,6 +97,7 @@ class NewEventViewController: UIViewController {
         setup(submitButton: submitButton)
         setup(cancelButton: cancelButton)
         
+        // observes the deleteced date, formats it, and binds it to a label
         date
             .map({
                 let formatter = DateFormatter()
@@ -103,6 +113,7 @@ class NewEventViewController: UIViewController {
         bind(observable: formated(date: startDate), to: formView.startDateLabel.rx.text)
         bind(observable: formated(date: endDate), to: formView.endDateLabel.rx.text)
         
+        // observes the form errors and displays them
         formErrors.subscribe(onNext: {
             print($0)
         }).disposed(by: trash)
@@ -113,6 +124,7 @@ class NewEventViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // fetches the current user's categories and populates the dropdown
         viewModel.fetchCategories()
             .subscribe(onNext: { [weak self] categories in
                 self?.formView.categoryDropdown.optionArray = categories.map { $0.name }
@@ -120,6 +132,7 @@ class NewEventViewController: UIViewController {
             }).disposed(by: trash)
     }
     
+    /// Adds a tap observer to launch the new category flow.
     func setup(newCategoryButton button: UIButton) {        
         button.rx.tap
             .subscribe(onNext: { [weak self] _ in
@@ -128,12 +141,11 @@ class NewEventViewController: UIViewController {
             }).disposed(by: trash)
     }
     
+    /// Formats a date stream.
     func formated(date: Observable<Date>) -> Observable<String> {
         return date.map({
-            
             let adjustment = NSDateComponents()
             adjustment.hour = -2
-            
             
             TimeZone.ReferenceType.default = TimeZone(abbreviation: "ADT")!
             let formatter = DateFormatter()
@@ -146,11 +158,15 @@ class NewEventViewController: UIViewController {
         })
     }
     
+    /// Binds a String stream to a String observer.
     func bind(observable: Observable<String>, to property: Binder<String?>) {
         observable.bind(to: property).disposed(by: trash)
     }
     
+    /// Displays the datetime picker for a given mode and initial value.
     func showDatePicker(mode: UIDatePicker.Mode, title: String, date initial: Date?) -> Observable<Date> {
+        
+        // adjusts the date/time for time zone discrepencies
         let adjustment = NSDateComponents()
         adjustment.hour = -2
         
@@ -173,6 +189,7 @@ class NewEventViewController: UIViewController {
         picker.datePickerMode = mode
         picker.date = date ?? Date()
         
+        // constructs peripheral views for the datetime picker
         let done = MDCRaisedButton()
         done.setTitle("DONE", for: .normal)
         done.setTitleColor(.white, for: .normal)
@@ -185,6 +202,7 @@ class NewEventViewController: UIViewController {
         label.font = label.font.asBold()
         label.fontSize = 40
         
+        // adds views to container and defines their layout constraints
         container.addSubview(label)
         container.addSubview(done)
         container.addSubview(picker)
@@ -206,6 +224,8 @@ class NewEventViewController: UIViewController {
             $0.width == $1.width * 0.95
         }
         
+        // constructs a date observable, offset to correct for discrepencies, and dissolves
+        // the datetime picker when fired.
         return done.rx.tap
                     .withLatestFrom(picker.rx.date)
                     .map({
@@ -219,6 +239,7 @@ class NewEventViewController: UIViewController {
                     .do(onCompleted: container.removeFromSuperview)
     }
     
+    /// Attaches tap observer for showing date picker.
     func setup(editDateButton button: UIButton) {
         button.rx.tap
             .withLatestFrom(date)
@@ -229,6 +250,7 @@ class NewEventViewController: UIViewController {
             .disposed(by: trash)
     }
     
+    /// Attaches tap observer for showing time picker (relative to a given selected property).
     func setup(editTimeButton button: UIButton, time: EventTime) {
         let dateOption = time == .start ? startDate : endDate
         let title = time == .start ? "Start Time" : "End Time"
@@ -242,6 +264,7 @@ class NewEventViewController: UIViewController {
             .disposed(by: trash)
     }
     
+    /// Attaches a tap observer to validate the form and submit a new event to the database.
     func setup(submitButton button: UIButton) {
         let form = Observable.combineLatest(
             formView.nameField.rx.text.orEmpty,
@@ -252,6 +275,7 @@ class NewEventViewController: UIViewController {
             endDate
         )
         
+        // validates the form, builds the appropriate structure for backend and submits to server
         button.rx.tap
             .withLatestFrom(form)
             .filter({ [weak self] in
@@ -285,8 +309,6 @@ class NewEventViewController: UIViewController {
                     "date" : $3.dateString,
                     "startTime" : start.timeString.lowercased(),
                     "endTime" : end.timeString.lowercased(),
-//                    "startTime" : formatter.string(from: start),
-//                    "endTime" : formatter.string(from: end),
                 ]
                 
                 if let dropdown = self?.formView.categoryDropdown,
@@ -302,6 +324,7 @@ class NewEventViewController: UIViewController {
             }).disposed(by: trash)
     }
     
+    /// Attaches a tap observer to cancel the current form.
     func setup(cancelButton button: UIButton) {
         button.rx.tap
             .flatMap({ [weak self] in
@@ -313,6 +336,7 @@ class NewEventViewController: UIViewController {
             }).disposed(by: trash)
     }
     
+    /// Validates the form for specified input values.
     func validateForm(name: String, description: String, location: String) -> FormValidationState {
         var messages: [String] = []
         
@@ -328,9 +352,11 @@ class NewEventViewController: UIViewController {
             messages.append("location required")
         }
         
+        // if no error messages are present: valid, if so: pass along error messages
         return messages.isEmpty ? .valid : .invalid(reasons: messages)
     }
     
+    /// Displays cancel form confirmation modal.
     func showCancelFormConfirmation() -> Observable<Bool> {
         return Observable.create { observer in
             let alert = UIAlertController(title: "Discard Event?", message: "Are you sure you want to discard this event?", preferredStyle: .alert)
@@ -350,6 +376,7 @@ class NewEventViewController: UIViewController {
     }
 }
 
+/// Validates form input values.
 fileprivate struct FormValidator {
     static func validate(name: String) -> Bool {
         return !name.isEmpty

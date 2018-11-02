@@ -11,6 +11,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 
+/// Async operations for fetching users.
 class FetchUserService {
     
     func execute() -> Observable<User> {

@@ -12,6 +12,7 @@ import RxCocoa
 import RxSwift
 import UIKit
 
+/// Container for services required by the new category view model.
 class NewCategoryViewModelServices: HasCreateCategoryService {
     let createCategory: CreateCategoryService
     
@@ -20,6 +21,7 @@ class NewCategoryViewModelServices: HasCreateCategoryService {
     }
 }
 
+/// Logic container for the new category view.
 class NewCategoryViewModel {
     typealias Services = HasCreateCategoryService
     
@@ -33,11 +35,13 @@ class NewCategoryViewModel {
         self.services = services
     }
     
+    /// Creates a new category in the database. Returns a success flag.
     func submit(data: [String : Any]) -> Observable<Bool> {
         return services.createCategory.execute(data: data)
     }
 }
 
+/// Responsible for displaying the new category view.
 class NewCategoryViewController: UIViewController {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var colorPickerContainer: UIView!
@@ -51,6 +55,7 @@ class NewCategoryViewController: UIViewController {
     
     let formErrors = PublishSubject<[String]>()
     
+    /// Constructor - Assigns the logic container and reads the visuals from the .nib.
     init(viewModel: NewCategoryViewModel = .init()) {
         self.viewModel = viewModel
         
@@ -68,6 +73,7 @@ class NewCategoryViewController: UIViewController {
         
         setup(submitButton: submitButton)
         
+        // creates the color picker
         let colorPicker = HRColorPickerView()
         colorPicker.addTarget(self, action: #selector(colorChanged(colorPicker:)), for: .valueChanged)
         colorPickerContainer.addSubview(colorPicker)
@@ -77,16 +83,20 @@ class NewCategoryViewController: UIViewController {
         }
     }
     
+    /// Delegate callback for the change of color in the color picker.
     @objc func colorChanged(colorPicker: HRColorPickerView) {
+        // forwards the new color to an observable stream.
         selectedColor.onNext(colorPicker.color)
     }
     
+    /// Attaches a tap observer to perform form validation and create a new category in the database.
     func setup(submitButton button: UIButton) {
         let form = Observable.combineLatest(
             nameField.rx.text.orEmpty,
             selectedColor
         )
         
+        // passes form data through validator, formatter, then into the async database service
         button.rx.tap
             .withLatestFrom(form)
             .map({ ($0, $1.hexString) })
@@ -102,7 +112,10 @@ class NewCategoryViewController: UIViewController {
     }
 }
 
+/// Extension for the form validator.
 extension NewCategoryViewController {
+    
+    /// Validates the form.
     struct FormValidator {
         static func validate(name: String, color: String) -> Bool {
             return validate(name: name) && validate(color: color)
@@ -119,6 +132,7 @@ extension NewCategoryViewController {
 }
 
 extension UIColor {
+    /// A hex formatted string representation.
     var hexString: String {
         guard let components = cgColor.components else { return "" }
         let r = lroundf(Float(components[0] * 255))
