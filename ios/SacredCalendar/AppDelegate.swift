@@ -13,9 +13,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // Initates the app with the login screen wrapped in a navigation stack
+        let login = LoginViewController()
+        let navigation = AppNavigationController(rootViewController: login)
+        
+        // attach root navigation stack to main window
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = navigation
+        window?.makeKeyAndVisible()
+
         return true
     }
 

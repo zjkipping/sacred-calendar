@@ -6,20 +6,18 @@ target 'SacredCalendar' do
   use_frameworks!
 
   # Pods for SacredCalendar
-  pod 'Firebase/AdMob'
-  pod 'Firebase/Analytics'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Crash'
-  pod 'Firebase/Database'
-  pod 'Firebase/DynamicLinks'
-  pod 'Firebase/Invites'
-  pod 'Firebase/Messaging'
-  pod 'Firebase/Performance'
-  pod 'Firebase/RemoteConfig'
-  pod 'Firebase/Storage'
   pod 'RxCocoa'
   pod 'RxSwift'
   pod 'Alamofire'
+  pod 'SwiftyJSON'
+  pod 'SwiftKeychainWrapper'
+  pod 'MaterialComponents/Buttons'
+  pod 'MaterialComponents/TextFields'
+  pod 'Material'
+  pod 'Cartography'
+  pod 'MaterialTextField', '~> 0.2'
+  pod 'Color-Picker-for-iOS', '~> 2.0'
+  pod 'iOSDropDown'
 
   target 'SacredCalendarTests' do
     inherit! :search_paths

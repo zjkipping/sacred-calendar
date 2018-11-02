@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewEventViewController" customModule="SacredCalendar" customModuleProvider="target">
+            <connections>
+                <outlet property="cancelButton" destination="4NU-r5-a4v" id="B6c-Y9-sgR"/>
+                <outlet property="formView" destination="Mfx-Bc-Xcx" id="DUf-Yt-L9P"/>
+                <outlet property="submitButton" destination="kTy-Ii-7fM" id="NTC-gr-QaZ"/>
+                <outlet property="view" destination="iN0-l3-epB" id="avx-HP-r1T"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kTy-Ii-7fM" customClass="MDCRaisedButton">
+                    <rect key="frame" x="231" y="579" width="100" height="44"/>
+                    <color key="backgroundColor" red="0.14901960780000001" green="0.65098039220000004" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="HHt-Ej-P50"/>
+                        <constraint firstAttribute="height" constant="44" id="uGp-Tx-xqO"/>
+                    </constraints>
+                    <state key="normal" title="SUBMIT">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4NU-r5-a4v" customClass="MDCRaisedButton">
+                    <rect key="frame" x="44" y="579" width="100" height="44"/>
+                    <color key="backgroundColor" red="0.95184808969497681" green="0.11026861518621445" blue="0.096311502158641815" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="1dg-JF-uar"/>
+                        <constraint firstAttribute="width" constant="100" id="wpA-Wp-Suc"/>
+                    </constraints>
+                    <state key="normal" title="CANCEL">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D0r-S5-not">
+                    <rect key="frame" x="0.0" y="20" width="375" height="559"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mfx-Bc-Xcx" customClass="NewEventFormView" customModule="SacredCalendar" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="20" width="375" height="519"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Mfx-Bc-Xcx" secondAttribute="trailing" id="02J-wu-R7R"/>
+                        <constraint firstAttribute="bottom" secondItem="Mfx-Bc-Xcx" secondAttribute="bottom" id="NJa-HB-B6e"/>
+                        <constraint firstItem="Mfx-Bc-Xcx" firstAttribute="top" secondItem="D0r-S5-not" secondAttribute="top" id="OT4-7v-JKS"/>
+                        <constraint firstItem="Mfx-Bc-Xcx" firstAttribute="width" secondItem="D0r-S5-not" secondAttribute="width" id="e31-I9-kx7"/>
+                        <constraint firstItem="Mfx-Bc-Xcx" firstAttribute="leading" secondItem="D0r-S5-not" secondAttribute="leading" id="qGa-Np-Tdn"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="4NU-r5-a4v" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="44" id="61x-Vk-8qx"/>
+                <constraint firstItem="D0r-S5-not" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="BwJ-re-lZO"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="kTy-Ii-7fM" secondAttribute="trailing" constant="44" id="K8Y-ny-xYC"/>
+                <constraint firstItem="4NU-r5-a4v" firstAttribute="centerY" secondItem="kTy-Ii-7fM" secondAttribute="centerY" id="L5b-Wj-nbz"/>
+                <constraint firstItem="kTy-Ii-7fM" firstAttribute="top" secondItem="D0r-S5-not" secondAttribute="bottom" constant="20" id="NtD-vS-hb3"/>
+                <constraint firstItem="D0r-S5-not" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Ubg-lg-Ksf"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="kTy-Ii-7fM" secondAttribute="bottom" constant="44" id="oid-Iz-BWL"/>
+                <constraint firstAttribute="trailing" secondItem="D0r-S5-not" secondAttribute="trailing" id="yiJ-9Y-f0j"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="125.59999999999999" y="122.78860569715144"/>
+        </view>
+    </objects>
+</document>

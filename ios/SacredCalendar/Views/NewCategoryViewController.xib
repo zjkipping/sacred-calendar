@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewCategoryViewController" customModule="SacredCalendar" customModuleProvider="target">
+            <connections>
+                <outlet property="colorPickerContainer" destination="XZI-Ya-oum" id="gMA-Fb-vZf"/>
+                <outlet property="nameField" destination="i9r-8Z-6Ln" id="xD4-Xb-cpy"/>
+                <outlet property="submitButton" destination="NC5-tJ-WHY" id="jOA-Tk-nrE"/>
+                <outlet property="view" destination="iN0-l3-epB" id="jN6-Td-apL"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NC5-tJ-WHY" customClass="MDCRaisedButton">
+                    <rect key="frame" x="137.5" y="579" width="100" height="44"/>
+                    <color key="backgroundColor" red="0.14901960780000001" green="0.65098039220000004" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="UjS-LF-R0i"/>
+                        <constraint firstAttribute="width" constant="100" id="ouO-pc-h3Z"/>
+                    </constraints>
+                    <state key="normal" title="CREATE">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i9r-8Z-6Ln" customClass="MFTextField">
+                    <rect key="frame" x="75" y="36.5" width="225" height="30"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultPlaceholderColor">
+                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XZI-Ya-oum">
+                    <rect key="frame" x="37.5" y="86.5" width="300" height="472.5"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.31372549020000001" green="0.31764705879999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="i9r-8Z-6Ln" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="0.15" id="2iX-Km-kZ3"/>
+                <constraint firstItem="XZI-Ya-oum" firstAttribute="centerX" secondItem="i9r-8Z-6Ln" secondAttribute="centerX" id="APE-6O-0H3"/>
+                <constraint firstItem="NC5-tJ-WHY" firstAttribute="top" secondItem="XZI-Ya-oum" secondAttribute="bottom" constant="20" id="Go3-4j-Eu3"/>
+                <constraint firstItem="XZI-Ya-oum" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.8" id="O9W-mu-98R"/>
+                <constraint firstItem="XZI-Ya-oum" firstAttribute="top" secondItem="i9r-8Z-6Ln" secondAttribute="bottom" constant="20" id="UuW-03-4R9"/>
+                <constraint firstItem="i9r-8Z-6Ln" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.6" id="Wfe-DS-QFg"/>
+                <constraint firstItem="i9r-8Z-6Ln" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Wnx-an-XUF"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="NC5-tJ-WHY" secondAttribute="bottom" constant="44" id="a9O-dD-bAp"/>
+                <constraint firstItem="NC5-tJ-WHY" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="dvT-7W-he0"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+</document>

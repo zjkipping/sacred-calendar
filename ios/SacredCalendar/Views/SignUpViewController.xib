@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignUpViewController" customModule="SacredCalendar" customModuleProvider="target">
+            <connections>
+                <outlet property="emailField" destination="uAh-lY-l0g" id="rd4-R2-KUb"/>
+                <outlet property="firstNameField" destination="Q7H-M4-TPy" id="rbN-Qz-d8h"/>
+                <outlet property="lastNameField" destination="hSp-9m-bPY" id="3pX-dE-fWH"/>
+                <outlet property="passwordField" destination="xkY-Us-GFH" id="8z4-d1-Z1f"/>
+                <outlet property="submitButton" destination="Ty9-SB-9zV" id="gfR-50-0r0"/>
+                <outlet property="usernameField" destination="a3e-8k-mkH" id="JeA-zg-6VT"/>
+                <outlet property="verifyPasswordField" destination="o9Z-zm-qAf" id="n9C-PU-6XP"/>
+                <outlet property="view" destination="iN0-l3-epB" id="amz-Hf-jlF"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a3e-8k-mkH" customClass="MFTextField">
+                    <rect key="frame" x="94" y="86.5" width="187.5" height="30"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="username"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultPlaceholderColor">
+                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q7H-M4-TPy" customClass="MFTextField">
+                    <rect key="frame" x="94" y="36.5" width="88.5" height="30"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="first name"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultPlaceholderColor">
+                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uAh-lY-l0g" customClass="MFTextField">
+                    <rect key="frame" x="94" y="136.5" width="187.5" height="30"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="email"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultPlaceholderColor">
+                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o9Z-zm-qAf" customClass="MFTextField">
+                    <rect key="frame" x="94" y="236.5" width="187.5" height="30"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="verify password"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultPlaceholderColor">
+                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ty9-SB-9zV" customClass="MDCRaisedButton">
+                    <rect key="frame" x="137.5" y="579" width="100" height="44"/>
+                    <color key="backgroundColor" red="0.043137254899999998" green="0.32549019610000002" blue="0.58039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="KXW-DB-39Z"/>
+                        <constraint firstAttribute="width" constant="100" id="lZv-K9-fhR"/>
+                    </constraints>
+                    <state key="normal" title="SIGN UP">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xkY-Us-GFH" customClass="MFTextField">
+                    <rect key="frame" x="94" y="186.5" width="187.5" height="30"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="password"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultPlaceholderColor">
+                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hSp-9m-bPY" customClass="MFTextField">
+                    <rect key="frame" x="192.5" y="36.5" width="89" height="30"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="last name"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="defaultPlaceholderColor">
+                            <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="hSp-9m-bPY" firstAttribute="trailing" secondItem="a3e-8k-mkH" secondAttribute="trailing" id="1xh-of-e0Z"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Ty9-SB-9zV" secondAttribute="bottom" constant="44" id="2El-kr-pij"/>
+                <constraint firstItem="xkY-Us-GFH" firstAttribute="centerX" secondItem="uAh-lY-l0g" secondAttribute="centerX" id="6Wm-ci-Eaz"/>
+                <constraint firstItem="a3e-8k-mkH" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="BvW-LE-722"/>
+                <constraint firstItem="Ty9-SB-9zV" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Erj-M7-cwp"/>
+                <constraint firstItem="Q7H-M4-TPy" firstAttribute="width" secondItem="hSp-9m-bPY" secondAttribute="width" id="GVD-Vf-Wsk"/>
+                <constraint firstItem="uAh-lY-l0g" firstAttribute="width" secondItem="a3e-8k-mkH" secondAttribute="width" id="GzY-Gq-Mns"/>
+                <constraint firstItem="Q7H-M4-TPy" firstAttribute="leading" secondItem="a3e-8k-mkH" secondAttribute="leading" id="HiT-Pa-82j"/>
+                <constraint firstItem="o9Z-zm-qAf" firstAttribute="centerX" secondItem="xkY-Us-GFH" secondAttribute="centerX" id="JFw-2H-diJ"/>
+                <constraint firstItem="xkY-Us-GFH" firstAttribute="width" secondItem="uAh-lY-l0g" secondAttribute="width" id="Pxb-v7-EJV"/>
+                <constraint firstItem="hSp-9m-bPY" firstAttribute="leading" secondItem="Q7H-M4-TPy" secondAttribute="trailing" constant="10" id="Rd8-sQ-jkh"/>
+                <constraint firstItem="o9Z-zm-qAf" firstAttribute="width" secondItem="xkY-Us-GFH" secondAttribute="width" id="SsL-3g-Iks"/>
+                <constraint firstItem="uAh-lY-l0g" firstAttribute="centerX" secondItem="a3e-8k-mkH" secondAttribute="centerX" id="TDh-Ge-2zm"/>
+                <constraint firstItem="Q7H-M4-TPy" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" multiplier="0.15" id="W85-1w-mHj"/>
+                <constraint firstItem="o9Z-zm-qAf" firstAttribute="top" secondItem="xkY-Us-GFH" secondAttribute="bottom" constant="20" id="X44-c8-0vQ"/>
+                <constraint firstItem="a3e-8k-mkH" firstAttribute="top" secondItem="hSp-9m-bPY" secondAttribute="bottom" constant="20" id="dCa-YJ-vCp"/>
+                <constraint firstItem="a3e-8k-mkH" firstAttribute="top" secondItem="Q7H-M4-TPy" secondAttribute="bottom" constant="20" id="lgh-Im-FXF"/>
+                <constraint firstItem="xkY-Us-GFH" firstAttribute="top" secondItem="uAh-lY-l0g" secondAttribute="bottom" constant="20" id="qhc-hs-1al"/>
+                <constraint firstItem="a3e-8k-mkH" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.5" id="rsi-n2-rPY"/>
+                <constraint firstItem="Ty9-SB-9zV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="o9Z-zm-qAf" secondAttribute="bottom" constant="44" id="spD-RU-IIT"/>
+                <constraint firstItem="uAh-lY-l0g" firstAttribute="top" secondItem="a3e-8k-mkH" secondAttribute="bottom" constant="20" id="yFz-fq-eRX"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
+        </view>
+    </objects>
+</document>

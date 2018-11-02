@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RVo-Rx-Fq8">
+                    <rect key="frame" x="16" y="32" width="34" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="Back"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2z-09-RhB">
+                    <rect key="frame" x="153" y="35" width="77" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="77" id="oer-aI-b2Y"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CZr-hb-n8N">
+                    <rect key="frame" x="321" y="32" width="30" height="30"/>
+                    <state key="normal" title="Add"/>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zPi-7G-4Ce">
+                    <rect key="frame" x="0.0" y="75" width="375" height="592"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="CZr-hb-n8N" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="321" id="0N2-B4-RlS"/>
+                <constraint firstItem="zPi-7G-4Ce" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="2cm-Rq-lQx"/>
+                <constraint firstItem="RVo-Rx-Fq8" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="12" id="65k-sD-7FH"/>
+                <constraint firstItem="zPi-7G-4Ce" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="87P-vb-UZP"/>
+                <constraint firstItem="CZr-hb-n8N" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="12" id="H68-gh-210"/>
+                <constraint firstItem="RVo-Rx-Fq8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="R7W-Zm-DOk"/>
+                <constraint firstItem="x2z-09-RhB" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="15" id="SqO-nC-dNY"/>
+                <constraint firstItem="zPi-7G-4Ce" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="oCW-GZ-sOy"/>
+                <constraint firstItem="CZr-hb-n8N" firstAttribute="leading" secondItem="x2z-09-RhB" secondAttribute="trailing" constant="91" id="u1W-Tn-edb"/>
+                <constraint firstItem="zPi-7G-4Ce" firstAttribute="top" secondItem="x2z-09-RhB" secondAttribute="bottom" constant="20" id="xCp-4Q-fTf"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="138.40000000000001" y="152.47376311844079"/>
+        </view>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wjn-g9-36A">
+            <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <state key="normal" title="Button"/>
+        </button>
+    </objects>
+</document>
