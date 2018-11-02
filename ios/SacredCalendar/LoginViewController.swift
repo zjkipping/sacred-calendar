@@ -37,9 +37,16 @@ class AuthViewModel {
     }
 }
 
-enum FormValidationState {
+enum FormValidationState: Equatable {
     case valid
     case invalid(reasons: [String])
+}
+
+func ==(lhs: FormValidationState, rhs: FormValidationState) -> Bool {
+    switch (lhs, rhs) {
+    case (.valid, .valid): return true
+    default: return false
+    }
 }
 
 class LoginViewController: UIViewController {

@@ -103,7 +103,7 @@ class API {
         }
     }
     
-    private static func method(for action: Action) -> HTTPMethod {
+    static func method(for action: Action) -> HTTPMethod {
         switch action {
         case .get:          return .get
         case .list:         return .get
@@ -118,11 +118,11 @@ class API {
         }
     }
     
-    private static func url(for resource: Resource, action: Action) -> String {
+    static func url(for resource: Resource, action: Action) -> String {
         return url(for: resource) / endpoint(for: action)
     }
     
-    private static func endpoint(for action: Action) -> String {
+    static func endpoint(for action: Action) -> String {
         switch action {
         case .get(let id):      return String(id)
         case .create:           return ""
@@ -137,7 +137,7 @@ class API {
         }
     }
     
-    private static func url(for resource: Resource) -> String {
+    static func url(for resource: Resource) -> String {
         let resourceUrl = resource.rawValue
         return resourceUrl.isEmpty ? apiEndpoint : apiEndpoint / resourceUrl
     }
