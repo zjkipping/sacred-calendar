@@ -90,9 +90,8 @@ class NewCategoryViewController: UIViewController {
         button.rx.tap
             .withLatestFrom(form)
             .map({ ($0, $1.hexString) })
-            .filter({ [weak self] in
-                self?.validate(name: $0, color: $1) ?? false
-            }).map({[
+            .filter({ FormValidator.validate(name: $0, color: $1) })
+            .map({[
                 "name" : $0,
                 "color" : $1,
             ]})
@@ -101,9 +100,21 @@ class NewCategoryViewController: UIViewController {
                 self?.navigationController?.popViewController(animated: true)
             }).disposed(by: trash)
     }
-    
-    func validate(name: String, color: String) -> Bool {
-        return !name.isEmpty && !color.isEmpty
+}
+
+extension NewCategoryViewController {
+    struct FormValidator {
+        static func validate(name: String, color: String) -> Bool {
+            return validate(name: name) && validate(color: color)
+        }
+        
+        static func validate(name: String) -> Bool {
+            return !name.isEmpty
+        }
+        
+        static func validate(color: String) -> Bool {
+            return !color.isEmpty
+        }
     }
 }
 

@@ -35,6 +35,12 @@
 		8B8A1782218A8B04001A811F /* NewEventFormView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B8A1781218A8B04001A811F /* NewEventFormView.xib */; };
 		8B8A1784218A8BA6001A811F /* NewEventFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1783218A8BA6001A811F /* NewEventFormView.swift */; };
 		8B8A1786218B41C3001A811F /* FetchUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1785218B41C3001A811F /* FetchUserService.swift */; };
+		8B8A1788218BC290001A811F /* SignUpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1787218BC290001A811F /* SignUpTests.swift */; };
+		8B8A178A218BF625001A811F /* NewCategoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1789218BF625001A811F /* NewCategoryTests.swift */; };
+		8B8A178C218BFC8E001A811F /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A178B218BFC8E001A811F /* ExtensionTests.swift */; };
+		8B8A178E218C01C0001A811F /* OperatorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A178D218C01C0001A811F /* OperatorsTests.swift */; };
+		8B8A1790218C0330001A811F /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A178F218C0330001A811F /* APITests.swift */; };
+		8B8A1792218C070E001A811F /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1791218C070E001A811F /* UserTests.swift */; };
 		8B9B13B0217D2474002CB9A0 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13AF217D2474002CB9A0 /* AuthService.swift */; };
 		8B9B13B4217D320A002CB9A0 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13B3217D320A002CB9A0 /* Model.swift */; };
 		8B9B13B6217D345C002CB9A0 /* FetchEventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13B5217D345C002CB9A0 /* FetchEventsService.swift */; };
@@ -44,7 +50,7 @@
 		8BA9005E215334BA00FF7733 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9005D215334BA00FF7733 /* LoginViewController.swift */; };
 		8BA90063215334BA00FF7733 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BA90062215334BA00FF7733 /* Assets.xcassets */; };
 		8BA90066215334BA00FF7733 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BA90064215334BA00FF7733 /* LaunchScreen.storyboard */; };
-		8BA90071215334BB00FF7733 /* SacredCalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA90070215334BB00FF7733 /* SacredCalendarTests.swift */; };
+		8BA90071215334BB00FF7733 /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA90070215334BB00FF7733 /* LoginTests.swift */; };
 		8BA9007C215334BB00FF7733 /* SacredCalendarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA9007B215334BB00FF7733 /* SacredCalendarUITests.swift */; };
 		8BC175F0217584A4002AFFD2 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC175EF217584A4002AFFD2 /* Category.swift */; };
 		8BC175F2217584FD002AFFD2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC175F1217584FD002AFFD2 /* User.swift */; };
@@ -99,6 +105,12 @@
 		8B8A1781218A8B04001A811F /* NewEventFormView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewEventFormView.xib; sourceTree = "<group>"; };
 		8B8A1783218A8BA6001A811F /* NewEventFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventFormView.swift; sourceTree = "<group>"; };
 		8B8A1785218B41C3001A811F /* FetchUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserService.swift; sourceTree = "<group>"; };
+		8B8A1787218BC290001A811F /* SignUpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTests.swift; sourceTree = "<group>"; };
+		8B8A1789218BF625001A811F /* NewCategoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategoryTests.swift; sourceTree = "<group>"; };
+		8B8A178B218BFC8E001A811F /* ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
+		8B8A178D218C01C0001A811F /* OperatorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatorsTests.swift; sourceTree = "<group>"; };
+		8B8A178F218C0330001A811F /* APITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITests.swift; sourceTree = "<group>"; };
+		8B8A1791218C070E001A811F /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		8B9B13AF217D2474002CB9A0 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		8B9B13B3217D320A002CB9A0 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8B9B13B5217D345C002CB9A0 /* FetchEventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchEventsService.swift; sourceTree = "<group>"; };
@@ -111,7 +123,7 @@
 		8BA90065215334BA00FF7733 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8BA90067215334BA00FF7733 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BA9006C215334BB00FF7733 /* SacredCalendarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SacredCalendarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8BA90070215334BB00FF7733 /* SacredCalendarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SacredCalendarTests.swift; sourceTree = "<group>"; };
+		8BA90070215334BB00FF7733 /* LoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
 		8BA90072215334BB00FF7733 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BA90077215334BB00FF7733 /* SacredCalendarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SacredCalendarUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BA9007B215334BB00FF7733 /* SacredCalendarUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SacredCalendarUITests.swift; sourceTree = "<group>"; };
@@ -279,7 +291,13 @@
 		8BA9006F215334BB00FF7733 /* SacredCalendarTests */ = {
 			isa = PBXGroup;
 			children = (
-				8BA90070215334BB00FF7733 /* SacredCalendarTests.swift */,
+				8BA90070215334BB00FF7733 /* LoginTests.swift */,
+				8B8A1787218BC290001A811F /* SignUpTests.swift */,
+				8B8A1789218BF625001A811F /* NewCategoryTests.swift */,
+				8B8A178B218BFC8E001A811F /* ExtensionTests.swift */,
+				8B8A178D218C01C0001A811F /* OperatorsTests.swift */,
+				8B8A178F218C0330001A811F /* APITests.swift */,
+				8B8A1791218C070E001A811F /* UserTests.swift */,
 				8BA90072215334BB00FF7733 /* Info.plist */,
 			);
 			path = SacredCalendarTests;
@@ -582,7 +600,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BA90071215334BB00FF7733 /* SacredCalendarTests.swift in Sources */,
+				8B8A1788218BC290001A811F /* SignUpTests.swift in Sources */,
+				8BA90071215334BB00FF7733 /* LoginTests.swift in Sources */,
+				8B8A1790218C0330001A811F /* APITests.swift in Sources */,
+				8B8A1792218C070E001A811F /* UserTests.swift in Sources */,
+				8B8A178A218BF625001A811F /* NewCategoryTests.swift in Sources */,
+				8B8A178E218C01C0001A811F /* OperatorsTests.swift in Sources */,
+				8B8A178C218BFC8E001A811F /* ExtensionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
