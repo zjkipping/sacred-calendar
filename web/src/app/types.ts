@@ -55,3 +55,8 @@ export interface CalendarDate {
   today?: boolean;
   disabled?: boolean;
 }
+
+export interface FriendRequestOption {
+  id: number;
+  username: string;
+}

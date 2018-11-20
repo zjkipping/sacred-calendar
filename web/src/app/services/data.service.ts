@@ -101,6 +101,10 @@ export class DataService {
     const id = category.id ? category.id : null;
     return this.http.delete(API_URL + '/category/' + id).pipe(take(1));
   }
+
+  getFriendTypeAhead(username: string): Observable<any> {
+    return this.http.get(API_URL + '/fr-typeahead?username=' + username).pipe(take(1));
+  }
 }
 
 /*

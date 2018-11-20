@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Friend Request</h1>
+<div mat-dialog-content class="content">
+  <mat-form-field class="full-width">
+    <input matInput [formControl]="friendControl" placeholder="username" required>
+  </mat-form-field>
+  <div class="options-container" >
+    <div class="option" *ngFor="let option of friendOptions | async; even as alternate" [class.dark-shade]="alternate" (click)="selectUser(option)">
+      {{ option.username }}
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+  <div class="spacer"></div>
+  <button mat-raised-button [disabled]="!friendControl?.valid" class="success" (click)="sendRequest()">Send Request</button>
+</div>

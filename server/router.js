@@ -4,6 +4,7 @@ const auth = require('./auth');
 const user = require('./user');
 const express = require('express');
 const mysql = require('mysql2');
+const util = require('./util');
 
 // creates an express router instance
 const router = express.Router();
@@ -50,6 +51,8 @@ const startRoutes = async () => {
   router.post('/friends', user.addFriend);
   router.put('/friends', user.updateFriend);
   router.delete('/friends', user.removeFriend);
+
+  router.get('/fr-typeahead', util.getFriendRequestTypeAhead)
 };
 
 // starts the router in an asynchronous fashion

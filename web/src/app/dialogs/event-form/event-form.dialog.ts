@@ -10,17 +10,7 @@ import { DataService } from '@services/data.service';
 @Component({
   selector: 'app-event-form-dialog',
   templateUrl: './event-form.dialog.html',
-  styles: [`
-    .description {
-      resize: vertical;
-      max-height: 200px;
-      min-height: 100px;
-    }
-    .event-form-body {
-      height: 450px;
-      overflow-y: auto;
-    }
-  `]
+  styleUrls: ['./event-form.dialog.scss']
 })
 export class EventFormDialogComponent {
   eventForm: FormGroup;

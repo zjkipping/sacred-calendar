@@ -30,7 +30,6 @@ body {
 
 .text-center {
   text-align: center;
-  margin: 0 auto;
 }
 
 .text-right {
@@ -39,6 +38,12 @@ body {
 
 .full-width {
   width: 100%;
+}
+
+.center-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mat-card .mat-card-header .mat-card-header-text {

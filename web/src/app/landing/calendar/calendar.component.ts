@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Observable, forkJoin } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 
 import { CalendarDate, Event, CategoryFormValue } from '@types';
 import { DIALOG_HEIGHT, DIALOG_WIDTH } from '@constants';
 import { DataService } from '@services/data.service';
 import { CalendarService } from '@services/calendar.service';
-import { EventFormDialogComponent } from '@dialogs/event-form.dialog';
-import { CategoryManagerDialogComponent } from '@dialogs/category-manager.dialog';
+import { EventFormDialogComponent } from '@dialogs/event-form/event-form.dialog';
+import { CategoryManagerDialogComponent } from '@dialogs/category-manager/category-manager.dialog';
 
 @Component({
   selector: 'app-calendar',
