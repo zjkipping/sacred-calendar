@@ -58,7 +58,7 @@ export class CategoryManagerDialogComponent {
       if ((this.categoriesForm.at(index) as FormGroup).value.new) {
         this.categoriesForm.removeAt(index);
       } else {
-        (this.categoriesForm.at(index) as FormGroup).value.delete = true;
+        ((this.categoriesForm.at(index) as FormGroup).get('delete') as FormControl).setValue(true);
         (this.categoriesForm.at(index) as FormGroup).markAsDirty();
       }
     }

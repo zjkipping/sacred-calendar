@@ -10,8 +10,8 @@ export const UnitTestEvents: Event[] = [
     'description': 'Giving a demo over our cool application we built.',
     'location': 'Strickland 204',
     'date': moment('2018-11-01T05:00:00.000Z', 'YYYY-MM-DD'),
-    'startTime': '02:45 pm',
-    'endTime': '03:00 pm',
+    'startTime': moment('2018-11-02T14:25:00.000Z'),
+    'endTime': moment('2018-11-02T15:00:00.000Z'),
     'category': {
       'id': 27,
       'name': 'Schoolasd',
@@ -26,7 +26,7 @@ export const UnitTestEvents: Event[] = [
     'description': 'Need to submit our demo-1 documentation into canvas + submit a link to our github for the code.',
     'location': undefined,
     'date': moment('2018-11-02T05:00:00.000Z', 'YYYY-MM-DD'),
-    'startTime': '05:00 pm',
+    'startTime': moment('2018-11-02T05:00:00.000Z'),
     'endTime': undefined,
     'category': {
       'id': 27,
@@ -42,7 +42,7 @@ export const UnitTestEvents: Event[] = [
     'description': 'Second Annual Cajun Boil hosted by family and friends. \n\nNeed to bring food to add to pot!',
     'location': 'Lake St. Louis',
     'date': moment('2018-11-03T05:00:00.000Z', 'YYYY-MM-DD'),
-    'startTime': '01:00 pm',
+    'startTime': moment('2018-11-02T13:00:00.000Z'),
     'endTime': undefined,
     'category': {
       'id': 28,
@@ -58,8 +58,8 @@ export const UnitTestEvents: Event[] = [
     'description': 'Doing software work for my company, remotely.\n\n1 hour progress meeting during this time frame.',
     'location': undefined,
     'date': moment('2018-11-05T06:00:00.000Z', 'YYYY-MM-DD'),
-    'startTime': '08:00 am',
-    'endTime': '02:30 pm',
+    'startTime': moment('2018-11-02T08:00:00.000Z'),
+    'endTime': moment('2018-11-02T14:30:00.000Z'),
     'category': {
       'id': 28,
       'name': 'Personal',
@@ -74,8 +74,8 @@ export const UnitTestEvents: Event[] = [
     'description': 'Finish the functionality we want to have implemented by demo 1 for Software Engineering',
     'location': undefined,
     'date': moment('2018-10-31T05:00:00.000Z', 'YYYY-MM-DD'),
-    'startTime': '12:00 am',
-    'endTime': '12:00 pm',
+    'startTime': moment('2018-11-02T00:00:00.000Z'),
+    'endTime': moment('2018-11-02T24:00:00.000Z'),
     'category': {
       'id': 27,
       'name': 'Schoolasd',
@@ -90,8 +90,8 @@ export const UnitTestEvents: Event[] = [
     'description': undefined,
     'location': undefined,
     'date': moment('2018-10-31T05:00:00.000Z', 'YYYY-MM-DD'),
-    'startTime': '08:00 pm',
-    'endTime': '12:00 pm',
+    'startTime': moment('2018-11-02T20:00:00.000Z'),
+    'endTime': moment('2018-11-02T24:00:00.000Z'),
     'category': {
       'id': 28,
       'name': 'Personal',
@@ -106,7 +106,7 @@ export const UnitTestEvents: Event[] = [
     'description': 'Need to submit my DE project about explosion effects to the class server.',
     'location': undefined,
     'date': moment('2018-11-02T05:00:00.000Z', 'YYYY-MM-DD'),
-    'startTime': '11:59 pm',
+    'startTime': moment('2018-11-02T23:59:00.000Z'),
     'endTime': undefined,
     'category': {
       'id': 27,
@@ -122,8 +122,8 @@ export const UnitTestEvents: Event[] = [
     'description': 'Need to get some solid work done on this, so I\'m more free next week when it\'s due.',
     'location': undefined,
     'date': moment('2018-11-02T05:00:00.000Z', 'YYYY-MM-DD'),
-    'startTime': '08:00 am',
-    'endTime': '11:30 am',
+    'startTime': moment('2018-11-02T08:00:00.000Z'),
+    'endTime': moment('2018-11-02T11:30:00.000Z'),
     'category': {
       'id': 27,
       'name': 'Schoolasd',
@@ -138,8 +138,8 @@ export const UnitTestEvents: Event[] = [
     'description': 'Need to work on this rough draft since it is due next week. Primarily need to find resources and finish off the easier chunks of the paper (background info).',
     'location': undefined,
     'date': moment('2018-11-02T05:00:00.000Z', 'YYYY-MM-DD'),
-    'startTime': '01:00 pm',
-    'endTime': '04:00 pm',
+    'startTime': moment('2018-11-02T13:00:00.000Z'),
+    'endTime': moment('2018-11-02T16:00:00.000Z'),
     'category': {
       'id': 27,
       'name': 'Schoolasd',
@@ -154,8 +154,8 @@ export const UnitTestEvents: Event[] = [
     'description': undefined,
     'location': undefined,
     'date': moment('2018-11-02T05:00:00.000Z', 'YYYY-MM-DD'),
-    'startTime': '06:00 pm',
-    'endTime': '06:30 pm',
+    'startTime': moment('2018-11-02T18:00:00.000Z'),
+    'endTime': moment('2018-11-02T18:30:00.000Z'),
     'category': {
       'id': 28,
       'name': 'Personal',
@@ -170,8 +170,8 @@ export const UnitTestEvents: Event[] = [
     'description': 'Need to work on TigerAware V3 functionality and finish up a demo for tomorrow.',
     'location': undefined,
     'date': moment('2018-11-01T05:00:00.000Z', 'YYYY-MM-DD'),
-    'startTime': '05:00 pm',
-    'endTime': '08:00 pm',
+    'startTime': moment('2018-11-02T17:00:00.000Z'),
+    'endTime': moment('2018-11-02T20:00:00.000Z'),
     'category': {
       'id': 28,
       'name': 'Personal',
@@ -186,7 +186,7 @@ export const UnitTestEvents: Event[] = [
     'description': 'asd asdasd asda sd',
     'location': 'Here',
     'date': moment('2018-11-08T06:00:00.000Z', 'YYYY-MM-DD'),
-    'startTime': '04:20 am',
+    'startTime': moment('2018-11-02T04:20:00.000Z'),
     'endTime': undefined,
     'category': {
       'id': 29,

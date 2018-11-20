@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import * as moment from 'moment';
 
 import { UserDetails, EventFormValue, Event, Category, CategoryFormValue } from '@types';
@@ -31,12 +31,16 @@ export class DataService {
   // fetches the events from the API
   fetchEvents() {
     this.http.get<any[]>(API_URL + '/events').pipe(
-      // converts the date from a string to a Moment object
-      map(events => events.map(event => ({ ...event, date: moment(event.date, 'YYYY-MM-DD') }))),
+      // converts the date & times from unix to Moment objects
+      map(events => events.map(event => {
+        return {
+          ...event,
+          date: moment.unix(event.date),
+          startTime: moment.unix(event.startTime),
+          endTime: event.endTime ? moment.unix(event.endTime) : undefined
+        };
+      })),
       // ensures that the stream ends once 1 response is given back
-      take(1),
-      // set the loading boolean to false
-      tap(() => this.loadingEvents = false),
       map(events => {
         // set the fontColor's for the various categories in the event
         return events.map(event => {
@@ -46,7 +50,10 @@ export class DataService {
           }
           return { ...event, fontColor };
         });
-      })
+      }),
+      take(1),
+      // set the loading boolean to false
+      tap(() => this.loadingEvents = false)
     ).subscribe(res => this.events.next(res));
   }
 
@@ -66,12 +73,12 @@ export class DataService {
 
   // sends off the new event post to the API
   newEvent(event: EventFormValue): Observable<any> {
-    return this.http.post(API_URL + '/event', event).pipe(take(1));
+    return this.http.post(API_URL + '/event', formEventParseDateTimes(event)).pipe(take(1));
   }
 
   // sends off the update event put to the API
-  updateEvent(event: Event): Observable<any> {
-    return this.http.put(API_URL + '/event', event).pipe(take(1));
+  updateEvent(event: EventFormValue): Observable<any> {
+    return this.http.put(API_URL + '/event', formEventParseDateTimes(event)).pipe(take(1));
   }
 
   // sends off the delete event to the API
@@ -108,4 +115,22 @@ export function getContrastYIQ(hexcolor: string) {
   const b = parseInt(hexcolor.substr(4, 2), 16);
   const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
   return (yiq >= 128) ? 'black' : 'white';
+}
+
+export function formEventParseDateTimes(event: EventFormValue) {
+  const date = moment(event.date);
+  return {
+    ...event,
+    date: date.unix(),
+    startTime: convertTimeToMomentDate(event.startTime, date).unix(),
+    endTime: event.endTime !== '' ? convertTimeToMomentDate(event.endTime, date).unix() : undefined
+  };
+}
+
+export function convertTimeToMomentDate(time: string, date: moment.Moment) {
+  const timeColonSplit = time.split(':');
+  const timeSpaceSplit = timeColonSplit[1].split(' ');
+  const minutes = Number(timeSpaceSplit[0]);
+  const hours = Number(timeColonSplit[0]) + (timeSpaceSplit[1] === 'pm' ? 12 : 0);
+  return moment(date).hours(hours).minutes(minutes).milliseconds(0);
 }

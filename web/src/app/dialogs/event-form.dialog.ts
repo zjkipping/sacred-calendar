@@ -1,8 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material';
-import { Event, Category } from '@types';
 import { Observable } from 'rxjs';
+import * as moment from 'moment';
+
+import { Event, Category } from '@types';
 import { DataService } from '@services/data.service';
 
 @Component({
@@ -35,9 +37,9 @@ export class EventFormDialogComponent {
       name: [event ? event.name : '', Validators.required],
       description: [event ? event.description : ''],
       location: [event ? event.location : ''],
-      date: [event ? event.date.toDate() : undefined, Validators.required],
-      startTime: [event ? event.startTime : '', Validators.required],
-      endTime: [event ? event.endTime : ''],
+      date: [event ? event.date.toDate() : moment().toDate(), Validators.required],
+      startTime: [event ? event.startTime.format('hh:mm a') : '', Validators.required],
+      endTime: [event && event.endTime ? event.endTime.format('hh:mm a') : ''],
       categoryID: [category]
     });
 
@@ -46,6 +48,6 @@ export class EventFormDialogComponent {
 
   submitEvent() {
     // hack until I figure out how to have a null default selection option instead of ''
-    return { ...this.eventForm.value, categoryID: this.eventForm.value.categoryID === '' ? null : this.eventForm.value.categoryID };
+    return { ...this.eventForm.value, categoryID: this.eventForm.value.categoryID === '' ? undefined : this.eventForm.value.categoryID };
   }
 }

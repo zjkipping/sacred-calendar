@@ -57,9 +57,9 @@ module.exports = {
           name varchar(50) NOT NULL,
           description text,
           location varchar(255),
-          date varchar(10) NOT NULL,
-          startTime varchar(25) NOT NULL,
-          endTime varchar(25),
+          date int NOT NULL,
+          startTime int NOT NULL,
+          endTime int,
           FOREIGN KEY (userID) REFERENCES UserLogin(id),
           FOREIGN KEY (categoryID) REFERENCES Category(id)
         )

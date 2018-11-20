@@ -15,18 +15,20 @@ export interface Event {
   description?: string;
   location?: string;
   date: moment.Moment;
-  startTime: string;
-  endTime?: string;
+  startTime: moment.Moment;
+  endTime?: moment.Moment;
   category: Category;
   fontColor?: string;
 }
 
 export interface EventFormValue {
+  id: number;
   name: string;
-  date: Date;
-  endTime: string;
+  description: string;
   location: string;
+  date: Date;
   startTime: string;
+  endTime: string;
   categoryID: number;
 }
 

@@ -7,8 +7,6 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  public cachedRequests = [];
-
   constructor(private authService: AuthService) { }
 
   // intercepts any http requests going from the client to the REST API
