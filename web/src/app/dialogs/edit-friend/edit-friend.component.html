@@ -15,6 +15,6 @@
   <div mat-dialog-actions>
     <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
     <div class="spacer"></div>
-    <button mat-raised-button [disabled]="!friendForm.valid" class="success" [mat-dialog-close]="friendForm.value">Submit</button>
+    <button mat-raised-button [disabled]="!friendForm.valid || friendForm.pristine" class="success" [mat-dialog-close]="friendForm.value">Submit</button>
   </div>
 </form>
