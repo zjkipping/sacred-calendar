@@ -12,6 +12,7 @@ const errorCatcher = (err) => {
 module.exports = {
   handleUncaughtError: errorCatcher,
   getFriendRequestTypeAhead: async (req, res) => {
+    // TODO: don't return usernames that are already on the user's friend list
     try {
       if (req.query.username) {
         // updates the category in the DB from the info provided in the request's body

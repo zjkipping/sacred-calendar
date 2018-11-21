@@ -6,7 +6,7 @@ module.exports = {
   self: async (req, res) => {
     try {
       // selects all the user details fields from the DB
-      const [rows, _fields] = await pool.execute(`
+      const [rows] = await pool.execute(`
           SELECT username, firstName, lastName, email, signUpDate
           FROM UserDetails
           INNER JOIN UserLogin ON UserDetails.userID=UserLogin.id
@@ -24,7 +24,7 @@ module.exports = {
   events: async (req, res) => {
     try {
       // select all the events from the DB for the authenticated user
-      const [rows, _fields] = await pool.execute(`
+      const [rows] = await pool.execute(`
           SELECT Event.id, Event.created, Event.name, Event.description, Event.location, Event.date, Event.startTime, Event.endTime, Category.id as categoryID, Category.name as categoryName, Category.color as categoryColor
           FROM Event
           LEFT JOIN Category ON Event.categoryID = Category.id
@@ -59,7 +59,7 @@ module.exports = {
   categories: async (req, res) => {
     try {
       // selects all the categories for the authenticated user
-      const [rows, _fields] = await pool.execute(
+      const [rows] = await pool.execute(
         'SELECT id, name, color FROM Category WHERE userID = ?',
         [req.id]
       );
@@ -132,6 +132,89 @@ module.exports = {
       util.handleUncaughtError(err);
     }
   },
+  eventInvite: async (req, res) => {
+    const invites = req.body.invites;
+    const eventID = req.body.id
+    if (invites && invites.length > 0 && id) {
+      try {
+        let valuesQuery = '';
+        let values = []
+        for (let x = 0; x < invites.length; x++) {
+          if (valuesQuery !== '') {
+            valuesQuery += ', '
+          }
+          valuesQuery += '(?, ?, ?, UNIX_TIMESTAMP())';
+          values.push(...[req.id, invites[x], eventID]);
+        }
+        await pool.execute(`INSERT INTO EventInvite (senderID, recipientID, eventID, created) VALUES ${valuesQuery}`, values)
+        // send back a '200' OK
+        res.status(200).send();
+      } catch (err) {
+        // handle any other errors
+        util.handleUncaughtError(err);
+      }
+    } else {
+      res.status(400).send({ error: true, code: 'NO_PARAM', message: 'One or more of the parameters are missing' });
+    }
+  },
+  acceptEventInvite: async (req, res) => {
+    if (req.body.id) {
+      try {
+  
+        const [invites] = await pool.execute(
+          'SELECT eventID FROM EventInvite WHERE id = ?',
+          [req.body.id]
+        );
+  
+        const eventID = invites[0].eventID;
+  
+        const [rows] = await pool.execute(
+          'SELECT * FROM Event WHERE id = ?',
+          [eventID]
+        );
+
+        if (rows.length > 0) {
+          const event = rows[0];
+          const description = event.description ? event.description : null;
+          const location = event.location ? event.location : null;
+          const endTime = event.endTime ? event.endTime : null;
+          const categoryID = event.categoryID ? event.categoryID : null;
+
+          await pool.execute(
+            'INSERT INTO Event (userID, created, name, description, location, date, startTime, endTime, categoryID) VALUES (?, UNIX_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?)',
+            [req.id, event.name, description, location, event.date, event.startTime, endTime, categoryID]
+          );
+
+          // send back a '200' OK
+          res.status(200).send();
+        } else {
+          res.status(204).send({ error: true, code: 'NO_EVENT', message: 'The event specified doens\'t exist anymore' })
+        }
+      } catch (err) {
+        // handle any other errors
+        util.handleUncaughtError(err);
+      }
+    } else {
+      res.status(400).send({ error: true, code: 'NO_PARAM', message: 'Missing ID parameter' });
+    }
+  },
+  denyEventInvite: async (req, res) => {
+    if (req.body.id) {
+      try {
+        await pool.execute(
+          'DELETE FROM EventInvite WHERE id = ?',
+          [req.body.id]
+        );
+        // send back a '200' OK
+        res.status(200).send();
+      } catch (err) {
+        // handle any other errors
+        util.handleUncaughtError(err);
+      }
+    } else {
+      res.status(400).send({ error: true, code: 'NO_PARAM', message: 'Missing ID parameter' });
+    }
+  },
   newCategory: async (req, res) => {
     try {
       // insert a new category into the DB based on the info provided from the request's body
@@ -186,7 +269,7 @@ module.exports = {
   friendRequests: async (req, res) => {
     try {
       // selects all the friend requests for the authenticated user
-      const [rows, _fields] = await pool.execute(`
+      const [rows] = await pool.execute(`
           SELECT FriendRequest.id, username, FriendRequest.created
           FROM FriendRequest
           INNER JOIN UserLogin ON UserLogin.id = FriendRequest.senderID
@@ -222,7 +305,7 @@ module.exports = {
       // TODO: figure out why transactions are reverting when no errors are present...
       // await pool.query('START TRANSACTION');
 
-      const [rows, _fields] = await pool.execute(
+      const [rows] = await pool.execute(
         'SELECT senderID, recipientID FROM FriendRequest WHERE id = ?',
         [req.body.id]
       );
@@ -261,7 +344,7 @@ module.exports = {
   friends: async (req, res) => {
     try {
       // selects all the friends for the authenticated user
-      const [rows, _fields] = await pool.execute(`
+      const [rows] = await pool.execute(`
           SELECT Friendship.id, username, privacyType, tag
           FROM Friendship
           INNER JOIN UserLogin ON UserLogin.id = Friendship.targetID

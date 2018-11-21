@@ -38,15 +38,21 @@ const startRoutes = async () => {
   router.put('/event', user.updateEvent);
   router.delete('/event/:id', user.deleteEvent);
 
+  
   router.post('/category', user.newCategory);
   router.put('/category', user.updateCategory);
   router.delete('/category/:id', user.deleteCategory);
-
+  
   // above is needed for DEMO-1
   // below is needed for DEMO-2
-
-  router.get('/availability', user.availability);
   
+  // this will rely off query params for the start time & end time to return the friends available
+  router.get('/availability', user.availability);
+
+  router.post('/event/invite', user.eventInvite);
+  router.post('/event/accept', user.acceptEventInvite);
+  router.post('/event/deny', user.denyEventInvite);
+
   router.get('/fr-typeahead', util.getFriendRequestTypeAhead);
 
   router.get('/friend-requests', user.friendRequests);
