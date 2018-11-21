@@ -46,13 +46,17 @@ const startRoutes = async () => {
   // below is needed for DEMO-2
 
   router.get('/availability', user.availability);
-  router.get('/friends', user.friends);
+  
+  router.get('/fr-typeahead', util.getFriendRequestTypeAhead);
 
-  router.post('/friends', user.addFriend);
+  router.get('/friend-requests', user.friendRequests);
+  router.post('/friend-requests', user.sendFriendRequest);
+  router.post('/friend-requests/accept', user.acceptFriendRequest);
+  router.post('/friend-requests/deny', user.denyFriendRequest);
+  
+  router.get('/friends', user.friends);
   router.put('/friends', user.updateFriend);
   router.delete('/friends', user.removeFriend);
-
-  router.get('/fr-typeahead', util.getFriendRequestTypeAhead)
 };
 
 // starts the router in an asynchronous fashion

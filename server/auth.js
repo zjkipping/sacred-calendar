@@ -19,7 +19,7 @@ module.exports = {
         [result.insertId, req.body.firstName, req.body.lastName, req.body.email]
       );
       // commits the transaction in the DB
-      pool.query('COMMIT');
+      await pool.query('COMMIT');
       // sending back a '200' OK message to the client
       // {} is a workaround for the alamoFire parsing issue
       res.status(200).send({});

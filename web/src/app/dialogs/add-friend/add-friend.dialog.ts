@@ -29,7 +29,6 @@ export class AddFriendDialogComponent {
           return of([]);
         }
       }),
-      tap(options => console.log(options))
     ).subscribe((options: FriendRequestOption[]) => this.friendOptions.next(options));
   }
 

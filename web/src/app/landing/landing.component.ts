@@ -8,6 +8,6 @@ import { DataService } from '@services/data.service';
 })
 export class LandingComponent {
   constructor(ds: DataService) {
-    ds.loadEvents();
+    ds.setup();
   }
 }

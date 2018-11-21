@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { Observable } from 'rxjs';
+
 import { AddFriendDialogComponent } from '@dialogs/add-friend/add-friend.dialog';
+import { DataService } from '@services/data.service';
+import { Friend } from '@types';
 
 @Component({
   selector: 'app-friends-list',
@@ -8,14 +12,27 @@ import { AddFriendDialogComponent } from '@dialogs/add-friend/add-friend.dialog'
   styleUrls: ['./friends-list.component.scss']
 })
 export class FriendsListComponent {
-  constructor(private dialog: MatDialog) { }
+  friends: Observable<Friend[]>;
+
+  constructor(private dialog: MatDialog, private ds: DataService) {
+    this.ds.fetchFriends();
+    this.friends = this.ds.friends;
+  }
 
   addFriend() {
     this.dialog.open(AddFriendDialogComponent, {
       height: '420px',
       width: '500px',
     }).afterClosed().subscribe(id => {
-      console.log(id);
+      this.ds.sendFriendRequest(id).subscribe();
     });
+  }
+
+  editFriend(id: number) {
+    console.log(id);
+  }
+
+  removeFriend(id: number) {
+    console.log(id);
   }
 }

@@ -56,6 +56,13 @@ export interface CalendarDate {
   disabled?: boolean;
 }
 
+export interface Friend {
+  id: number;
+  username: string;
+  privacyType: number;
+  tag?: string;
+}
+
 export interface FriendRequestOption {
   id: number;
   username: string;

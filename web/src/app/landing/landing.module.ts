@@ -14,6 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { MonthViewComponent } from './month-view/month-view.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DayViewComponent } from './calendar/day-view/day-view.component';
+import { FriendRequestsComponent } from './friend-requests/friend-requests.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { DayViewComponent } from './calendar/day-view/day-view.component';
     AvailabilityComponent,
     ProfileComponent,
     FriendsListComponent,
+    FriendRequestsComponent,
     MonthViewComponent,
     DayViewComponent
   ],

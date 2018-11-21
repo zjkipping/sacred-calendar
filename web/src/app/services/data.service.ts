@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import * as moment from 'moment';
 
-import { UserDetails, EventFormValue, Event, Category, CategoryFormValue } from '@types';
+import { UserDetails, EventFormValue, Event, Category, CategoryFormValue, Friend, FriendRequestOption } from '@types';
 import { map, take, tap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
@@ -17,13 +17,14 @@ const API_URL = environment.API_URL;
 export class DataService {
   userDetails: Observable<UserDetails>;
   events = new BehaviorSubject<Event[]>([]);
+  friends = new BehaviorSubject<Friend[]>([]);
   loadingEvents = false;
 
   constructor(private http: HttpClient, private router: Router) {
     this.userDetails = this.http.get<UserDetails>(API_URL + '/self');
   }
 
-  loadEvents() {
+  setup() {
     this.loadingEvents = true;
     this.fetchEvents();
   }
@@ -71,6 +72,22 @@ export class DataService {
     );
   }
 
+  fetchFriends() {
+     this.http.get<Friend[]>(API_URL + '/friends').pipe(take(1)).subscribe(data => this.friends.next(data));
+  }
+
+  getFriendRequests(): Observable<any[]> {
+    return this.http.get<FriendRequestOption[]>(API_URL + '/friend-requests').pipe(take(1));
+  }
+
+  acceptFriendRequest(id: number): Observable<any> {
+    return this.http.post(API_URL + '/friend-requests/accept', { id }).pipe(take(1));
+  }
+
+  denyFriendRequest(id: number): Observable<any> {
+    return this.http.post(API_URL + '/friend-requests/deny', { id }).pipe(take(1));
+  }
+
   // sends off the new event post to the API
   newEvent(event: EventFormValue): Observable<any> {
     return this.http.post(API_URL + '/event', formEventParseDateTimes(event)).pipe(take(1));
@@ -104,6 +121,10 @@ export class DataService {
 
   getFriendTypeAhead(username: string): Observable<any> {
     return this.http.get(API_URL + '/fr-typeahead?username=' + username).pipe(take(1));
+  }
+
+  sendFriendRequest(id: number) {
+    return this.http.post(API_URL + '/friend-requests', { id }).pipe(take(1));
   }
 }
 

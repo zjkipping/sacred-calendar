@@ -6,8 +6,12 @@ module.exports = {
   self: async (req, res) => {
     try {
       // selects all the user details fields from the DB
-      const [rows, _fields] = await pool.execute(
-        'SELECT username, firstName, lastName, email, signUpDate from `UserDetails` INNER JOIN UserLogin ON UserDetails.userID=UserLogin.id WHERE id = ?', 
+      const [rows, _fields] = await pool.execute(`
+          SELECT username, firstName, lastName, email, signUpDate
+          FROM UserDetails
+          INNER JOIN UserLogin ON UserDetails.userID=UserLogin.id
+          WHERE id = ?
+        `, 
         [req.id]
       );
       // sends back the details with a '200' OK
@@ -20,12 +24,13 @@ module.exports = {
   events: async (req, res) => {
     try {
       // select all the events from the DB for the authenticated user
-      const [rows, _fields] = await pool.execute(
-        `SELECT Event.id, Event.created, Event.name, Event.description, Event.location, Event.date, Event.startTime, Event.endTime, Category.id as categoryID, Category.name as categoryName, Category.color as categoryColor
-         FROM Event
-         LEFT JOIN Category ON Event.categoryID = Category.id
-         WHERE Event.userID = ?;`,
-         [req.id]
+      const [rows, _fields] = await pool.execute(`
+          SELECT Event.id, Event.created, Event.name, Event.description, Event.location, Event.date, Event.startTime, Event.endTime, Category.id as categoryID, Category.name as categoryName, Category.color as categoryColor
+          FROM Event
+          LEFT JOIN Category ON Event.categoryID = Category.id
+          WHERE Event.userID = ?
+        `,
+        [req.id]
       );
       // sends back the events wrapped in their own object with a '200' OK
       res.status(200).send(_.map(rows, row => {
@@ -55,24 +60,10 @@ module.exports = {
     try {
       // selects all the categories for the authenticated user
       const [rows, _fields] = await pool.execute(
-        `SELECT id, name, color FROM Category WHERE userID = ?`,
+        'SELECT id, name, color FROM Category WHERE userID = ?',
         [req.id]
       );
       // sends back the categories with a '200' OK
-      res.status(200).send(rows);
-    } catch (err) {
-      // handle any other errors
-      util.handleUncaughtError(err);
-    }
-  },
-  friends: async (req, res) => {
-    try {
-      // selects all the friends for the authenticated user
-      const [rows, _fields] = await pool.execute(
-        'SELECT id, targetID, privacyType, tag FROM Friendship WHERE userID = ?',
-        [req.id]
-      );
-      // sends back the friends with a '200' OK
       res.status(200).send(rows);
     } catch (err) {
       // handle any other errors
@@ -172,6 +163,8 @@ module.exports = {
   deleteCategory: async (req, res) => {
     try {
       // update any events that have the to-be deleted category's ID to be null
+      // await pool.query('START TRANSACTION');
+
       await pool.execute(
         'UPDATE Event SET categoryID = null WHERE categoryID = ?',
         [req.params.id]
@@ -181,6 +174,8 @@ module.exports = {
         'DELETE FROM Category WHERE id = ?',
         [req.params.id]
       );
+
+      // await pool.query('COMMIT');
       // send back a '200' OK
       res.status(200).send();
     } catch (err) {
@@ -188,15 +183,98 @@ module.exports = {
       util.handleUncaughtError(err);
     }
   },
-  addFriend: async (req, res) => {
+  friendRequests: async (req, res) => {
     try {
-      // TODO: write this function
+      // selects all the friend requests for the authenticated user
+      const [rows, _fields] = await pool.execute(`
+          SELECT FriendRequest.id, username, FriendRequest.created
+          FROM FriendRequest
+          INNER JOIN UserLogin ON UserLogin.id = FriendRequest.senderID
+          WHERE recipientID = ?
+        `,
+        [req.id]
+      );
+      // sends back the friends with a '200' OK
+      res.status(200).send(rows);
     } catch (err) {
       // handle any other errors
       util.handleUncaughtError(err);
     }
-    // for now send back a 404 since this route isn't implemented
-    res.status(404).send();
+  },
+  sendFriendRequest: async (req, res) => {
+    try {
+      // insert a new category into the DB based on the info provided from the request's body
+      await pool.execute(
+        'INSERT INTO FriendRequest (senderID, recipientID, created) VALUES (?, ?, UNIX_TIMESTAMP())',
+        [req.id, req.body.id]
+      );
+      // send back a '200' OK
+      res.status(200).send();
+    } catch (err) {
+      // handle any other errors
+      util.handleUncaughtError(err);
+    }
+  },
+  acceptFriendRequest: async (req, res) => {
+    try {
+      // accepts the specified friend request
+
+      // TODO: figure out why transactions are reverting when no errors are present...
+      // await pool.query('START TRANSACTION');
+
+      const [rows, _fields] = await pool.execute(
+        'SELECT senderID, recipientID FROM FriendRequest WHERE id = ?',
+        [req.body.id]
+      );
+      const sender = rows[0].senderID;
+      const recipient = rows[0].recipientID;
+      await pool.execute(
+        'DELETE FROM FriendRequest WHERE id = ?',
+        [req.body.id]
+      );
+      await pool.execute('INSERT INTO Friendship (userID, targetID) VALUES (?, ?), (?, ?)',
+        [sender, recipient, recipient, sender]
+      );
+
+      // await pool.query('COMMIT');
+      // send back a '200' OK
+      res.status(200).send();
+    } catch (err) {
+      // handle any other errors
+      util.handleUncaughtError(err);
+    }
+  },
+  denyFriendRequest: async (req, res) => {
+    try {
+      // denies the specified friend request
+      await pool.execute(
+        'DELETE FROM FriendRequest WHERE id = ?',
+        [req.body.id]
+      );
+      // send back a '200' OK
+      res.status(200).send();
+    } catch (err) {
+      // handle any other errors
+      util.handleUncaughtError(err);
+    }
+  },
+  friends: async (req, res) => {
+    try {
+      // selects all the friends for the authenticated user
+      const [rows, _fields] = await pool.execute(`
+          SELECT Friendship.id, username, privacyType, tag
+          FROM Friendship
+          INNER JOIN UserLogin ON UserLogin.id = Friendship.targetID
+          WHERE userID = ?
+        `,
+        [req.id]
+      );
+      // sends back the friends with a '200' OK
+      res.status(200).send(rows);
+    } catch (err) {
+      // handle any other errors
+      util.handleUncaughtError(err);
+    }
   },
   updateFriend: async (req, res) => {
     try {

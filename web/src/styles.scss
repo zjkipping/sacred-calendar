@@ -66,6 +66,9 @@ body {
   color: mat-color($sc-success, 500) !important;
 }
 
+.edit {
+  background: mat-color($sc-edit, 500) !important;
+}
 
 .success {
   background: mat-color($sc-success, 500) !important;
@@ -174,4 +177,8 @@ div.box div {
 
 .timepicker__actions {
   background-color: #363636 !important;
+}
+
+.mat-menu-panel {
+  margin-bottom: 5px !important;
 }
