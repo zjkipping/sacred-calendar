@@ -7,12 +7,14 @@ import { EventFormDialogComponent } from '@dialogs/event-form/event-form.dialog'
 import { MaterialModule } from '../material.module';
 import { CategoryManagerDialogComponent } from './category-manager/category-manager.dialog';
 import { AddFriendDialogComponent } from './add-friend/add-friend.dialog';
+import { EditFriendComponent } from './edit-friend/edit-friend.component';
 
 @NgModule({
   declarations: [
     EventFormDialogComponent,
     CategoryManagerDialogComponent,
-    AddFriendDialogComponent
+    AddFriendDialogComponent,
+    EditFriendComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { AddFriendDialogComponent } from './add-friend/add-friend.dialog';
   entryComponents: [
     EventFormDialogComponent,
     CategoryManagerDialogComponent,
-    AddFriendDialogComponent
+    AddFriendDialogComponent,
+    EditFriendComponent
   ]
 })
 export class DialogModule { }

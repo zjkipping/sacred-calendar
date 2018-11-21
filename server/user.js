@@ -278,22 +278,42 @@ module.exports = {
   },
   updateFriend: async (req, res) => {
     try {
-      // TODO: write this function
+      await pool.execute(
+        'UPDATE Friendship SET tag = ?, privacyType = ? WHERE id = ?',
+        [req.body.tag, req.body.privacyType, req.body.id]
+      );
+      // send back a '200' OK
+      res.status(200).send();
     } catch (err) {
       // handle any other errors
       util.handleUncaughtError(err);
     }
-    // for now send back a 404 since this route isn't implemented
-    res.status(404).send();
   },
   removeFriend: async (req, res) => {
-    try {
-      // TODO: write this function
-    } catch (err) {
-      // handle any other errors
-      util.handleUncaughtError(err);
+    if (req.params.id) {
+      try {
+        const [rows] = await pool.execute(
+          'Select userID, targetID FROM Friendship WHERE id = ?',
+          [req.params.id]
+        );
+        const user = rows[0].userID;
+        const target = rows[0].targetID;
+        const [rows2] = await pool.execute(
+          'Select id FROM Friendship WHERE userID = ? AND targetID = ?',
+          [target, user]
+        );
+        await pool.execute(
+          'DELETE FROM Friendship WHERE id = ? OR id = ?',
+          [req.params.id, rows2[0].id]
+        );
+        // send back a '200' OK
+        res.status(200).send();
+      } catch (err) {
+        // handle any other errors
+        util.handleUncaughtError(err);
+      }
+    } else {
+      res.status(400).send({ error: true, code: 'NO_PARAM', message: 'Missing ID parameter' });
     }
-    // for now send back a 404 since this route isn't implemented
-    res.status(404).send();
   }
 };

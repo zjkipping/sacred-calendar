@@ -37,8 +37,12 @@ h3 {
 
 .username {
   padding-top: 10px;
-  margin-left: 10px;
+  margin-left: 5px;
   font-size: 20px;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 5px;
 }
 
 .accept {

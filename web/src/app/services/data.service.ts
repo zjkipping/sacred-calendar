@@ -80,14 +80,6 @@ export class DataService {
     return this.http.get<FriendRequestOption[]>(API_URL + '/friend-requests').pipe(take(1));
   }
 
-  acceptFriendRequest(id: number): Observable<any> {
-    return this.http.post(API_URL + '/friend-requests/accept', { id }).pipe(take(1));
-  }
-
-  denyFriendRequest(id: number): Observable<any> {
-    return this.http.post(API_URL + '/friend-requests/deny', { id }).pipe(take(1));
-  }
-
   // sends off the new event post to the API
   newEvent(event: EventFormValue): Observable<any> {
     return this.http.post(API_URL + '/event', formEventParseDateTimes(event)).pipe(take(1));
@@ -125,6 +117,22 @@ export class DataService {
 
   sendFriendRequest(id: number) {
     return this.http.post(API_URL + '/friend-requests', { id }).pipe(take(1));
+  }
+
+  acceptFriendRequest(id: number): Observable<any> {
+    return this.http.post(API_URL + '/friend-requests/accept', { id }).pipe(take(1));
+  }
+
+  denyFriendRequest(id: number): Observable<any> {
+    return this.http.post(API_URL + '/friend-requests/deny', { id }).pipe(take(1));
+  }
+
+  updateFriend(friend: Friend) {
+    return this.http.put(API_URL + '/friends', { id: friend.id, tag: friend.tag, privacyType: friend.privacyType });
+  }
+
+  removeFriend(id: number): Observable<any> {
+    return this.http.delete(API_URL + '/friends/' + id).pipe(take(1));
   }
 }
 

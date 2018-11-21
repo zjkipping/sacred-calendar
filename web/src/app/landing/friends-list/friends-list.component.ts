@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AddFriendDialogComponent } from '@dialogs/add-friend/add-friend.dialog';
 import { DataService } from '@services/data.service';
 import { Friend } from '@types';
+import { EditFriendComponent } from '@dialogs/edit-friend/edit-friend.component';
 
 @Component({
   selector: 'app-friends-list',
@@ -24,15 +25,25 @@ export class FriendsListComponent {
       height: '420px',
       width: '500px',
     }).afterClosed().subscribe(id => {
-      this.ds.sendFriendRequest(id).subscribe();
+      if (id) {
+        this.ds.sendFriendRequest(id).subscribe();
+      }
     });
   }
 
-  editFriend(id: number) {
-    console.log(id);
+  editFriend(friend: Friend) {
+    this.dialog.open(EditFriendComponent, {
+      height: '300px',
+      width: '500px',
+      data: friend
+    }).afterClosed().subscribe(value => {
+      if (value) {
+        this.ds.updateFriend(value).subscribe(() => this.ds.fetchFriends());
+      }
+    });
   }
 
   removeFriend(id: number) {
-    console.log(id);
+    this.ds.removeFriend(id).subscribe(() => this.ds.fetchFriends());
   }
 }

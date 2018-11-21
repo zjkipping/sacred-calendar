@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Update Friend</h1>
+<form [formGroup]="friendForm">
+  <div mat-dialog-content class="event-form-body">
+    <mat-form-field class="full-width">
+      <input matInput formControlName="tag" placeholder="Tag">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-select formControlName="privacyType" placeholder="Privacy Type">
+        <mat-option disabled value="" selected>Select a Privacy Type</mat-option>
+        <mat-option [value]="0">Availability Only</mat-option>
+        <mat-option [value]="1">Full Calendar</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+    <div class="spacer"></div>
+    <button mat-raised-button [disabled]="!friendForm.valid" class="success" [mat-dialog-close]="friendForm.value">Submit</button>
+  </div>
+</form>

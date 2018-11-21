@@ -56,7 +56,7 @@ const startRoutes = async () => {
   
   router.get('/friends', user.friends);
   router.put('/friends', user.updateFriend);
-  router.delete('/friends', user.removeFriend);
+  router.delete('/friends/:id', user.removeFriend);
 };
 
 // starts the router in an asynchronous fashion
