@@ -46,8 +46,8 @@ const startRoutes = async () => {
   // above is needed for DEMO-1
   // below is needed for DEMO-2
   
-  // this will rely off query params for the start time & end time to return the friends available
   router.get('/availability', user.availability);
+  router.get('/stats', user.statistics);
 
   router.post('/event/invite', user.eventInvite);
   router.post('/event/accept', user.acceptEventInvite);

@@ -1,5 +1,9 @@
 const _ = require('lodash');
 const util = require('./util');
+const Moment = require('moment');
+const MomentRange = require('moment-range');
+// combines both of the above into 1 moment object
+const moment = MomentRange.extendMoment(Moment);
 
 module.exports = {
   // returns the details of the authenticated user
@@ -71,14 +75,57 @@ module.exports = {
     }
   },
   availability: async (req, res) => {
-    try {
-      // TODO: write this function
-    } catch (err) {
-      // handle any other errors
-      util.handleUncaughtError(err);
+    if (req.query.start) {
+      try {
+        const start = req.query.start;
+        const end = req.query.end;
+
+        // getting the date from the start time
+        const date = moment.unix(start).hours(0).minutes(0).seconds(0).milliseconds(0).unix();
+        // get event columns of userID, username, startTime, and endTime from friends' events that are on the same date as the start time
+        const [rows] = await pool.execute(
+          `SELECT Event.userID, UserLogin.username, Event.startTime, Event.endTime
+           FROM Event
+           INNER JOIN UserLogin ON UserLogin.id = Event.userID
+           WHERE Event.userID in (SELECT Friendship.targetID FROM Friendship WHERE Friendship.userID = ?) AND Event.date = ?
+           GROUP BY Event.userID`,
+          [req.id, date]
+        );
+
+        // creating an array that contains all the user's friends
+        const allFriends = _.chain(rows).map(event => ({ id: event.userID, username: event.username })).uniq().value();
+
+        // finds all the friends that AREN'T available
+        const unavailableFriends = _.chain(rows).filter(event => {
+          if (end) {
+            const userRange = moment.range(moment.unix(start), moment.unix(end));
+            if (event.endTime) {
+              const eventRange = moment.range(moment.unix(event.startTime), moment.unix(event.endTime));
+              return userRange.overlaps(eventRange);
+            } else {
+              return userRange.contains(moment.unix(event.startTime));
+            }
+          } else {
+            if (event.endTime) {
+              const eventRange = moment.range(moment.unix(event.startTime), moment.unix(event.endTime));
+              return eventRange.contains(moment.unix(start));
+            } else {
+              return moment.unix(start).seconds(0).milliseconds(0) === moment.unix(event.startTime).seconds(0).milliseconds(0) ;
+            }
+          }
+        }).map(event => ({ id: event.userID, username: event.username })).uniq().value();
+
+        // removes all unavailable friends from main friends list
+        const availableFriends = _.filter(allFriends, friend => !_.find(unavailableFriends, { id: friend.id }));
+
+        res.status(200).send(availableFriends);
+      } catch (err) {
+        // handle any other errors
+        util.handleUncaughtError(err);
+      }
+    } else {
+      res.status(400).send({ error: true, code: 'NO_PARAM', message: 'Missing start parameter' });
     }
-    // for now send back a 404 since this route isn't implemented
-    res.status(404).send();
   },
   newEvent: async (req, res) => {
     try {
@@ -137,6 +184,7 @@ module.exports = {
     const eventID = req.body.id
     if (invites && invites.length > 0 && id) {
       try {
+        // creates the two arrays for the query, the values & the prepared '?' parts
         let valuesQuery = '';
         let values = []
         for (let x = 0; x < invites.length; x++) {
@@ -146,6 +194,7 @@ module.exports = {
           valuesQuery += '(?, ?, ?, UNIX_TIMESTAMP())';
           values.push(...[req.id, invites[x], eventID]);
         }
+        // inserts the invites into the database
         await pool.execute(`INSERT INTO EventInvite (senderID, recipientID, eventID, created) VALUES ${valuesQuery}`, values)
         // send back a '200' OK
         res.status(200).send();
@@ -160,19 +209,21 @@ module.exports = {
   acceptEventInvite: async (req, res) => {
     if (req.body.id) {
       try {
-  
+        // gets the invite from the database
         const [invites] = await pool.execute(
           'SELECT eventID FROM EventInvite WHERE id = ?',
           [req.body.id]
         );
   
         const eventID = invites[0].eventID;
-  
+          
+        // gets the event from the database based on the invite
         const [rows] = await pool.execute(
           'SELECT * FROM Event WHERE id = ?',
           [eventID]
         );
 
+        // checks to see if the event still exists
         if (rows.length > 0) {
           const event = rows[0];
           const description = event.description ? event.description : null;
@@ -180,6 +231,7 @@ module.exports = {
           const endTime = event.endTime ? event.endTime : null;
           const categoryID = event.categoryID ? event.categoryID : null;
 
+          // inserts the event in the authed user's event list
           await pool.execute(
             'INSERT INTO Event (userID, created, name, description, location, date, startTime, endTime, categoryID) VALUES (?, UNIX_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?)',
             [req.id, event.name, description, location, event.date, event.startTime, endTime, categoryID]
@@ -201,6 +253,7 @@ module.exports = {
   denyEventInvite: async (req, res) => {
     if (req.body.id) {
       try {
+        // deletes the event invite from the database
         await pool.execute(
           'DELETE FROM EventInvite WHERE id = ?',
           [req.body.id]
@@ -286,7 +339,7 @@ module.exports = {
   },
   sendFriendRequest: async (req, res) => {
     try {
-      // insert a new category into the DB based on the info provided from the request's body
+      // insert a friend request into the database
       await pool.execute(
         'INSERT INTO FriendRequest (senderID, recipientID, created) VALUES (?, ?, UNIX_TIMESTAMP())',
         [req.id, req.body.id]
@@ -305,16 +358,20 @@ module.exports = {
       // TODO: figure out why transactions are reverting when no errors are present...
       // await pool.query('START TRANSACTION');
 
+      // grab the sender/recipient from the database based on the requestID provided
       const [rows] = await pool.execute(
         'SELECT senderID, recipientID FROM FriendRequest WHERE id = ?',
         [req.body.id]
       );
       const sender = rows[0].senderID;
       const recipient = rows[0].recipientID;
+      // delete the friend request
       await pool.execute(
         'DELETE FROM FriendRequest WHERE id = ?',
         [req.body.id]
       );
+
+      // insert the two friendship rows into the database, one for each user.
       await pool.execute('INSERT INTO Friendship (userID, targetID) VALUES (?, ?), (?, ?)',
         [sender, recipient, recipient, sender]
       );
@@ -361,6 +418,7 @@ module.exports = {
   },
   updateFriend: async (req, res) => {
     try {
+      // updates the row in the database based on the data provided
       await pool.execute(
         'UPDATE Friendship SET tag = ?, privacyType = ? WHERE id = ?',
         [req.body.tag, req.body.privacyType, req.body.id]
@@ -375,16 +433,19 @@ module.exports = {
   removeFriend: async (req, res) => {
     if (req.params.id) {
       try {
+        // get the friendship from the database
         const [rows] = await pool.execute(
           'Select userID, targetID FROM Friendship WHERE id = ?',
           [req.params.id]
         );
         const user = rows[0].userID;
         const target = rows[0].targetID;
+        // get the friend's friendship row
         const [rows2] = await pool.execute(
           'Select id FROM Friendship WHERE userID = ? AND targetID = ?',
           [target, user]
         );
+        // delete both user's friendship row from the database
         await pool.execute(
           'DELETE FROM Friendship WHERE id = ? OR id = ?',
           [req.params.id, rows2[0].id]
@@ -397,6 +458,17 @@ module.exports = {
       }
     } else {
       res.status(400).send({ error: true, code: 'NO_PARAM', message: 'Missing ID parameter' });
+    }
+  },
+  statistics: async (req, res) => {
+    try {
+      // TODO get statistics based on minutes in each category and return an object for each category (mins, %, ect...)
+
+      // send back a '200' OK
+      res.status(200).send();
+    } catch (err) {
+      // handle any other errors
+      util.handleUncaughtError(err);
     }
   }
 };

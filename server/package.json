@@ -10,6 +10,8 @@
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
+    "moment": "^2.22.2",
+    "moment-range": "^4.0.1",
     "mysql2": "^1.6.1",
     "nodemon": "^1.18.4"
   },
