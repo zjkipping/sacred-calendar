@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '@services/auth.service';
+import { DataService } from '@services/data.service';
 
 @Component({
   selector: 'app-landing',
@@ -9,7 +10,9 @@ import { AuthService } from '@services/auth.service';
 export class LandingComponent {
   sideNavOpen = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(ds: DataService, private authService: AuthService) {
+    ds.setup();
+  }
 
   logout() {
     this.authService.logoutUser();

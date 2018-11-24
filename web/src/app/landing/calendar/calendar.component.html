@@ -1,27 +1,38 @@
 <div class="container">
-  <mat-toolbar class="calendar-toolbar">
-    <mat-toolbar-row>
-      <button mat-raised-button color="primary" (click)="addEvent()">Add Event</button>
-      <button mat-raised-button color="primary" (click)="manageCategories()">Manage Categories</button>
-      <div class="spacer"></div>
-      <button mat-raised-button color="accent" *ngIf="viewingFriend" (click)="viewMyCalendar()">View My Calendar</button>
-    </mat-toolbar-row>
-  </mat-toolbar>
-  <ng-container *ngIf="!ds.loadingEvents; else loadingCalendar">
-    <app-month-view
+  <div class="calendar-toolbar">
+    <div *ngIf="displayCalendarMenu" class="edit button-item calendar-toolbar-item" (click)="calendarMenuOpen = !calendarMenuOpen">Toggle Calendar Menu</div>
+    <ng-container *ngIf="calendarMenuOpen">
+      <div class="primary calendar-toolbar-item">
+        <mat-form-field class="view-select">
+          <mat-select [formControl]="calendarView">
+            <mat-option value="" disabled selected>Select A Calendar View</mat-option>
+            <mat-option value="week">Weekly View</mat-option>
+            <mat-option value="month">Monthly View</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="primary button-item calendar-toolbar-item" (click)="addEvent()">Add Event</div>
+      <div class="primary button-item calendar-toolbar-item" (click)="manageCategories()">Manage Categories</div>
+      <div class="accent button-item calendar-toolbar-item" *ngIf="viewingFriend" (click)="viewMyCalendar()">View My Calendar</div>
+    </ng-container>
+  </div>
+  <div class="calendar-view">
+    <ng-container *ngIf="!ds.loadingEvents; else loadingCalendar">
+      <app-month-view
       (dateSelected)="selectDate($event)"
       (monthBackward)="cs.previousMonth()"
       (monthForward)="cs.nextMonth()"
       [current]="cs.current | async"
       [days]="cs.days | async"
-    ></app-month-view>
-  </ng-container>
-  <ng-template #loadingCalendar>
-    <div class="loading">
-      <div class="loading-spinner"></div>
-      <p class="text-center">Loading Calendar...</p>
-    </div>
-  </ng-template>
+      ></app-month-view>
+    </ng-container>
+    <ng-template #loadingCalendar>
+      <div class="loading">
+        <div class="loading-spinner"></div>
+        <p class="text-center">Loading Calendar...</p>
+      </div>
+    </ng-template>
+  </div>
 </div>
 
 <app-day-view

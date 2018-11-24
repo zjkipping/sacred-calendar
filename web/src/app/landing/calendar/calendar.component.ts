@@ -1,7 +1,7 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { forkJoin, of, Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, skip } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { CalendarDate, Event, CategoryFormValue, EventFormValue } from '@types';
@@ -10,6 +10,7 @@ import { DataService } from '@services/data.service';
 import { CalendarService } from '@services/calendar.service';
 import { EventFormDialogComponent } from '@dialogs/event-form/event-form.dialog';
 import { CategoryManagerDialogComponent } from '@dialogs/category-manager/category-manager.dialog';
+import { FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-calendar',
@@ -20,16 +21,32 @@ export class CalendarComponent implements OnDestroy {
   sideNavOpen = false;
   viewingFriend = false;
   queryParamsSubscription: Subscription;
+  calendarView: FormControl;
+  calendarMenuOpen = false;
+  displayCalendarMenu = false;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    if (event.target.innerWidth > 600) {
+      this.calendarMenuOpen = true;
+      this.displayCalendarMenu = false;
+    } else {
+      if (!this.displayCalendarMenu) {
+        this.calendarMenuOpen = false;
+      }
+      this.displayCalendarMenu = true;
+    }
+  }
 
   constructor(
     private dialog: MatDialog,
     public ds: DataService,
     public cs: CalendarService,
     route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    fb: FormBuilder
   ) {
-    ds.setup();
-    this.queryParamsSubscription = route.queryParams.subscribe(params => {
+    this.queryParamsSubscription = route.queryParams.pipe(skip(1)).subscribe(params => {
     const friendship_id = params['view_friend'];
       if (friendship_id) {
         this.viewingFriend = true;
@@ -39,6 +56,17 @@ export class CalendarComponent implements OnDestroy {
       this.ds.loadingEvents = true;
       this.ds.fetchEvents();
     });
+    this.calendarView = fb.control('month');
+
+    if (window.innerWidth > 600) {
+      this.calendarMenuOpen = true;
+      this.displayCalendarMenu = false;
+    } else {
+      if (!this.displayCalendarMenu) {
+        this.calendarMenuOpen = false;
+      }
+      this.displayCalendarMenu = true;
+    }
   }
 
   ngOnDestroy() {

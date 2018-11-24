@@ -71,6 +71,13 @@ module.exports = {
 
         if (rows.length > 0) {
           const friendID = rows[0].targetID;
+          
+          const [friend] = await pool.execute(
+            'SELECT privacyType FROM Friendship WHERE userID = ? AND targetID = ?',
+            [friendID, req.id]
+          );
+          
+          const private = friend[0].privacyType === 0;
 
           const [events] = await pool.execute(`
               SELECT Event.id, Event.created, Event.name, Event.description, Event.location, Event.date, Event.startTime, Event.endTime, Category.id as categoryID, Category.name as categoryName, Category.color as categoryColor
@@ -85,14 +92,18 @@ module.exports = {
             return {
               id: row.id,
               created: row.created,
-              name: row.name,
-              description: row.description,
-              location: row.location,
+              name: private ? 'Busy' : row.name,
+              description: private ? '' : row.description,
+              location: private ? '' : row.location,
               date: row.date,
               startTime: row.startTime,
               endTime: row.endTime,
               // wrap the category fields in a nested object
-              category: {
+              category: private ? {
+                id: undefined,
+                name: undefined,
+                color: undefined
+              } :  {
                 id: row.categoryID,
                 name: row.categoryName,
                 color: row.categoryColor

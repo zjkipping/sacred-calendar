@@ -12,3 +12,10 @@
 .wipe-text {
   margin-bottom: 10px;
 }
+
+.event-buttons {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}

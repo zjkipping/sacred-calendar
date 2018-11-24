@@ -27,7 +27,7 @@
 <div class="main-container">
   <router-outlet></router-outlet>
 </div>
-<div class="overlay" [class.overlay]="sideNavOpen" fxShow="true" fxHide.gt-sm="true"></div>
+<div class="overlay" [class.overlay]="sideNavOpen" (click)="sideNavOpen = false" fxShow="true" fxHide.gt-sm="true"></div>
 
 
 <app-notifications></app-notifications>

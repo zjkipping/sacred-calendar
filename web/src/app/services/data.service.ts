@@ -4,10 +4,11 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import * as moment from 'moment';
 
-import { UserDetails, EventFormValue, Event, Category, CategoryFormValue, Friend, Notification, EventInvite } from '@types';
+import { EventFormValue, Event, Category, CategoryFormValue, Friend, Notification, EventInvite } from '@types';
 import { map, take, tap, pluck, switchMap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
+import { AuthService } from './auth.service';
 
 const API_URL = environment.API_URL;
 
@@ -15,20 +16,31 @@ const API_URL = environment.API_URL;
   providedIn: 'root'
 })
 export class DataService {
-  userDetails: Observable<UserDetails>;
   events = new BehaviorSubject<Event[]>([]);
   eventInvites = new BehaviorSubject<EventInvite[]>([]);
   friends = new BehaviorSubject<Friend[]>([]);
   friendRequests = new BehaviorSubject<Notification[]>([]);
   loadingEvents = false;
 
-  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {
-    this.userDetails = this.http.get<UserDetails>(API_URL + '/self');
-  }
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, private auth: AuthService) { }
 
   setup() {
     this.loadingEvents = true;
-    this.fetchEvents();
+    of(this.auth.clientToken).pipe(
+      switchMap(token => {
+        if (!token) {
+          return this.auth.getNewClientToken();
+        } else {
+          return of({});
+        }
+      }),
+      tap(() => {
+        this.fetchEvents();
+        this.fetchFriends();
+        this.fetchFriendRequests();
+        this.fetchEventInvites();
+      })
+    ).pipe(take(1)).subscribe();
   }
 
   // fetches the events from the API

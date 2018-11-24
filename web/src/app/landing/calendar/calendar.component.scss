@@ -27,8 +27,59 @@ mat-toolbar-row button {
   position: fixed;
   z-index: 50;
   max-width: 720px;
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.calendar-toolbar-item {
+  flex: 1 1 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-top: 2px solid white;
+}
+
+.calendar-toolbar > .calendar-toolbar-item:not(:last-child) {
+  border-right: 2px solid white;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .calendar-toolbar {
+    flex-wrap: wrap;
+  }
+  
+  .calendar-toolbar-item {
+    flex: 0 1 100%;
+  }
+  
+  .calendar-toolbar > .calendar-toolbar-item:not(:last-child) {
+    border-right: none;
+  }
+  
+  .calendar-toolbar > .calendar-toolbar-item:last-child {
+    border-bottom: 2px solid white;
+  }
+  .button-item {
+    padding: 17px 0px;
+  }
+}
+
+.button-item {
+  cursor: pointer;
+  text-align: center;
+}
+
+.view-select {
+  width: 75% !important;
+}
+
+.calendar-view {
+  margin-top: 118px;
 }
 
 .loading {
-  margin-top: 140px;
+  padding-top: 20px;
 }

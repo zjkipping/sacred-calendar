@@ -1,6 +1,9 @@
 <div class="notifications-container" (click)="$event.stopPropagation()">
   <mat-menu #requestsMenu="matMenu" [overlapTrigger]="false">
     <div class="notifications" (click)="$event.stopPropagation()">
+      <button class="close-menu-button" color="warn" mat-mini-fab (click)="closeMenu()">
+        <mat-icon aria-label="Close Friends List">close</mat-icon>
+      </button>
       <h3 class="text-center accent-text">Notifications</h3>
       <div class="tabs">
         <div class="tab text-center right-border" [class.accent-text]="tab === 'requests'" aria-label="Friend Requests" (click)="tab = 'requests'">Requests</div>

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { Component, ViewChild } from '@angular/core';
+import { MatDialog, MatMenuTrigger } from '@angular/material';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -14,10 +14,10 @@ import { EditFriendComponent } from '@dialogs/edit-friend/edit-friend.component'
   styleUrls: ['./friends-list.component.scss']
 })
 export class FriendsListComponent {
+  @ViewChild(MatMenuTrigger) trigger?: MatMenuTrigger;
   friends: Observable<Friend[]>;
 
   constructor(private dialog: MatDialog, private ds: DataService, private router: Router) {
-    this.ds.fetchFriends();
     this.friends = this.ds.friends;
   }
 
@@ -54,5 +54,11 @@ export class FriendsListComponent {
 
   removeFriend(id: number) {
     this.ds.removeFriend(id).subscribe(() => this.ds.fetchFriends());
+  }
+
+  closeMenu() {
+    if (this.trigger) {
+      this.trigger.closeMenu();
+    }
   }
 }

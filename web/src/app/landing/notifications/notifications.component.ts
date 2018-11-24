@@ -1,9 +1,9 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { MatDialog, MatMenuTrigger } from '@angular/material';
 
 import { DataService } from '@services/data.service';
 import { EventInvite } from '@types';
-import { MatDialog } from '@angular/material';
 import { ViewEventDialogComponent } from '@dialogs/view-event/view-event.dialog';
 import { DIALOG_WIDTH, DIALOG_HEIGHT } from '@constants';
 
@@ -13,6 +13,7 @@ import { DIALOG_WIDTH, DIALOG_HEIGHT } from '@constants';
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent implements OnDestroy {
+  @ViewChild(MatMenuTrigger) trigger?: MatMenuTrigger;
   requests: any[] = [];
   invites: any[] = [];
   tab = 'requests';
@@ -21,9 +22,6 @@ export class NotificationsComponent implements OnDestroy {
   requestsSubscription: Subscription;
 
   constructor(private ds: DataService, private dialog: MatDialog) {
-    this.ds.fetchFriendRequests();
-    this.ds.fetchEventInvites();
-
     this.invitesSubscription = this.ds.eventInvites.subscribe(value => this.invites = value);
     this.requestsSubscription = this.ds.friendRequests.subscribe(value => this.requests = value);
   }
@@ -61,5 +59,11 @@ export class NotificationsComponent implements OnDestroy {
 
   denyEventInvite(id: number) {
     this.ds.denyEventInvite(id).subscribe(() => this.ds.fetchEventInvites());
+  }
+
+  closeMenu() {
+    if (this.trigger) {
+      this.trigger.closeMenu();
+    }
   }
 }

@@ -6,6 +6,7 @@ html, body {
   padding: 0;
   background-color: #262626;
   color: white;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 html {
@@ -117,8 +118,6 @@ a {
   margin: 0 auto;
   display: block;
 
-  margin-top: 25px;
-
   -webkit-transition-property: -webkit-transform;
   -webkit-transition-duration: 1.2s;
   -webkit-animation-name: rotate;
@@ -197,4 +196,9 @@ div.box div {
   max-width: none !important;
   margin-bottom: 5px !important;
   overflow: hidden !important;
+}
+
+.cdk-overlay-connected-position-bounding-box {
+  right: 10px !important;
+  bottom: 80px !important;
 }

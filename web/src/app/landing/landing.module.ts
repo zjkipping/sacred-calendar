@@ -9,7 +9,6 @@ import { LandingComponent } from './landing.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { StatsComponent } from './stats/stats.component';
 import { FriendsListComponent } from './friends-list/friends-list.component';
-import { ProfileComponent } from './profile/profile.component';
 import { MonthViewComponent } from './month-view/month-view.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DayViewComponent } from './calendar/day-view/day-view.component';
@@ -22,7 +21,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     LandingComponent,
     CalendarComponent,
     StatsComponent,
-    ProfileComponent,
     FriendsListComponent,
     NotificationsComponent,
     MonthViewComponent,

@@ -1,6 +1,9 @@
 <div class="friends-list-container" (click)="$event.stopPropagation()">
   <mat-menu #friendMenu="matMenu" [overlapTrigger]="false">
     <div class="friends-list" (click)="$event.stopPropagation()">
+      <button class="close-menu-button" color="warn" mat-mini-fab (click)="closeMenu()">
+        <mat-icon aria-label="Close Friends List">close</mat-icon>
+      </button>
       <h3 class="text-center accent-text">Friends List</h3>
       <mat-divider></mat-divider>
       <div class="friends">

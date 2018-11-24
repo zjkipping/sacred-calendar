@@ -5,24 +5,24 @@
   </button>
   <div mat-dialog-content class="category-manager-body">
     <ng-container *ngFor="let category of categoriesForm?.controls; index as i">
-      <form [formGroup]="category" *ngIf="!category.value.delete">
-          <input
-            class="color-picker-input"
-            [style.background]="category.get('color')?.value"
-            [cpPosition]="'right'"
-            [colorPicker]="category.get('color')?.value"
-            (colorPickerSelect)="setColor($event, category)"
-            [cpOKButton]="true"
-            [cpOKButtonText]="'Save'"
-            [cpOKButtonClass]="'mat-raised-button'"
-            [cpCancelButton]="true"
-            [cpCancelButtonText]="'Cancel'"
-            [cpCancelButtonClass]="'mat-raised-button'"
-          >
+      <form class="category-group" [formGroup]="category" *ngIf="!category.value.delete">
+        <input
+          class="color-picker-input"
+          [style.background]="category.get('color')?.value"
+          [cpPosition]="'right'"
+          [colorPicker]="category.get('color')?.value"
+          (colorPickerSelect)="setColor($event, category)"
+          [cpOKButton]="true"
+          [cpOKButtonText]="'Save'"
+          [cpOKButtonClass]="'mat-raised-button'"
+          [cpCancelButton]="true"
+          [cpCancelButtonText]="'Cancel'"
+          [cpCancelButtonClass]="'mat-raised-button'"
+        >
         <mat-form-field class="category-name">
           <input matInput formControlName="name" placeholder="Category Name">
         </mat-form-field>
-        <button mat-mini-fab (click)="deleteCategory(i)" color="warn">
+        <button class="delete-button" mat-mini-fab (click)="deleteCategory(i)" color="warn">
           <mat-icon>delete</mat-icon>
         </button>
       </form>
