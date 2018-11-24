@@ -49,6 +49,7 @@ const startRoutes = async () => {
   router.get('/availability', user.availability);
   router.get('/stats', user.statistics);
 
+  router.get('/event-invites', user.eventInvites);
   router.post('/event/invite', user.eventInvite);
   router.post('/event/accept', user.acceptEventInvite);
   router.post('/event/deny', user.denyEventInvite);
@@ -63,6 +64,8 @@ const startRoutes = async () => {
   router.get('/friends', user.friends);
   router.put('/friends', user.updateFriend);
   router.delete('/friends/:id', user.removeFriend);
+
+  router.get('/friend', user.friendEvents);
 };
 
 // starts the router in an asynchronous fashion

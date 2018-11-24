@@ -10,6 +10,11 @@
             <ng-template #username><span class="username">{{friend.username}}</span></ng-template>
             <div class="spacer"></div>
             <span>
+              <button class="edit-button" color="primary" mat-mini-fab (click)="viewFriend(friend)">
+                <mat-icon aria-label="Edit Friend">visibility</mat-icon>
+              </button>
+            </span>
+            <span>
               <button class="edit edit-button" mat-mini-fab (click)="editFriend(friend)">
                 <mat-icon aria-label="Edit Friend">edit</mat-icon>
               </button>

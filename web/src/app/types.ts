@@ -30,6 +30,7 @@ export interface EventFormValue {
   startTime: string;
   endTime: string;
   categoryID: number;
+  invites: number[];
 }
 
 export interface Category {
@@ -63,7 +64,20 @@ export interface Friend {
   tag?: string;
 }
 
-export interface FriendRequestOption {
+export interface Notification {
   id: number;
   username: string;
+}
+
+export interface EventInvite {
+  id: number;
+  username: string;
+  tag: string;
+  created: number;
+  name: string;
+  description: string;
+  location: string;
+  date: moment.Moment;
+  startTime: moment.Moment;
+  endTime: moment.Moment;
 }

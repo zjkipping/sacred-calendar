@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { CalendarDate, Event, CategoryFormValue } from '@types';
+import { CalendarDate, Event, CategoryFormValue, EventFormValue } from '@types';
 import { DIALOG_HEIGHT, DIALOG_WIDTH } from '@constants';
 import { DataService } from '@services/data.service';
 import { CalendarService } from '@services/calendar.service';
@@ -14,10 +16,38 @@ import { CategoryManagerDialogComponent } from '@dialogs/category-manager/catego
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnDestroy {
   sideNavOpen = false;
+  viewingFriend = false;
+  queryParamsSubscription: Subscription;
 
-  constructor(private dialog: MatDialog, public ds: DataService, public cs: CalendarService) { }
+  constructor(
+    private dialog: MatDialog,
+    public ds: DataService,
+    public cs: CalendarService,
+    route: ActivatedRoute,
+    private router: Router
+  ) {
+    ds.setup();
+    this.queryParamsSubscription = route.queryParams.subscribe(params => {
+    const friendship_id = params['view_friend'];
+      if (friendship_id) {
+        this.viewingFriend = true;
+      } else {
+        this.viewingFriend = false;
+      }
+      this.ds.loadingEvents = true;
+      this.ds.fetchEvents();
+    });
+  }
+
+  ngOnDestroy() {
+    this.queryParamsSubscription.unsubscribe();
+  }
+
+  viewMyCalendar() {
+    this.router.navigate(['/calendar']);
+  }
 
   selectDate(date: CalendarDate) {
     this.sideNavOpen = !this.cs.selectDate(date);
@@ -32,9 +62,17 @@ export class CalendarComponent {
     this.dialog.open(EventFormDialogComponent, {
       height: DIALOG_HEIGHT,
       width: DIALOG_WIDTH
-    }).afterClosed().subscribe(event => {
+    }).afterClosed().subscribe((event: EventFormValue) => {
       if (event) {
-        this.ds.newEvent(event).subscribe(() => this.ds.fetchEvents());
+        this.ds.newEvent(event).pipe(
+          switchMap((id: number) => {
+            if (event.invites && event.invites.length > 0) {
+              return this.ds.sendEventInvites(id, event.invites);
+            } else {
+              return of();
+            }
+          })
+        ).subscribe(() => this.ds.fetchEvents());
       }
     });
   }
@@ -44,9 +82,17 @@ export class CalendarComponent {
       height: DIALOG_HEIGHT,
       width: DIALOG_WIDTH,
       data: event
-    }).afterClosed().subscribe(edited => {
+    }).afterClosed().subscribe((edited: EventFormValue) => {
       if (edited) {
-        this.ds.updateEvent(edited).subscribe(() => this.ds.fetchEvents());
+        this.ds.updateEvent(edited).pipe(
+          switchMap(() => {
+            if (edited.invites && edited.invites.length > 0) {
+              return this.ds.sendEventInvites(event.id, edited.invites);
+            } else {
+              return of();
+            }
+          })
+        ).subscribe(() => this.ds.fetchEvents());
       }
     });
   }

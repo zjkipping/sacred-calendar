@@ -5,23 +5,23 @@
   top: 0;
   right: 0;
   margin-top: 114px;
-  z-index: 10;
+  z-index: 51;
   border-radius: 3px;
   border: 2px solid white;
   border-right: none;
   max-height: 620px;
-  height: 620px;
+  height: 75%;
   box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
   display: flex;
 }
 
 .day-view-container {
   max-height: 620px;
-  height: 620px;
-  overflow-y: auto;
+  height: 100%;
   background: #262626;
-  width: 400px;
-  overflow-x: hidden;
+  width: 100%;
+  max-width: 400px;
+  overflow: hidden;
   position: relative;
 }
 
@@ -60,7 +60,7 @@
 .close-button-tab {
   width: 25px;
   max-height: 620px;
-  height: 620px;
+  height: 100%;
   background: mat-color($sc-primary, 500);
 }
 
@@ -71,7 +71,7 @@
   text-align: center;
   width: 24px;
   max-height: 620px;
-  height: 620px;
+  height: 100%;
   background: mat-color($sc-primary, 500);
   cursor: pointer;
   border-right: 2px solid white;
@@ -79,7 +79,7 @@
 
 .events-list {
   padding: 10px;
-  height: 499px; 
+  height: calc(100% - 72px);
   overflow-y: auto;
 }
 
@@ -87,10 +87,15 @@
   padding: 10px;
   background-color: mat-color($sc-primary, 500);
   font-size: 19px;
+  width: 100%;
 }
 
 .add-button {
   position: absolute;
   right: 5px;
   bottom: 5px;
+}
+
+.no-margin {
+  margin: 0px;
 }

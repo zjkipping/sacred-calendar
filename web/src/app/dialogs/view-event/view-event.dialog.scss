@@ -1,0 +1,25 @@
+@import "../../../theme/sc-theme-mixins.scss";
+
+.invite-body {
+  height: 450px;
+  overflow-y: auto;
+}
+
+.event-time {
+  font-size: 18px;
+}
+
+.details {
+  padding: 10px;
+  border: 2px solid mat-color($sc-accent, 500);
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.detail-label {
+  font-size: 18px;
+}
+
+.detail-value {
+  padding: 0px 40px;
+}

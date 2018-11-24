@@ -23,9 +23,21 @@
         </div>
         <div class="text-center" *ngIf="requests.length === 0">You have no Friend Requests</div>
       </div>
-      <div class="tag-content" *ngIf="tab === 'invites'">
+      <div class="tab-content" *ngIf="tab === 'invites'">
         <div class="notification" *ngFor="let invite of invites">
-          
+          <span *ngIf="invite.tag; else username" class="username">{{invite.tag}}</span>
+          <ng-template #username><span class="username">{{invite.username}}</span></ng-template>
+          <div class="spacer"></div>
+          <span class="accept">
+            <button class="edit" mat-mini-fab (click)="viewEventInvite(invite)">
+              <mat-icon aria-label="View Event">visibility</mat-icon>
+            </button>
+          </span>
+          <span>
+            <button color="warn" mat-mini-fab (click)="denyEventInvite(invite.id)">
+              <mat-icon aria-label="Deny Event Invite">close</mat-icon>
+            </button>
+          </span>
         </div>
         <div class="text-center" *ngIf="invites.length === 0">You have no Event Invites</div>
       </div>

@@ -1,9 +1,6 @@
 .container {
-  min-width: 720px;
-  max-width: 720px;
   margin: 0px auto;
-  overflow-y: hidden;
-  overflow-x: auto;
+  max-width: 720px;
 }
 
 .add-event-button {
@@ -22,4 +19,16 @@
 
 mat-toolbar-row button {
   margin-right: 10px;
+}
+
+.calendar-toolbar {
+  top: 64px;
+  height: 56px;
+  position: fixed;
+  z-index: 50;
+  max-width: 720px;
+}
+
+.loading {
+  margin-top: 140px;
 }

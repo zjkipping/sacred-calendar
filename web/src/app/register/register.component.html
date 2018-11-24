@@ -33,7 +33,10 @@
         <p class="warn-text" *ngIf="error != ''">{{error}}</p>
       </mat-card-content>
       <mat-card-actions align="end">
-          <a routerLink="/login" class="accent-text">Have An Account? Click Here To Login</a>
+        <a routerLink="/login" class="accent-text have-account">
+          <div>Have An Account?</div>
+          <div>Click Here To Login</div>
+        </a>
         <div fxFlex></div>
         <button [disabled]="!registerForm.valid" (click)="register()" mat-raised-button color="primary">Register</button>
       </mat-card-actions>

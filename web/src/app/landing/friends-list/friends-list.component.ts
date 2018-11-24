@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { AddFriendDialogComponent } from '@dialogs/add-friend/add-friend.dialog';
-import { DataService } from '@services/data.service';
 import { Friend } from '@types';
+import { DataService } from '@services/data.service';
+import { AddFriendDialogComponent } from '@dialogs/add-friend/add-friend.dialog';
 import { EditFriendComponent } from '@dialogs/edit-friend/edit-friend.component';
 
 @Component({
@@ -15,7 +16,7 @@ import { EditFriendComponent } from '@dialogs/edit-friend/edit-friend.component'
 export class FriendsListComponent {
   friends: Observable<Friend[]>;
 
-  constructor(private dialog: MatDialog, private ds: DataService) {
+  constructor(private dialog: MatDialog, private ds: DataService, private router: Router) {
     this.ds.fetchFriends();
     this.friends = this.ds.friends;
   }
@@ -31,6 +32,10 @@ export class FriendsListComponent {
     });
   }
 
+  viewFriend(friend: Friend) {
+    this.router.navigate([], { queryParams: { view_friend: friend.id } });
+  }
+
   editFriend(friend: Friend) {
     this.dialog.open(EditFriendComponent, {
       height: '300px',
@@ -38,7 +43,11 @@ export class FriendsListComponent {
       data: friend
     }).afterClosed().subscribe(value => {
       if (value) {
-        this.ds.updateFriend(value).subscribe(() => this.ds.fetchFriends());
+        this.ds.updateFriend(value).subscribe(() => {
+          this.ds.fetchFriends();
+          this.ds.fetchEventInvites();
+          this.ds.fetchEvents();
+        });
       }
     });
   }

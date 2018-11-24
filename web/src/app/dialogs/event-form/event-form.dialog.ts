@@ -1,22 +1,25 @@
-import { Component, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material';
-import { Observable } from 'rxjs';
+import { Component, Inject, OnDestroy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { Observable, merge, Subscription } from 'rxjs';
 import * as moment from 'moment';
 
-import { Event, Category } from '@types';
+import { Event, Category, Notification } from '@types';
 import { DataService } from '@services/data.service';
+import { InviteAvailableFriendsComponent } from '@dialogs/invite-available-friends/invite-available-friends.dialog';
 
 @Component({
   selector: 'app-event-form-dialog',
   templateUrl: './event-form.dialog.html',
   styleUrls: ['./event-form.dialog.scss']
 })
-export class EventFormDialogComponent {
+export class EventFormDialogComponent implements OnDestroy {
   eventForm: FormGroup;
   categories: Observable<Category[]>;
+  invites: Notification[] = [];
+  timeChangeSubscription: Subscription;
 
-  constructor(fb: FormBuilder, @Inject(MAT_DIALOG_DATA) event: Event, ds: DataService) {
+  constructor(fb: FormBuilder, @Inject(MAT_DIALOG_DATA) event: Event, ds: DataService, private dialog: MatDialog) {
     let category: any = '';
     if (event && event.category && event.category.id) {
       category = event.category.id;
@@ -34,10 +37,33 @@ export class EventFormDialogComponent {
     });
 
     this.categories = ds.getCategories();
+
+    this.timeChangeSubscription = merge([
+      (this.eventForm.get('startTime') as FormControl).valueChanges,
+      (this.eventForm.get('endTime') as FormControl).valueChanges
+    ]).subscribe(() => {
+      this.invites = [];
+    });
+  }
+
+  ngOnDestroy() {
+    this.timeChangeSubscription.unsubscribe();
+  }
+
+  inviteFriends() {
+    this.dialog.open(InviteAvailableFriendsComponent, {
+      data: { event: this.eventForm.value, invites: this.invites },
+      height: '300px',
+      width: '500px',
+    }).afterClosed().subscribe((invites: Notification[]) => this.invites = (invites ? invites : []));
   }
 
   submitEvent() {
-    // hack until I figure out how to have a null default selection option instead of ''
-    return { ...this.eventForm.value, categoryID: this.eventForm.value.categoryID === '' ? undefined : this.eventForm.value.categoryID };
+    return {
+      ...this.eventForm.value,
+      invites: this.invites,
+      // hack until I figure out how to have a null default selection option instead of ''
+      categoryID: this.eventForm.value.categoryID === '' ? undefined : this.eventForm.value.categoryID
+    };
   }
 }

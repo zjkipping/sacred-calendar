@@ -1,27 +1,29 @@
 <mat-card class="view-container">
-  <mat-grid-list cols="7" rowHeight="2:1">
-    <mat-grid-tile><button mat-mini-fab color="accent" (click)="previousMonth()"><mat-icon aria-label="Previous Month Button">chevron_left</mat-icon></button></mat-grid-tile>
-    <mat-grid-tile colspan="5"><h1 >{{current.format('MMMM')}}, {{current.year()}}</h1></mat-grid-tile>
-    <mat-grid-tile><button mat-mini-fab color="accent" (click)="nextMonth()"><mat-icon aria-label="Next Month Button">chevron_right</mat-icon></button></mat-grid-tile>
-    
-    <mat-grid-tile>Sunday</mat-grid-tile>
-    <mat-grid-tile>Monday</mat-grid-tile>
-    <mat-grid-tile>Tuesday</mat-grid-tile>
-    <mat-grid-tile>Wednesday</mat-grid-tile>
-    <mat-grid-tile>Thursday</mat-grid-tile>
-    <mat-grid-tile>Friday</mat-grid-tile>
-    <mat-grid-tile>Saturday</mat-grid-tile>
-  </mat-grid-list>
-  <mat-grid-list cols="7" rowHeight="1:1.05">
-    <mat-grid-tile class="date" [style.cursor]="day.disabled ? '' : 'pointer'" (click)="selectDate(day)" *ngFor="let day of days; index as i" [class.today]="day.today" [class.selected]="day.selected">
-      <mat-grid-tile-header class="date-header">{{day.mDate.format('D')}} <span class="today-tag" *ngIf="day.today">(Today)</span></mat-grid-tile-header>
-      <div class="tile-body">
-        <ng-container *ngFor="let event of day.events; index as i">
-          <div class="event" [style.borderColor]="event.fontColor" [style.color]="event.fontColor" [style.backgroundColor]="event.category.color" *ngIf="i < 3 || day.events.length <= 4">{{event.name}}</div>
-        </ng-container>
-        <div class="text-right event-ellipse" *ngIf="day.events.length > 4">+{{day.events.length - 3}}</div>
-      </div>
-      <div class="disabled" *ngIf="day.disabled"></div>
-    </mat-grid-tile>
-  </mat-grid-list>
+  <div class="month-calendar">
+    <mat-grid-list cols="7" rowHeight="2:1">
+      <mat-grid-tile><button mat-mini-fab color="accent" (click)="previousMonth()"><mat-icon aria-label="Previous Month Button">chevron_left</mat-icon></button></mat-grid-tile>
+      <mat-grid-tile colspan="5"><h1 >{{current.format('MMMM')}}, {{current.year()}}</h1></mat-grid-tile>
+      <mat-grid-tile><button mat-mini-fab color="accent" (click)="nextMonth()"><mat-icon aria-label="Next Month Button">chevron_right</mat-icon></button></mat-grid-tile>
+      
+      <mat-grid-tile>Sunday</mat-grid-tile>
+      <mat-grid-tile>Monday</mat-grid-tile>
+      <mat-grid-tile>Tuesday</mat-grid-tile>
+      <mat-grid-tile>Wednesday</mat-grid-tile>
+      <mat-grid-tile>Thursday</mat-grid-tile>
+      <mat-grid-tile>Friday</mat-grid-tile>
+      <mat-grid-tile>Saturday</mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list cols="7" rowHeight="1:1.05">
+      <mat-grid-tile class="date" [style.cursor]="day.disabled ? '' : 'pointer'" (click)="selectDate(day)" *ngFor="let day of days; index as i" [class.today]="day.today" [class.selected]="day.selected">
+        <mat-grid-tile-header class="date-header">{{day.mDate.format('D')}} <span class="today-tag" *ngIf="day.today">(Today)</span></mat-grid-tile-header>
+        <div class="tile-body">
+          <ng-container *ngFor="let event of day.events; index as i">
+            <div class="event" [style.borderColor]="event.fontColor" [style.color]="event.fontColor" [style.backgroundColor]="event.category.color" *ngIf="i < 3 || day.events.length <= 4">{{event.name}}</div>
+          </ng-container>
+          <div class="text-right event-ellipse" *ngIf="day.events.length > 4">+{{day.events.length - 3}}</div>
+        </div>
+        <div class="disabled" *ngIf="day.disabled"></div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
 </mat-card>

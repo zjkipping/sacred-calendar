@@ -60,6 +60,56 @@ module.exports = {
       util.handleUncaughtError(err);
     }
   },
+  friendEvents: async (req, res) => {
+    if (req.query.id) {
+      try {
+        // select all the events from the DB for the authenticated user
+        const [rows] = await pool.execute(
+          'SELECT targetID FROM Friendship WHERE id = ?',
+          [req.query.id]
+        );
+
+        if (rows.length > 0) {
+          const friendID = rows[0].targetID;
+
+          const [events] = await pool.execute(`
+              SELECT Event.id, Event.created, Event.name, Event.description, Event.location, Event.date, Event.startTime, Event.endTime, Category.id as categoryID, Category.name as categoryName, Category.color as categoryColor
+              FROM Event
+              LEFT JOIN Category ON Event.categoryID = Category.id
+              WHERE Event.userID = ?
+            `,
+            [friendID]
+          );
+          // sends back the events wrapped in their own object with a '200' OK
+          res.status(200).send(_.map(events, row => {
+            return {
+              id: row.id,
+              created: row.created,
+              name: row.name,
+              description: row.description,
+              location: row.location,
+              date: row.date,
+              startTime: row.startTime,
+              endTime: row.endTime,
+              // wrap the category fields in a nested object
+              category: {
+                id: row.categoryID,
+                name: row.categoryName,
+                color: row.categoryColor
+              }
+            }
+          }));
+        } else {
+          res.status(400).send({ error: true, code: 'NO_FRIEND', message: 'Friendship doesn\'t exist for id provided' });
+        }
+      } catch (err) {
+        // handle any other errors
+        util.handleUncaughtError(err);
+      }
+    } else {
+      res.status(400).send({ error: true, code: 'NO_PARAM', message: 'Missing friendship ID parameter' });
+    }
+  },
   categories: async (req, res) => {
     try {
       // selects all the categories for the authenticated user
@@ -135,12 +185,12 @@ module.exports = {
       const endTime = req.body.endTime ? req.body.endTime : null;
       const categoryID = req.body.categoryID ? req.body.categoryID : null;
       // insert a new Event into the DB using the provided info from the request body
-      await pool.execute(
+      const [result] = await pool.execute(
         'INSERT INTO Event (userID, created, name, description, location, date, startTime, endTime, categoryID) VALUES (?, UNIX_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?)',
         [req.id, req.body.name, description, location, req.body.date, req.body.startTime, endTime, categoryID]
       );
       // send back a '200' OK
-      res.status(200).send();
+      res.status(200).send({ id : result.insertId});
     } catch (err) {
       // handle any other errors
       util.handleUncaughtError(err);
@@ -179,10 +229,31 @@ module.exports = {
       util.handleUncaughtError(err);
     }
   },
+  eventInvites: async (req, res) => {
+    try {
+      // retrieves the event invites from the database for the authenticated user
+      const [rows] = await pool.execute(
+        `
+          SELECT EventInvite.id, UserLogin.username, Friendship.tag, EventInvite.created, Event.name, Event.description, Event.location, Event.date, Event.startTime, Event.endTime
+          FROM EventInvite
+          INNER JOIN UserLogin ON UserLogin.id = EventInvite.senderID
+          INNER JOIN Event ON Event.id = EventInvite.eventID
+          INNER JOIN Friendship ON Friendship.targetID = EventInvite.senderID
+          WHERE recipientID = ?
+        `,
+        [req.id]
+      );
+      // send back a '200' OK
+      res.status(200).send(rows);
+    } catch (err) {
+      // handle any other errors
+      util.handleUncaughtError(err);
+    }
+  },
   eventInvite: async (req, res) => {
     const invites = req.body.invites;
     const eventID = req.body.id
-    if (invites && invites.length > 0 && id) {
+    if (invites && invites.length > 0 && eventID) {
       try {
         // creates the two arrays for the query, the values & the prepared '?' parts
         let valuesQuery = '';
@@ -223,18 +294,22 @@ module.exports = {
           [eventID]
         );
 
+        await pool.execute(
+          'DELETE FROM EventInvite WHERE id = ?',
+          [req.body.id]
+        )
+
         // checks to see if the event still exists
         if (rows.length > 0) {
           const event = rows[0];
           const description = event.description ? event.description : null;
           const location = event.location ? event.location : null;
           const endTime = event.endTime ? event.endTime : null;
-          const categoryID = event.categoryID ? event.categoryID : null;
 
-          // inserts the event in the authed user's event list
+          // inserts the event in the authenticated user's event list
           await pool.execute(
             'INSERT INTO Event (userID, created, name, description, location, date, startTime, endTime, categoryID) VALUES (?, UNIX_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?)',
-            [req.id, event.name, description, location, event.date, event.startTime, endTime, categoryID]
+            [req.id, event.name, description, location, event.date, event.startTime, endTime, null]
           );
 
           // send back a '200' OK

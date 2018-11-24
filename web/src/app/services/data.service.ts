@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import * as moment from 'moment';
 
-import { UserDetails, EventFormValue, Event, Category, CategoryFormValue, Friend, FriendRequestOption } from '@types';
-import { map, take, tap } from 'rxjs/operators';
+import { UserDetails, EventFormValue, Event, Category, CategoryFormValue, Friend, Notification, EventInvite } from '@types';
+import { map, take, tap, pluck, switchMap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 
@@ -17,10 +17,12 @@ const API_URL = environment.API_URL;
 export class DataService {
   userDetails: Observable<UserDetails>;
   events = new BehaviorSubject<Event[]>([]);
+  eventInvites = new BehaviorSubject<EventInvite[]>([]);
   friends = new BehaviorSubject<Friend[]>([]);
+  friendRequests = new BehaviorSubject<Notification[]>([]);
   loadingEvents = false;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {
     this.userDetails = this.http.get<UserDetails>(API_URL + '/self');
   }
 
@@ -31,8 +33,17 @@ export class DataService {
 
   // fetches the events from the API
   fetchEvents() {
-    this.http.get<any[]>(API_URL + '/events').pipe(
-      // converts the date & times from unix to Moment objects
+    this.route.queryParams.pipe(
+      take(1),
+      pluck<Params, number>('view_friend'),
+      // checking if calendar is viewing a friend's events or not
+      switchMap(friendID => {
+        if (friendID) {
+          return this.http.get<any[]>(API_URL + `/friend?id=${friendID}`);
+        } else {
+          return this.http.get<any[]>(API_URL + '/events');
+        }
+      }),
       map(events => events.map(event => {
         return {
           ...event,
@@ -76,8 +87,21 @@ export class DataService {
      this.http.get<Friend[]>(API_URL + '/friends').pipe(take(1)).subscribe(data => this.friends.next(data));
   }
 
-  getFriendRequests(): Observable<any[]> {
-    return this.http.get<FriendRequestOption[]>(API_URL + '/friend-requests').pipe(take(1));
+  fetchFriendRequests() {
+    this.http.get<Notification[]>(API_URL + '/friend-requests').pipe(take(1)).subscribe(data => this.friendRequests.next(data));
+  }
+
+  fetchEventInvites() {
+    this.http.get<any[]>(API_URL + '/event-invites').pipe(
+      map(invites => invites.map(invite => {
+        return {
+          ...invite,
+          date: moment.unix(invite.date),
+          startTime: moment.unix(invite.startTime),
+          endTime: invite.endTime ? moment.unix(invite.endTime) : undefined
+        };
+      }))
+    ).subscribe(data => this.eventInvites.next(data));
   }
 
   // sends off the new event post to the API
@@ -115,7 +139,7 @@ export class DataService {
     return this.http.get(API_URL + '/fr-typeahead?username=' + username).pipe(take(1));
   }
 
-  sendFriendRequest(id: number) {
+  sendFriendRequest(id: number): Observable<any> {
     return this.http.post(API_URL + '/friend-requests', { id }).pipe(take(1));
   }
 
@@ -127,12 +151,29 @@ export class DataService {
     return this.http.post(API_URL + '/friend-requests/deny', { id }).pipe(take(1));
   }
 
-  updateFriend(friend: Friend) {
-    return this.http.put(API_URL + '/friends', { id: friend.id, tag: friend.tag, privacyType: friend.privacyType });
+  updateFriend(friend: Friend): Observable<any> {
+    return this.http.put(API_URL + '/friends', { id: friend.id, tag: friend.tag, privacyType: friend.privacyType }).pipe(take(1));
   }
 
   removeFriend(id: number): Observable<any> {
     return this.http.delete(API_URL + '/friends/' + id).pipe(take(1));
+  }
+
+  getAvailableFriends(event: EventFormValue): Observable<Notification[]> {
+    const momentEvent = formEventParseDateTimes(event);
+    return this.http.get<Notification[]>(API_URL + `/availability?start=${momentEvent.startTime}&end=${momentEvent.endTime}`).pipe(take(1));
+  }
+
+  sendEventInvites(id: number, invites: number[]): Observable<any> {
+    return this.http.post(API_URL + '/event/invite', { id, invites }).pipe(take(1));
+  }
+
+  acceptEventInvite(id: number): Observable<any> {
+    return this.http.post(API_URL + '/event/accept', { id }).pipe(take(1));
+  }
+
+  denyEventInvite(id: number) {
+    return this.http.post(API_URL + '/event/deny', { id }).pipe(take(1));
   }
 }
 
@@ -151,7 +192,7 @@ export function getContrastYIQ(hexcolor: string) {
 }
 
 export function formEventParseDateTimes(event: EventFormValue) {
-  const date = moment(event.date);
+  const date = moment(event.date).hours(0).minutes(0).seconds(0).milliseconds(0);
   return {
     ...event,
     date: date.unix(),

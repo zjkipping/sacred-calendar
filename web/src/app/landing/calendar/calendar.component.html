@@ -1,8 +1,10 @@
 <div class="container">
-  <mat-toolbar>
+  <mat-toolbar class="calendar-toolbar">
     <mat-toolbar-row>
       <button mat-raised-button color="primary" (click)="addEvent()">Add Event</button>
       <button mat-raised-button color="primary" (click)="manageCategories()">Manage Categories</button>
+      <div class="spacer"></div>
+      <button mat-raised-button color="accent" *ngIf="viewingFriend" (click)="viewMyCalendar()">View My Calendar</button>
     </mat-toolbar-row>
   </mat-toolbar>
   <ng-container *ngIf="!ds.loadingEvents; else loadingCalendar">
@@ -15,8 +17,10 @@
     ></app-month-view>
   </ng-container>
   <ng-template #loadingCalendar>
-    <div class="loading-spinner"></div>
-    <p class="text-center">Loading Calendar...</p>
+    <div class="loading">
+      <div class="loading-spinner"></div>
+      <p class="text-center">Loading Calendar...</p>
+    </div>
   </ng-template>
 </div>
 

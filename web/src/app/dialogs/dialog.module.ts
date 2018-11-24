@@ -8,13 +8,17 @@ import { MaterialModule } from '../material.module';
 import { CategoryManagerDialogComponent } from './category-manager/category-manager.dialog';
 import { AddFriendDialogComponent } from './add-friend/add-friend.dialog';
 import { EditFriendComponent } from './edit-friend/edit-friend.component';
+import { InviteAvailableFriendsComponent } from './invite-available-friends/invite-available-friends.dialog';
+import { ViewEventDialogComponent } from './view-event/view-event.dialog';
 
 @NgModule({
   declarations: [
     EventFormDialogComponent,
     CategoryManagerDialogComponent,
     AddFriendDialogComponent,
-    EditFriendComponent
+    EditFriendComponent,
+    InviteAvailableFriendsComponent,
+    ViewEventDialogComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +30,9 @@ import { EditFriendComponent } from './edit-friend/edit-friend.component';
     EventFormDialogComponent,
     CategoryManagerDialogComponent,
     AddFriendDialogComponent,
-    EditFriendComponent
+    EditFriendComponent,
+    InviteAvailableFriendsComponent,
+    ViewEventDialogComponent
   ]
 })
 export class DialogModule { }

@@ -76,3 +76,13 @@ mat-grid-tile-header .today-tag {
   position: absolute;
   z-index: 5;
 }
+
+.view-container {
+  overflow: auto;
+  margin-top: 120px;
+}
+
+.month-calendar {
+  width: 688px;
+  height: 720px;
+}

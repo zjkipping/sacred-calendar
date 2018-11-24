@@ -15,6 +15,7 @@
       <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
       <mat-datepicker touchUi #datePicker></mat-datepicker>
     </mat-form-field>
+    <div class="warn-text text-center wipe-text" *ngIf="invites.length !== 0">Changing the start or end time will wipe your friend invites!</div>
     <ngx-material-timepicker #pickerStart></ngx-material-timepicker>
     <mat-form-field class="full-width">
       <input matInput [ngxTimepicker]="pickerStart" formControlName="startTime" placeholder="Start Time"  required>
@@ -33,6 +34,7 @@
   <div mat-dialog-actions>
     <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
     <div class="spacer"></div>
+    <button mat-raised-button [disabled]="!eventForm.get('startTime')?.valid" color="primary" (click)="inviteFriends()">Invite Friend(s)</button>
     <button mat-raised-button [disabled]="!eventForm.valid" class="success" [mat-dialog-close]="submitEvent()">Submit</button>
   </div>
 </form>

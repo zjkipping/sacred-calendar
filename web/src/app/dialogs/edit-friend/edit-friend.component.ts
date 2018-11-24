@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 import { Friend } from '@types';
 
 @Component({
-  selector: 'app-edit-friend',
+  selector: 'app-edit-friend-dialog',
   templateUrl: './edit-friend.component.html',
   styleUrls: ['./edit-friend.component.scss']
 })

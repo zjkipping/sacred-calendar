@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>View Event Invite</h1>
+<div mat-dialog-content class="invite-body">
+  <h2 class="text-center">{{invite.date.format('dddd, MMM Do YYYY')}}</h2>
+  <div class="center-container">
+    <div class="event-time">
+      <span>{{invite.startTime.format('hh:mm a')}}</span>
+      <span *ngIf="invite.endTime && invite.startTime !== invite.endTime"> - {{invite.endTime?.format('hh:mm a')}}</span>
+    </div>
+  </div>
+  <div class="details">
+    <div class="full-width">
+      <label class="detail-label" for="nameView">Name:</label>
+      <p class="detail-value" id="nameView">{{invite.name}}</p>
+    </div>
+    <div class="full-width">
+      <label class="detail-label" for="descriptionView">Description:</label>
+      <p class="detail-value" id="descriptionView">{{invite.description}}</p>
+    </div>
+    <div class="full-width">
+      <label class="detail-label" for="locationView">Location:</label>
+      <p class="detail-value" id="locationView">{{invite.location}}</p>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+  <div class="spacer"></div>
+  <button mat-raised-button class="success" [mat-dialog-close]="true">Accept Invite</button>
+</div>

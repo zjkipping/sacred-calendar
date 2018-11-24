@@ -1,18 +1,18 @@
 .friends-list-container {
   position: fixed;
   bottom: 10px;
-  right: 10px;
+  right: 30px;
   z-index: 50;
 }
 
 .friends-list {
-  width: 260px;
-  height: 310px;
+  width: 320px;
+  height: 400px;
   padding: 5px;
 }
 
 .friends {
-  height: 215px;
+  height: 300px;
   overflow-y: auto;
   padding: 10px;
   text-align: left;

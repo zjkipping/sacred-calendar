@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Invite Available Friends</h1>
+<div mat-dialog-content class="content">
+  <div class="center-container">
+    <div class="event-time">
+      <span>{{startTime.format('hh:mm a')}}</span>
+      <span *ngIf="endTime && startTime !== endTime"> - {{endTime?.format('hh:mm a')}}</span>
+    </div>
+  </div>
+  <ng-container *ngIf="availableFriends | async; let friends">
+    <mat-form-field *ngIf="friends.length !== 0" class="full-width">
+      <mat-select placeholder="Friend To Invite" [formControl]="invitesControl" multiple>
+        <mat-option *ngFor="let friend of friends" [value]="friend.id">{{friend.username}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="text-center" *ngIf="friends.length === 0">No Friends Are Available...</div>
+  </ng-container>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+  <div class="spacer"></div>
+  <button mat-raised-button [disabled]="!invitesControl?.valid" class="success" [mat-dialog-close]="invitesControl?.value">Send Invite(s)</button>
+</div>
