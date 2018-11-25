@@ -35,7 +35,7 @@
     <div class="event-buttons">
       <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
       <button mat-raised-button [disabled]="!eventForm.get('startTime')?.valid" color="primary" (click)="inviteFriends()">Invite Friends</button>
-      <button mat-raised-button [disabled]="!eventForm.valid" class="success" [mat-dialog-close]="submitEvent()">Submit</button>
+      <button mat-raised-button [disabled]="!eventForm.valid || (eventForm.pristine && invites.length === 0)" class="success" [mat-dialog-close]="submitEvent()">Submit</button>
     </div>
   </div>
 </form>

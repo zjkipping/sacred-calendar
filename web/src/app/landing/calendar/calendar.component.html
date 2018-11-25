@@ -2,12 +2,12 @@
   <div class="calendar-toolbar">
     <div *ngIf="displayCalendarMenu" class="edit button-item calendar-toolbar-item" (click)="calendarMenuOpen = !calendarMenuOpen">Toggle Calendar Menu</div>
     <ng-container *ngIf="calendarMenuOpen">
-      <div class="primary calendar-toolbar-item">
+      <div class="primary calendar-toolbar-item" *ngIf="!calendarView.disabled">
         <mat-form-field class="view-select">
           <mat-select [formControl]="calendarView">
             <mat-option value="" disabled selected>Select A Calendar View</mat-option>
-            <mat-option value="week">Weekly View</mat-option>
-            <mat-option value="month">Monthly View</mat-option>
+            <mat-option value="weekly">Weekly View</mat-option>
+            <mat-option value="monthly">Monthly View</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -18,13 +18,25 @@
   </div>
   <div class="calendar-view">
     <ng-container *ngIf="!ds.loadingEvents; else loadingCalendar">
-      <app-month-view
-      (dateSelected)="selectDate($event)"
-      (monthBackward)="cs.previousMonth()"
-      (monthForward)="cs.nextMonth()"
-      [current]="cs.current | async"
-      [days]="cs.days | async"
-      ></app-month-view>
+      <ng-container *ngIf="(cs.view | async) === 'monthly'; else weeklyView">
+        <app-month-view
+          (dateSelected)="selectDate($event)"
+          (monthBackward)="cs.previousMonth()"
+          (monthForward)="cs.nextMonth()"
+          [current]="cs.current | async"
+          [days]="cs.days | async"
+        ></app-month-view>
+      </ng-container>
+      <ng-template #weeklyView>
+        <app-week-view
+        (editEvent)="editEvent($event)"
+        (deleteEvent)="deleteEvent($event)"
+        (weekBackward)="cs.previousWeek()"
+        (weekForward)="cs.nextWeek()"
+        [current]="cs.current | async"
+        [days]="cs.days | async"
+        ></app-week-view>
+      </ng-template>
     </ng-container>
     <ng-template #loadingCalendar>
       <div class="loading">

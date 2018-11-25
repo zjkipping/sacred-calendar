@@ -1,0 +1,62 @@
+@import "../../../../theme/sc-theme-mixins.scss";
+
+.week-calendar {
+  padding: 160px 10px 85px;
+  background-color: #424242;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.header-container {
+  background-color: #424242;
+  position: fixed;
+  width: calc(100% - 30px);
+  padding: 5px 15px 20px;
+  max-width: 690px;
+  height: 100px;
+  z-index: 10;
+  border-bottom: 2px solid white;
+}
+
+.header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.year-display {
+  margin-bottom: 0px;
+}
+
+.week-range {
+  font-size: 20px;
+}
+
+.today-tag {
+  margin-left: 5px;
+}
+
+.mat-expansion-panel {
+  background: mat-color($sc-primary, 500);
+  border: 1px solid white;
+}
+
+.mat-expansion-panel-header {
+  border-bottom: 2px solid white;
+}
+
+.event-count {
+  padding-right: 20px;
+}
+
+.week-day {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  flex-direction: row;
+}
+
+.event-list {
+  display: block;
+  margin-top: 16px;
+}

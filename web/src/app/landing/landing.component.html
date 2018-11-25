@@ -1,7 +1,7 @@
 <mat-toolbar class="navbar" color="primary">
   <span>Sacred Calendar</span>
   <span class="spacer"></span>
-  <div fxShow="true" fxHide.lt-md="true">
+  <div fxShow="true" fxHide.lt-sm="true">
     <button mat-button routerLinkActive="accent-text" routerLink="/calendar">Calendar</button>
     <button mat-button routerLinkActive="accent-text" routerLink="/stats">Stats</button>
     <button mat-button class="logout-button" (click)="logout()">
@@ -9,13 +9,13 @@
       <span>Log Out</span>
     </button>
   </div>
-  <div fxShow="true" fxHide.gt-sm="true">
+  <div fxShow="true" fxHide.gt-xs="true">
     <button mat-mini-fab color="accent" (click)="sideNavOpen = !sideNavOpen">
       <mat-icon>menu</mat-icon>
     </button>
   </div>
 </mat-toolbar>
-<div class="side-nav" fxShow="true" fxHide.gt-sm="true" *ngIf="sideNavOpen">
+<div class="side-nav" fxShow="true" fxHide.gt-xs="true" *ngIf="sideNavOpen">
   <button mat-button class="accent" (click)="sideNavOpen = false">Close</button>
   <button mat-button routerLinkActive="accent-text" routerLink="/calendar">Calendar</button>
   <button mat-button routerLinkActive="accent-text" routerLink="/stats">Stats</button>
@@ -27,7 +27,7 @@
 <div class="main-container">
   <router-outlet></router-outlet>
 </div>
-<div class="overlay" [class.overlay]="sideNavOpen" (click)="sideNavOpen = false" fxShow="true" fxHide.gt-sm="true"></div>
+<div class="overlay" [class.overlay]="sideNavOpen" (click)="sideNavOpen = false" fxShow="true" fxHide.gt-xs="true"></div>
 
 
 <app-notifications></app-notifications>

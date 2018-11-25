@@ -1,0 +1,26 @@
+<div class="header-container">
+  <h1 class="text-center year-display">{{current.format('YYYY')}}</h1>
+  <div class="header-controls">
+    <button mat-mini-fab color="accent" (click)="previousWeek()"><mat-icon aria-label="Previous Week Button">chevron_left</mat-icon></button>
+    <div class="week-range">{{pMoment(current).startOf('week').format('MMM Do')}} - {{pMoment(current).endOf('week').format('MMM Do')}}</div>
+    <button mat-mini-fab color="accent" (click)="nextWeek()"><mat-icon aria-label="Next Week Button">chevron_right</mat-icon></button>
+  </div>
+</div>
+<div class="week-calendar mat-elevation-z2">
+  <mat-accordion [multi]="true">
+    <mat-expansion-panel *ngFor="let day of days; trackBy: trackByIndex">
+      <mat-expansion-panel-header>
+        <div class="week-day">
+          <div>{{day.mDate.format('dddd, [The] Do')}} <span class="today-tag" *ngIf="day.today"> (Today)</span></div>
+          <div class="event-count">{{day.events.length}} Events</div>
+        </div>
+      </mat-expansion-panel-header>
+      <app-event-list
+        class="event-list"
+        [events]="day.events"
+        (selected)="eventClicked($event)"
+        (delete)="deleteClicked($event)"
+      ></app-event-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

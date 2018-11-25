@@ -1,0 +1,18 @@
+<div class="text-center" *ngIf="events.length === 0">There Are No Events On This Day</div>
+<div class="events-container">
+  <div class="event" (click)="selected.emit(event)" *ngFor="let event of events" [style.borderColor]="event.fontColor" [style.color]="event.fontColor" [style.backgroundColor]="event.category?.color">
+    <div class="details">
+      <div class="ellipse-text">Name: {{event.name}}</div>
+      <div>
+        <span>Time: {{event.startTime.format('hh:mm a')}}</span>
+        <span *ngIf="event.endTime && event.startTime !== event.endTime"> - {{event.endTime?.format('hh:mm a')}}</span>
+      </div>
+      <div *ngIf="event.location">Location: {{event.location}}</div>
+    </div>
+    <div class="divider" *ngIf="event.description" [style.borderColor]="event.fontColor"></div>
+    <div>{{event.description}}</div>
+    <button class="delete-button" mat-mini-fab (click)="$event.stopPropagation(); delete.emit(event)" color="warn">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</div>

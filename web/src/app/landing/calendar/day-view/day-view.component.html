@@ -7,25 +7,12 @@
       <h2 class="no-margin text-center">{{day?.mDate.format('dddd, MMM Do YYYY')}}</h2>
     </div>
     <div class="divider-title"></div>
-    <div class="events-list">
-      <div *ngIf="day?.events.length === 0" class="text-center">You don't have any events on this day.</div>
-      <div class="event-container" *ngFor="let event of day?.events">
-        <div (click)="eventClicked(event)" class="event" [style.borderColor]="event.fontColor" [style.color]="event.fontColor" [style.backgroundColor]="event.category?.color">
-          <div>
-            <span>{{event.startTime.format('hh:mm a')}}</span>
-            <span *ngIf="event.endTime && event.startTime !== event.endTime"> - {{event.endTime?.format('hh:mm a')}}</span>
-            <span *ngIf="event.location"> (at) {{event.location}}</span>
-          </div>
-          <div class="divider-event" [style.borderColor]="event.fontColor"></div>
-          <div class="ellipse-text"><span>{{event.name}}</span></div>
-          <div class="divider-event" *ngIf="event.description" [style.borderColor]="event.fontColor"></div>
-          <div>{{event.description}}</div>
-        </div>
-        <button mat-mini-fab class="delete-button" (click)="deleteClicked(event)" color="warn">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </div>
-    </div>
+    <app-event-list
+      class="event-list"
+      [events]="day?.events"
+      (selected)="eventClicked($event)"
+      (delete)="deleteClicked($event)"
+    ></app-event-list>
     <!-- <button mat-mini-fab class="add-button" (click)="newClicked()" color="accent">
       <mat-icon>add</mat-icon>
     </button> -->

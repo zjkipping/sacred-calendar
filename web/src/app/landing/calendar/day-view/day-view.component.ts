@@ -1,7 +1,7 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { trigger, transition, animate, style } from '@angular/animations';
 
-import { CalendarDate } from '@types';
+import { CalendarDate, Event } from '@types';
 
 @Component({
   selector: 'app-day-view',
@@ -31,6 +31,8 @@ export class DayViewComponent {
   @Output() deleteEvent = new EventEmitter<Event>();
   @Output() editEvent = new EventEmitter<Event>();
   @Output() newEvent = new EventEmitter();
+
+  trackByIndex = (index: number) => index;
 
   constructor() { }
 

@@ -19,7 +19,7 @@ export class InviteAvailableFriendsComponent {
   endTime?: moment.Moment;
 
   constructor(fb: FormBuilder, @Inject(MAT_DIALOG_DATA) data: {event: EventFormValue, invites: Notification[]}, ds: DataService) {
-    this.invitesControl = fb.control(data.invites, Validators.required);
+    this.invitesControl = fb.control(data.invites);
     this.availableFriends = ds.getAvailableFriends(data.event);
 
     const date = moment(data.event.date);

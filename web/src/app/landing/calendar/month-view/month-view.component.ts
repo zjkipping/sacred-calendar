@@ -17,6 +17,8 @@ export class MonthViewComponent {
   @Output() monthForward = new EventEmitter();
   @Output() monthBackward = new EventEmitter();
 
+  trackByIndex = (index: number) => index;
+
   constructor() { }
 
   nextMonth() {

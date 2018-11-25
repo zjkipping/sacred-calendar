@@ -37,27 +37,6 @@
   width: 100%;
 }
 
-.delete-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.event-container {
-  position: relative;
-}
-
-.event {
-  width: 80%;
-  padding: 10px;
-  margin: 10px 0px;
-  border-radius: 5px;
-  border: 2px solid white;
-  background-color: grey;
-  color: white;
-  cursor: pointer;
-}
-
 .close-button-tab {
   width: 25px;
   max-height: 620px;
@@ -78,8 +57,9 @@
   border-right: 2px solid white;
 }
 
-.events-list {
-  padding: 10px;
+.event-list {
+  display: block;
+  padding: 20px;
   height: calc(100% - 72px);
   overflow-y: auto;
 }

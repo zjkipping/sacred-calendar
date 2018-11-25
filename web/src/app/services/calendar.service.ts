@@ -14,6 +14,7 @@ export class CalendarService implements OnDestroy {
   selected = new BehaviorSubject<CalendarDate | undefined>(undefined);
   current = new BehaviorSubject<moment.Moment>(moment());
   days = new BehaviorSubject<CalendarDate[]>([]);
+  view = new BehaviorSubject(window.innerWidth < 720 ? 'weekly' : 'monthly');
 
   selectedDate = new BehaviorSubject<moment.Moment | undefined>(undefined);
 
@@ -21,13 +22,19 @@ export class CalendarService implements OnDestroy {
 
   constructor(ds: DataService) {
     // used to generate the dates for the calendar whenever the events, selectedDate, or currentDate changes
-    this.dateGenerator = combineLatest<[moment.Moment | undefined, Event[], moment.Moment]>(
+    this.dateGenerator = combineLatest<[moment.Moment | undefined, Event[], moment.Moment, string]>(
       this.selectedDate,
       ds.events,
-      this.current
-    ).subscribe(([selected, events, current]) => {
+      this.current,
+      this.view
+    ).subscribe(([selected, events, current, view]) => {
+      let dates: CalendarDate[] = [];
       // generates the dates for the calendar views
-      const dates = GenerateDates(events, current, selected);
+      if (view === 'monthly') {
+        dates = GenerateMonthlyDates(events, current, selected);
+      } else {
+        dates = GenerateWeeklyDates(events, current, selected);
+      }
       // update the selected day with the correct events data
       const newSelected = _.find(dates, { selected: true });
       if (newSelected) {
@@ -36,11 +43,16 @@ export class CalendarService implements OnDestroy {
       // pushes the generated dates down the data stream
       this.days.next(dates);
     });
+
   }
 
   ngOnDestroy() {
     // unsubscribes from the date generator combined observable
     this.dateGenerator.unsubscribe();
+  }
+
+  setView(value: string) {
+    this.view.next(value);
   }
 
   nextMonth() {
@@ -51,6 +63,14 @@ export class CalendarService implements OnDestroy {
   previousMonth() {
     // sets the current month to the previous one
     this.current.next(moment(this.current.value).subtract(1, 'months'));
+  }
+
+  nextWeek() {
+    this.current.next(moment(this.current.value).add(1, 'week'));
+  }
+
+  previousWeek() {
+    this.current.next(moment(this.current.value).subtract(1, 'week'));
   }
 
   /**
@@ -75,7 +95,7 @@ export class CalendarService implements OnDestroy {
   }
 }
 
-export function GenerateDates(events: Event[], current: moment.Moment, selected: moment.Moment | undefined): CalendarDate[] {
+export function GenerateMonthlyDates(events: Event[], current: moment.Moment, selected: moment.Moment | undefined): CalendarDate[] {
   // grabs the start of the 6 week period
   const start = moment(current).startOf('month').subtract(moment(current).startOf('month').day(), 'days');
   const startDate = start.date();
@@ -83,6 +103,15 @@ export function GenerateDates(events: Event[], current: moment.Moment, selected:
   // creates an array starting at the start date through to 42 days later
   return _
     .range(startDate, startDate + 42)
+    .map(date => SetDate(moment(start).date(date), events, current, selected));
+}
+
+export function GenerateWeeklyDates(events: Event[], current: moment.Moment, selected: moment.Moment | undefined): CalendarDate[] {
+  const start = moment(current).startOf('week');
+  const startDate = start.date();
+
+  return _
+    .range(startDate, startDate + 7)
     .map(date => SetDate(moment(start).date(date), events, current, selected));
 }
 

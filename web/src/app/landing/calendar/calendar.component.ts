@@ -21,9 +21,11 @@ export class CalendarComponent implements OnDestroy {
   sideNavOpen = false;
   viewingFriend = false;
   queryParamsSubscription: Subscription;
+  calendarViewSubscription: Subscription;
   calendarView: FormControl;
   calendarMenuOpen = false;
   displayCalendarMenu = false;
+  belowThreshold = false;
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -35,6 +37,15 @@ export class CalendarComponent implements OnDestroy {
         this.calendarMenuOpen = false;
       }
       this.displayCalendarMenu = true;
+    }
+
+    if (event.target.innerWidth < 720 && !this.belowThreshold) {
+      this.belowThreshold = true;
+      this.calendarView.setValue('weekly');
+      this.calendarView.disable();
+    } else if (event.target.innerWidth >= 720 && this.belowThreshold) {
+      this.belowThreshold = false;
+      this.calendarView.enable();
     }
   }
 
@@ -56,7 +67,18 @@ export class CalendarComponent implements OnDestroy {
       this.ds.loadingEvents = true;
       this.ds.fetchEvents();
     });
-    this.calendarView = fb.control('month');
+    this.calendarView = fb.control(this.cs.view.value);
+    this.calendarViewSubscription = this.calendarView.valueChanges.subscribe(value => {
+      if (value === 'weekly') {
+        this.closeSideNav();
+      }
+      this.cs.setView(value);
+    });
+
+    this.belowThreshold = window.innerWidth < 720;
+    if (this.belowThreshold) {
+      this.calendarView.disable();
+    }
 
     if (window.innerWidth > 600) {
       this.calendarMenuOpen = true;
@@ -67,10 +89,12 @@ export class CalendarComponent implements OnDestroy {
       }
       this.displayCalendarMenu = true;
     }
+
   }
 
   ngOnDestroy() {
     this.queryParamsSubscription.unsubscribe();
+    this.calendarViewSubscription.unsubscribe();
   }
 
   viewMyCalendar() {
@@ -97,7 +121,7 @@ export class CalendarComponent implements OnDestroy {
             if (event.invites && event.invites.length > 0) {
               return this.ds.sendEventInvites(id, event.invites);
             } else {
-              return of();
+              return of({});
             }
           })
         ).subscribe(() => this.ds.fetchEvents());
@@ -117,7 +141,7 @@ export class CalendarComponent implements OnDestroy {
             if (edited.invites && edited.invites.length > 0) {
               return this.ds.sendEventInvites(event.id, edited.invites);
             } else {
-              return of();
+              return of({});
             }
           })
         ).subscribe(() => this.ds.fetchEvents());

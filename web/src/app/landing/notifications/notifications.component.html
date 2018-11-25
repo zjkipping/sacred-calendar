@@ -48,8 +48,8 @@
   </mat-menu>
   <button color="primary" mat-fab [matMenuTriggerFor]="requestsMenu">
     <mat-icon aria-label="Friend Requests Button">notifications</mat-icon>
-  </button>
-  <button class="notificationsCount" color="accent" mat-mini-fab [matMenuTriggerFor]="requestsMenu">
-    {{requests.length + invites.length}}
+    <button class="notificationsCount" color="accent" mat-mini-fab [matMenuTriggerFor]="requestsMenu">
+      {{requests.length + invites.length}}
+    </button>
   </button>
 </div>
