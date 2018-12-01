@@ -13,7 +13,7 @@
       </div>
       <div class="primary button-item calendar-toolbar-item" (click)="addEvent()">Add Event</div>
       <div class="primary button-item calendar-toolbar-item" (click)="manageCategories()">Manage Categories</div>
-      <div class="accent button-item calendar-toolbar-item" *ngIf="viewingFriend" (click)="viewMyCalendar()">View My Calendar</div>
+      <div class="accent button-item calendar-toolbar-item" *ngIf="ds.viewingFriend | async" (click)="viewMyCalendar()">View My Calendar</div>
     </ng-container>
   </div>
   <div class="calendar-view">
@@ -33,6 +33,7 @@
         (deleteEvent)="deleteEvent($event)"
         (weekBackward)="cs.previousWeek()"
         (weekForward)="cs.nextWeek()"
+        [canEdit]="!(ds.viewingFriend | async)"
         [current]="cs.current | async"
         [days]="cs.days | async"
         ></app-week-view>
@@ -52,6 +53,7 @@
   (editEvent)="editEvent($event)"
   (deleteEvent)="deleteEvent($event)"
   (newEvent)="addEvent()"
+  [canEdit]="!(ds.viewingFriend | async)"
   [day]="cs.selected | async"
   [open]="sideNavOpen"
 ></app-day-view>

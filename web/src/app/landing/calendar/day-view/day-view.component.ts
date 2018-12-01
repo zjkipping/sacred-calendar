@@ -25,6 +25,7 @@ import { CalendarDate, Event } from '@types';
   ]
 })
 export class DayViewComponent {
+  @Input() canEdit = false;
   @Input() open?: boolean;
   @Input() day?: CalendarDate;
   @Output() close = new EventEmitter();

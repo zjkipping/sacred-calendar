@@ -1,7 +1,15 @@
 <div class="text-center" *ngIf="events.length === 0">There Are No Events On This Day</div>
 <div class="events-container">
-  <div class="event" (click)="selected.emit(event)" *ngFor="let event of events" [style.borderColor]="event.fontColor" [style.color]="event.fontColor" [style.backgroundColor]="event.category?.color">
-    <div class="details">
+  <div
+    class="event"
+    (click)="eventClicked(event)"
+    *ngFor="let event of events"
+    [style.borderColor]="event.fontColor"
+    [style.color]="event.fontColor"
+    [style.backgroundColor]="event.category?.color"
+    [style.cursor]="editable ? 'select' : 'default'"
+  >
+    <div [style.padding-right]="editable ? '42px' : '0px'">
       <div class="ellipse-text">Name: {{event.name}}</div>
       <div>
         <span>Time: {{event.startTime.format('hh:mm a')}}</span>
@@ -11,7 +19,7 @@
     </div>
     <div class="divider" *ngIf="event.description" [style.borderColor]="event.fontColor"></div>
     <div>{{event.description}}</div>
-    <button class="delete-button" mat-mini-fab (click)="$event.stopPropagation(); delete.emit(event)" color="warn">
+    <button class="delete-button" *ngIf="editable" mat-mini-fab (click)="$event.stopPropagation(); delete.emit(event)" color="warn">
       <mat-icon>delete</mat-icon>
     </button>
   </div>

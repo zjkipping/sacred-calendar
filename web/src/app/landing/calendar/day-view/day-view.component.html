@@ -9,6 +9,7 @@
     <div class="divider-title"></div>
     <app-event-list
       class="event-list"
+      [editable]="canEdit"
       [events]="day?.events"
       (selected)="eventClicked($event)"
       (delete)="deleteClicked($event)"

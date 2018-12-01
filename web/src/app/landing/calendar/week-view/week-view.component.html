@@ -18,6 +18,7 @@
       <app-event-list
         class="event-list"
         [events]="day.events"
+        [editable]="canEdit"
         (selected)="eventClicked($event)"
         (delete)="deleteClicked($event)"
       ></app-event-list>

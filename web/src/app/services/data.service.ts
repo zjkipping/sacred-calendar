@@ -20,6 +20,7 @@ export class DataService {
   eventInvites = new BehaviorSubject<EventInvite[]>([]);
   friends = new BehaviorSubject<Friend[]>([]);
   friendRequests = new BehaviorSubject<Notification[]>([]);
+  viewingFriend = new BehaviorSubject<boolean>(false);
   loadingEvents = false;
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, private auth: AuthService) { }
@@ -50,6 +51,7 @@ export class DataService {
       pluck<Params, number>('view_friend'),
       // checking if calendar is viewing a friend's events or not
       switchMap(friendID => {
+        this.viewingFriend.next(!!friendID);
         if (friendID) {
           return this.http.get<any[]>(API_URL + `/friend?id=${friendID}`);
         } else {
@@ -172,8 +174,13 @@ export class DataService {
   }
 
   getAvailableFriends(event: EventFormValue): Observable<Notification[]> {
-    const momentEvent = formEventParseDateTimes(event);
-    return this.http.get<Notification[]>(API_URL + `/availability?start=${momentEvent.startTime}&end=${momentEvent.endTime}`).pipe(take(1));
+    if (event.startTime) {
+      const momentEvent = formEventParseDateTimes(event);
+      return this.http.get<Notification[]>(API_URL + `/availability?start=${momentEvent.startTime}&end=${momentEvent.endTime}`)
+        .pipe(take(1));
+    } else {
+      return of([]);
+    }
   }
 
   sendEventInvites(id: number, invites: number[]): Observable<any> {
@@ -209,7 +216,7 @@ export function formEventParseDateTimes(event: EventFormValue) {
     ...event,
     date: date.unix(),
     startTime: convertTimeToMomentDate(event.startTime, date).unix(),
-    endTime: event.endTime !== '' ? convertTimeToMomentDate(event.endTime, date).unix() : undefined
+    endTime: (event.endTime && event.endTime !== '') ? convertTimeToMomentDate(event.endTime, date).unix() : undefined
   };
 }
 

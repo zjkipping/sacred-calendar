@@ -1,8 +1,9 @@
 import { Component, OnDestroy, HostListener } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { forkJoin, of, Subscription } from 'rxjs';
-import { switchMap, skip } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { forkJoin, of, Subscription, Observable } from 'rxjs';
+import { switchMap, skip } from 'rxjs/operators';
 
 import { CalendarDate, Event, CategoryFormValue, EventFormValue } from '@types';
 import { DIALOG_HEIGHT, DIALOG_WIDTH } from '@constants';
@@ -10,7 +11,6 @@ import { DataService } from '@services/data.service';
 import { CalendarService } from '@services/calendar.service';
 import { EventFormDialogComponent } from '@dialogs/event-form/event-form.dialog';
 import { CategoryManagerDialogComponent } from '@dialogs/category-manager/category-manager.dialog';
-import { FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-calendar',
@@ -19,7 +19,6 @@ import { FormBuilder, FormControl } from '@angular/forms';
 })
 export class CalendarComponent implements OnDestroy {
   sideNavOpen = false;
-  viewingFriend = false;
   queryParamsSubscription: Subscription;
   calendarViewSubscription: Subscription;
   calendarView: FormControl;
@@ -57,16 +56,12 @@ export class CalendarComponent implements OnDestroy {
     private router: Router,
     fb: FormBuilder
   ) {
+    // should do a more complicated state management in the data service, but this will do...
     this.queryParamsSubscription = route.queryParams.pipe(skip(1)).subscribe(params => {
-    const friendship_id = params['view_friend'];
-      if (friendship_id) {
-        this.viewingFriend = true;
-      } else {
-        this.viewingFriend = false;
-      }
       this.ds.loadingEvents = true;
       this.ds.fetchEvents();
     });
+
     this.calendarView = fb.control(this.cs.view.value);
     this.calendarViewSubscription = this.calendarView.valueChanges.subscribe(value => {
       if (value === 'weekly') {

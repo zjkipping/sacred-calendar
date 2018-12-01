@@ -139,46 +139,34 @@ module.exports = {
     if (req.query.start) {
       try {
         const start = req.query.start;
-        const end = req.query.end;
+        const end = req.query.end ? null : req.query.end;
 
         // getting the date from the start time
         const date = moment.unix(start).hours(0).minutes(0).seconds(0).milliseconds(0).unix();
         // get event columns of userID, username, startTime, and endTime from friends' events that are on the same date as the start time
-        const [rows] = await pool.execute(
-          `SELECT Event.userID, UserLogin.username, Event.startTime, Event.endTime
+        const [friendEvents] = await pool.execute(
+          `SELECT Event.name, Event.userID, UserLogin.username, Event.startTime, Event.endTime
            FROM Event
            INNER JOIN UserLogin ON UserLogin.id = Event.userID
-           WHERE Event.userID in (SELECT Friendship.targetID FROM Friendship WHERE Friendship.userID = ?) AND Event.date = ?
-           GROUP BY Event.userID`,
+           WHERE Event.userID in (SELECT Friendship.targetID FROM Friendship WHERE Friendship.userID = ?) AND Event.date = ?`,
           [req.id, date]
         );
-
-        // creating an array that contains all the user's friends
-        const allFriends = _.chain(rows).map(event => ({ id: event.userID, username: event.username })).uniq().value();
-
-        // finds all the friends that AREN'T available
-        const unavailableFriends = _.chain(rows).filter(event => {
-          if (end) {
-            const userRange = moment.range(moment.unix(start), moment.unix(end));
-            if (event.endTime) {
-              const eventRange = moment.range(moment.unix(event.startTime), moment.unix(event.endTime));
-              return userRange.overlaps(eventRange);
-            } else {
-              return userRange.contains(moment.unix(event.startTime));
+        
+        // get all friends of the user
+        const [availableFriends] = await pool.execute(`
+           SELECT UserLogin.id, UserLogin.username
+           FROM Friendship
+           INNER JOIN UserLogin ON UserLogin.id = Friendship.targetID
+           WHERE userID = ?`,
+          [req.id]
+        );
+        
+        // filter out friends that have conflicting events
+        _.forEach(friendEvents, event => {
+            if (util.checkTimeConflicts(start, end, event)) {
+              _.remove(availableFriends, { id: event.userID, username: event.username })
             }
-          } else {
-            if (event.endTime) {
-              const eventRange = moment.range(moment.unix(event.startTime), moment.unix(event.endTime));
-              return eventRange.contains(moment.unix(start));
-            } else {
-              return moment.unix(start).seconds(0).milliseconds(0) === moment.unix(event.startTime).seconds(0).milliseconds(0) ;
-            }
-          }
-        }).map(event => ({ id: event.userID, username: event.username })).uniq().value();
-
-        // removes all unavailable friends from main friends list
-        const availableFriends = _.filter(allFriends, friend => !_.find(unavailableFriends, { id: friend.id }));
-
+        });
         res.status(200).send(availableFriends);
       } catch (err) {
         // handle any other errors

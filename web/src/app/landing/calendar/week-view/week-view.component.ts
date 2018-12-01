@@ -9,6 +9,7 @@ import { CalendarDate, Event } from '@types';
   styleUrls: ['./week-view.component.scss']
 })
 export class WeekViewComponent {
+  @Input() canEdit = false;
   @Input() days: CalendarDate[] = [];
   @Input() current: moment.Moment = moment();
 
