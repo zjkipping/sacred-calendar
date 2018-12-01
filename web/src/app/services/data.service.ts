@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import * as moment from 'moment';
 
-import { EventFormValue, Event, Category, CategoryFormValue, Friend, Notification, EventInvite } from '@types';
+import { EventFormValue, Event, Category, CategoryFormValue, Friend, Notification, EventInvite, Statistic } from '@types';
 import { map, take, tap, pluck, switchMap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
@@ -193,6 +193,10 @@ export class DataService {
 
   denyEventInvite(id: number) {
     return this.http.post(API_URL + '/event/deny', { id }).pipe(take(1));
+  }
+
+  getStats(date: moment.Moment): Observable<Statistic[]> {
+    return this.http.get<Statistic[]>(API_URL + `/stats?unix=${date.unix()}`).pipe(take(1));
   }
 }
 

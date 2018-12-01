@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ChartsModule } from 'ng2-charts';
 
 import { MaterialModule } from '../material.module';
 import { LandingRoutingModule } from './landing-routing.module';
@@ -35,7 +36,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
     MaterialModule,
     LandingRoutingModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ChartsModule
   ]
 })
 export class LandingModule { }

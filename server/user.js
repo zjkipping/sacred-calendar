@@ -22,7 +22,7 @@ module.exports = {
       res.status(200).send(rows[0]);
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   events: async (req, res) => {
@@ -57,7 +57,7 @@ module.exports = {
       }));
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   friendEvents: async (req, res) => {
@@ -115,7 +115,7 @@ module.exports = {
         }
       } catch (err) {
         // handle any other errors
-        util.handleUncaughtError(err);
+        util.handleUncaughtError(err, res);
       }
     } else {
       res.status(400).send({ error: true, code: 'NO_PARAM', message: 'Missing friendship ID parameter' });
@@ -132,7 +132,7 @@ module.exports = {
       res.status(200).send(rows);
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   availability: async (req, res) => {
@@ -170,7 +170,7 @@ module.exports = {
         res.status(200).send(availableFriends);
       } catch (err) {
         // handle any other errors
-        util.handleUncaughtError(err);
+        util.handleUncaughtError(err, res);
       }
     } else {
       res.status(400).send({ error: true, code: 'NO_PARAM', message: 'Missing start parameter' });
@@ -192,7 +192,7 @@ module.exports = {
       res.status(200).send({ id : result.insertId});
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   updateEvent: async (req, res) => {
@@ -211,7 +211,7 @@ module.exports = {
       res.status(200).send();
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   deleteEvent: async (req, res) => {
@@ -225,7 +225,7 @@ module.exports = {
       res.status(200).send();
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   eventInvites: async (req, res) => {
@@ -246,7 +246,7 @@ module.exports = {
       res.status(200).send(rows);
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   eventInvite: async (req, res) => {
@@ -270,7 +270,7 @@ module.exports = {
         res.status(200).send();
       } catch (err) {
         // handle any other errors
-        util.handleUncaughtError(err);
+        util.handleUncaughtError(err, res);
       }
     } else {
       res.status(400).send({ error: true, code: 'NO_PARAM', message: 'One or more of the parameters are missing' });
@@ -318,7 +318,7 @@ module.exports = {
         }
       } catch (err) {
         // handle any other errors
-        util.handleUncaughtError(err);
+        util.handleUncaughtError(err, res);
       }
     } else {
       res.status(400).send({ error: true, code: 'NO_PARAM', message: 'Missing ID parameter' });
@@ -336,7 +336,7 @@ module.exports = {
         res.status(200).send();
       } catch (err) {
         // handle any other errors
-        util.handleUncaughtError(err);
+        util.handleUncaughtError(err, res);
       }
     } else {
       res.status(400).send({ error: true, code: 'NO_PARAM', message: 'Missing ID parameter' });
@@ -353,7 +353,7 @@ module.exports = {
       res.status(200).send();
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   updateCategory: async (req, res) => {
@@ -367,7 +367,7 @@ module.exports = {
       res.status(200).send();
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   deleteCategory: async (req, res) => {
@@ -390,7 +390,7 @@ module.exports = {
       res.status(200).send();
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   friendRequests: async (req, res) => {
@@ -408,7 +408,7 @@ module.exports = {
       res.status(200).send(rows);
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   sendFriendRequest: async (req, res) => {
@@ -422,7 +422,7 @@ module.exports = {
       res.status(200).send();
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   acceptFriendRequest: async (req, res) => {
@@ -455,7 +455,7 @@ module.exports = {
       res.status(200).send();
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   denyFriendRequest: async (req, res) => {
@@ -469,7 +469,7 @@ module.exports = {
       res.status(200).send();
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   friends: async (req, res) => {
@@ -487,7 +487,7 @@ module.exports = {
       res.status(200).send(rows);
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   updateFriend: async (req, res) => {
@@ -501,7 +501,7 @@ module.exports = {
       res.status(200).send();
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   removeFriend: async (req, res) => {
@@ -528,21 +528,47 @@ module.exports = {
         res.status(200).send();
       } catch (err) {
         // handle any other errors
-        util.handleUncaughtError(err);
+        util.handleUncaughtError(err, res);
       }
     } else {
       res.status(400).send({ error: true, code: 'NO_PARAM', message: 'Missing ID parameter' });
     }
   },
   statistics: async (req, res) => {
-    try {
-      // TODO get statistics based on minutes in each category and return an object for each category (mins, %, ect...)
+    if (req.query.unix) {
+      try {
+        // TODO get statistics based on minutes in each category and return an object for each category (mins, %, ect...)
+        const [rows] = await pool.execute(`
+          SELECT Category.name, Category.color, Event.startTime, Event.endTime
+          FROM Event
+          LEFT JOIN Category ON Event.categoryID = Category.id
+          WHERE YEAR(DATE_ADD('1970-01-01', INTERVAL Event.date SECOND)) = YEAR(DATE_ADD('1970-01-01', INTERVAL ? SECOND))
+            AND MONTH(DATE_ADD('1970-01-01', INTERVAL Event.date SECOND)) = MONTH(DATE_ADD('1970-01-01', INTERVAL ? SECOND))
+            AND Event.userID = ?
+        `, [req.query.unix, req.query.unix, req.id]);
 
-      // send back a '200' OK
-      res.status(200).send();
-    } catch (err) {
-      // handle any other errors
-      util.handleUncaughtError(err);
+        // grabs the category name/color and sums up the minutes from events with the category
+        const stats = _.chain(rows)
+          .filter(row => !!row.endTime)
+          .map(row => {
+            return {
+              name: row.name ? row.name : 'uncategorized',
+              minutes: moment.duration(moment.unix(row.endTime).diff(moment.unix(row.startTime))).asMinutes(),
+              color: row.color ? row.color : '#808080'
+            }
+          })
+          .groupBy('color')
+          .map((stats, color) => ({ name: stats[0].name, color, minutes: _.sumBy(stats, 'minutes') }))
+          .value()
+
+        // send back a '200' OK with the stats
+        res.status(200).send(stats);
+      } catch (err) {
+        // handle any other errors
+        util.handleUncaughtError(err, res);
+      }
+    } else {
+      res.status(400).send({ error: true, code: 'NO_PARAM', message: 'Missing unix parameter' });
     }
   }
 };

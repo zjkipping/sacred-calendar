@@ -1,1 +1,34 @@
-<h1>Stats Component</h1>
+<div class="stats-container">
+  <h1 class="text-center">User Category Stats</h1>
+  <div class="center-container">
+    <mat-form-field class="month-picker">
+      <input matInput [matDatepicker]="dp" placeholder="Pick A Month" [formControl]="date">
+      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker
+        #dp
+        startView="multi-year"
+        (yearSelected)="chosenYearHandler($event)"
+        (monthSelected)="chosenMonthHandler($event, dp)"
+      ></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div *ngIf="!loadingStats; else loadingStatistics">
+    <h2 class="text-center">Total Hours: {{totalHours}}</h2>
+    <div class="center-container">
+      <canvas
+        baseChart
+        [data]="chartData"
+        [labels]="chartLabels"
+        [colors]="chartColors"
+        [options]="chartOptions"
+        [chartType]="'doughnut'"
+      ></canvas>
+    </div>
+  </div>
+  <ng-template #loadingStatistics>
+    <div class="loading">
+      <div class="loading-spinner"></div>
+      <p class="text-center">Loading Your Statistics...</p>
+    </div>
+  </ng-template>
+</div>

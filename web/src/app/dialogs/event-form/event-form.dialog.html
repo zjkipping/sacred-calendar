@@ -21,8 +21,9 @@
       <input matInput [ngxTimepicker]="pickerStart" formControlName="startTime" placeholder="Start Time"  required>
     </mat-form-field>
     <ngx-material-timepicker #pickerEnd></ngx-material-timepicker>
-    <mat-form-field class="full-width">
-      <input matInput [ngxTimepicker]="pickerEnd" formControlName="endTime" placeholder="End Time">
+    <mat-form-field class="full-width end-time">
+      <input matInput [ngxTimepicker]="pickerEnd" formControlName="endTime" placeholder="End Time" [errorStateMatcher]="endTimeValidation">
+      <mat-error *ngIf="eventForm.hasError('endTimeBeforeStart')">End Time Cannot Be Before Start Time!</mat-error>
     </mat-form-field>
     <mat-form-field class="full-width">
       <mat-select formControlName="categoryID" placeholder="Category">

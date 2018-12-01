@@ -3,7 +3,7 @@ const MomentRange = require('moment-range');
 // combines both of the above into 1 moment object
 const moment = MomentRange.extendMoment(Moment);
 
-const errorCatcher = (err) => {
+const errorCatcher = (err, res) => {
   // catches general error in connecting to the DB
   if (err.code === 'PROTOCOL_CONNECTION_LOST') {
     res.status(503).send({ error: true, code: err.code, message: err.message });
@@ -50,7 +50,7 @@ module.exports = {
       }
     } catch (err) {
       // handle any other errors
-      errorCatcher(err);
+      errorCatcher(err, res);
     }
   }
 }

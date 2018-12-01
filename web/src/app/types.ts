@@ -81,3 +81,9 @@ export interface EventInvite {
   startTime: moment.Moment;
   endTime: moment.Moment;
 }
+
+export interface Statistic {
+  name: string;
+  minutes: number;
+  color: string;
+}

@@ -39,7 +39,7 @@ module.exports = {
         }
       } else {
         // handle any other errors
-        util.handleUncaughtError(err);
+        util.handleUncaughtError(err, res);
       }
     }
   },
@@ -76,7 +76,7 @@ module.exports = {
       }
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   },
   // used to logout the user from the system
@@ -101,7 +101,7 @@ module.exports = {
       res.status(200).send();
     } catch (err) {
       // handle any other errors
-      util.handleUncaughtError(err);
+      util.handleUncaughtError(err, res);
     }
   }
 };
