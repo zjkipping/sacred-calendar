@@ -103,15 +103,8 @@ class EventsViewController: UIViewController {
                 return (args.0, args.1 ? .daily : .weekly)
             })
             .map({ args -> ([Event], CalendarView) in
-                
-                let sorted: [Event] = args.0.sorted {
-                    if $0.startTime.contains("am") && !$1.startTime.contains("am") {
-                        return true
-                    } else if !$0.startTime.contains("am") && $1.startTime.contains("am") {
-                        return false
-                    } else {
-                        return $0.startTime < $1.startTime
-                    }
+                let sorted = args.0.sorted { l, r in
+                    l.startTime < r.startTime
                 }
                 return (sorted, args.1)
             })
@@ -241,7 +234,12 @@ class EventView: UIView {
     /// Creates a new event view for a given event
     class func create(event: Event) -> EventView {
         let view = UINib(nibName: "EventView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! EventView
-        view.nameLabel.text = "\(event.startTime.lowercased()) - \(event.name)"
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        let startTime = formatter.string(from: event.startTime)
+        
+        view.nameLabel.text = "\(startTime) - \(event.name)"
         view.backgroundColor = event.category?.color
         return view
     }

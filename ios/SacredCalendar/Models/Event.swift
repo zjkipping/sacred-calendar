@@ -15,49 +15,49 @@ class Event: Model {
     let name: String
     let date: Date
     var category: Category?
-    var startTime: String
-    var endTime: String
-    var description: String
+    var startTime: Date
+    var endTime: Date?
+    var description: String?
     
     /// Transportable representation.
     var transportable: TransportFormat {
         var data: TransportFormat = [
-            "date" : date.dateString,
-            "startTime" : startTime,
-            "endTime" : endTime,
-            "description" : description,
+            "date" : date.timeIntervalSince1970,
+            "startTime" : startTime.timeIntervalSince1970,
         ]
+        
+        if let description = description {
+            data["description"] = description
+        }
         if let category = category?.transportable {
             data["category"] = category
+        }
+        if let endTime = endTime?.timeIntervalSince1970 {
+            data["endTime"] = endTime
         }
         return data
     }
     
-    init(name: String, date: Date, category: Category, id: Int, description:String, startTime: Date, endTime: Date) {
-        self.name = name
-        self.date = date
-        self.category = category
-        self.id = id
-        self.description = description
-        self.startTime = startTime.timeString
-        self.endTime = endTime.timeString
-    }
-    
     /// Creates an new instance from JSON. Fails if missing a required field.
     required init?(id: Int, json: JSON) {
+        
         guard let name = json["name"].string else { return nil }
-        guard let date = Date.from(dateString: json["date"].string) else { return nil }
-        let description = json["description"].string ?? ""
-        guard let startTime = Date.from(timeString: json["startTime"].string) else { return nil }
-        let endTime = Date.from(timeString: json["endTime"].string) ?? Date()
+        guard let date = json["date"].double else { return nil }
+        guard let startTime = json["startTime"].double else { return nil }
         
         self.id = id
         self.name = name
-        self.date = date
+        self.date = Date(timeIntervalSince1970: date)
         self.category = Category(json: json["category"])
-        self.description = description
-        self.startTime = json["startTime"].string ?? ""
-        self.endTime = json["endTime"].string ?? ""
+        self.startTime = Date(timeIntervalSince1970: startTime)
+        
+        if let description = json["description"].string {
+            self.description = description
+        }
+        
+        if let endTime = json["endTime"].double {
+            self.endTime = Date(timeIntervalSince1970: endTime)
+        }
     }
     
     /// Validates event start and end time.

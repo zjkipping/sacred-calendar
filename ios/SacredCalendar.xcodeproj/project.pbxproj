@@ -16,10 +16,8 @@
 		71E6C874218161B300D3E661 /* NotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C873218161B300D3E661 /* NotificationViewController.xib */; };
 		71E6C8762181635D00D3E661 /* StatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C8752181635D00D3E661 /* StatsViewController.xib */; };
 		71E6C8782181650700D3E661 /* FriendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C8772181650700D3E661 /* FriendViewController.xib */; };
-		71E6C87A218166A600D3E661 /* NewCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C879218166A600D3E661 /* NewCategoryViewController.xib */; };
 		71E6C87C21816B3300D3E661 /* FilterEventsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C87B21816B3300D3E661 /* FilterEventsViewController.xib */; };
 		71E6C87E21816D7600D3E661 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C87D21816D7600D3E661 /* CalendarViewController.xib */; };
-		71E6C88021816D9C00D3E661 /* NewEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C87F21816D9C00D3E661 /* NewEventViewController.xib */; };
 		8B29FFC3218281A500F86BC8 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B29FFC2218281A500F86BC8 /* LoginViewController.xib */; };
 		8B29FFC6218285A600F86BC8 /* SignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B29FFC5218285A600F86BC8 /* SignUpViewController.xib */; };
 		8B495AF7216EDB0900F0A60C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B495AF6216EDB0900F0A60C /* Extensions.swift */; };
@@ -92,10 +90,8 @@
 		71E6C873218161B300D3E661 /* NotificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationViewController.xib; sourceTree = "<group>"; };
 		71E6C8752181635D00D3E661 /* StatsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatsViewController.xib; sourceTree = "<group>"; };
 		71E6C8772181650700D3E661 /* FriendViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendViewController.xib; sourceTree = "<group>"; };
-		71E6C879218166A600D3E661 /* NewCategoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewCategoryViewController.xib; sourceTree = "<group>"; };
 		71E6C87B21816B3300D3E661 /* FilterEventsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterEventsViewController.xib; sourceTree = "<group>"; };
 		71E6C87D21816D7600D3E661 /* CalendarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
-		71E6C87F21816D9C00D3E661 /* NewEventViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewEventViewController.xib; sourceTree = "<group>"; };
 		8B29FFC2218281A500F86BC8 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		8B29FFC5218285A600F86BC8 /* SignUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignUpViewController.xib; sourceTree = "<group>"; };
 		8B495AF6216EDB0900F0A60C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -297,10 +293,8 @@
 				8BA90067215334BA00FF7733 /* Info.plist */,
 				8B29FFC4218281B000F86BC8 /* Views */,
 				71E6C873218161B300D3E661 /* NotificationViewController.xib */,
-				71E6C879218166A600D3E661 /* NewCategoryViewController.xib */,
 				71E6C87B21816B3300D3E661 /* FilterEventsViewController.xib */,
 				71E6C87D21816D7600D3E661 /* CalendarViewController.xib */,
-				71E6C87F21816D9C00D3E661 /* NewEventViewController.xib */,
 				71E6C8752181635D00D3E661 /* StatsViewController.xib */,
 				71E6C8772181650700D3E661 /* FriendViewController.xib */,
 			);
@@ -463,8 +457,6 @@
 				8BA90063215334BA00FF7733 /* Assets.xcassets in Resources */,
 				8B29FFC3218281A500F86BC8 /* LoginViewController.xib in Resources */,
 				8B84571321880727003E49EC /* WeekEventView.xib in Resources */,
-				71E6C88021816D9C00D3E661 /* NewEventViewController.xib in Resources */,
-				71E6C87A218166A600D3E661 /* NewCategoryViewController.xib in Resources */,
 				71E6C87E21816D7600D3E661 /* CalendarViewController.xib in Resources */,
 				71E6C87C21816B3300D3E661 /* FilterEventsViewController.xib in Resources */,
 				71E6C8762181635D00D3E661 /* StatsViewController.xib in Resources */,
