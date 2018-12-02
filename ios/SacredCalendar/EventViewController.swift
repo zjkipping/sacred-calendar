@@ -32,10 +32,12 @@ class EventViewModel {
     let trash = DisposeBag()
     
     let event: Event
+    let isEventCreator: Bool
     
-    init(services: Services = EventsViewModelServices(), event: Event) {
+    init(services: Services = EventsViewModelServices(), event: Event, isEventCreator: Bool) {
         self.services = services
         self.event = event
+        self.isEventCreator = isEventCreator
     }
     
     func deleteEvent() -> Observable<Bool> {
@@ -78,7 +80,12 @@ class EventViewController: UIViewController {
         
         set(title: "Event")
         
-        setup(deleteButton: deleteButton)
+        if viewModel.isEventCreator {
+            setup(deleteButton: deleteButton)
+        } else {
+            deleteButton.removeFromSuperview()
+        }
+        
         
         populateUI(event: viewModel.event)
     }

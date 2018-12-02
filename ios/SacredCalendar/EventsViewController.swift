@@ -61,7 +61,6 @@ class EventsViewModel {
         } else {
             observable = services.events.execute()
         }
-        
         observable
             .take(1)
             .bind(to: events)
@@ -123,52 +122,26 @@ class EventsViewController: UIViewController {
                 }
                 return (sorted, args.1)
             })
-        
-        if viewModel.isOwnCalendar {
-            // observes the selected event property of the calendar for event deletion
-            calendar.selectedEvent
-                .flatMap({ [weak self] in
-                    self?.proposeDelete(event: $0) ?? .empty()
-                })
-                .flatMap({ [weak self] in
-                    self?.viewModel.delete(event: $0) ?? .empty()
-                })
-                .subscribe(onNext: { [weak self] _ in
-                    self?.viewModel.fetchEvents()
-                    print("deletion success")
-                })
-                .disposed(by: trash)
-        }
-        
+    
         rerender
             .subscribe(onNext: { [weak self] data in
                 self?.show(events: data.0, mode: data.1)
             }).disposed(by: trash)
        
-        setup(newEventButton: IconButton(type: .contactAdd))
-        setup(friendsButton: IconButton(title: "friends"))
+        if viewModel.isOwnCalendar {
+            setup(newEventButton: IconButton(type: .contactAdd))
+            setup(friendsButton: IconButton(title: "friends"))
+        }
 
         set(title: "Events")
         
-        
         // observes the selected event property of the calendar for event deletion
         calendar.selectedEvent
-            //            .flatMap({ [weak self] in
-            //                self?.proposeDelete(event: $0) ?? .empty()
-            //            })
-            //            .flatMap({ [weak self] in
-            //                self?.viewModel.delete(event: $0) ?? .empty()
-            //            })
-            //            .flatMap({ [weak self] _ in
-            //                self?.viewModel.fetchEvents(query: [:]) ?? .empty()
-            //            })
-            //            .subscribe(onNext: { _ in
-            //                print("deletion success")
-            //            })
             .subscribe(onNext: { [weak self] in
-                let logic = EventViewModel(event: $0)
+                guard let self = self else { return }
+                let logic = EventViewModel(event: $0, isEventCreator: self.viewModel.isOwnCalendar)
                 let controller = EventViewController(viewModel: logic)
-                self?.navigationController?.pushViewController(controller, animated: true)
+                self.navigationController?.pushViewController(controller, animated: true)
             })
             .disposed(by: trash)
     }
