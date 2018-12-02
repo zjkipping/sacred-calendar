@@ -70,6 +70,8 @@
 		8BDBA9E521B38D040054FCE8 /* FriendRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDBA9E321B38D040054FCE8 /* FriendRequestsViewController.swift */; };
 		8BDBA9E621B38D040054FCE8 /* FriendRequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BDBA9E421B38D040054FCE8 /* FriendRequestsViewController.xib */; };
 		8BDBA9E821B38FA10054FCE8 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDBA9E721B38FA10054FCE8 /* FriendRequest.swift */; };
+		8BDBA9EB21B46D0B0054FCE8 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDBA9E921B46D0B0054FCE8 /* EventViewController.swift */; };
+		8BDBA9EC21B46D0B0054FCE8 /* EventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BDBA9EA21B46D0B0054FCE8 /* EventViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +161,8 @@
 		8BDBA9E321B38D040054FCE8 /* FriendRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestsViewController.swift; sourceTree = "<group>"; };
 		8BDBA9E421B38D040054FCE8 /* FriendRequestsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendRequestsViewController.xib; sourceTree = "<group>"; };
 		8BDBA9E721B38FA10054FCE8 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
+		8BDBA9E921B46D0B0054FCE8 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
+		8BDBA9EA21B46D0B0054FCE8 /* EventViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventViewController.xib; sourceTree = "<group>"; };
 		A6BB218A37F34B3C5BA101D8 /* Pods-SacredCalendarTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SacredCalendarTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SacredCalendarTests/Pods-SacredCalendarTests.release.xcconfig"; sourceTree = "<group>"; };
 		B513FB8EB7AA76E9ABE30D60 /* Pods_SacredCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SacredCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C86CBD267973E68417265440 /* Pods-SacredCalendarTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SacredCalendarTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SacredCalendarTests/Pods-SacredCalendarTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 				8BA9005D215334BA00FF7733 /* LoginViewController.swift */,
 				8BC175F521759501002AFFD2 /* SignUpViewController.swift */,
 				8BC175F321758E54002AFFD2 /* EventsViewController.swift */,
+				8BDBA9E921B46D0B0054FCE8 /* EventViewController.swift */,
 				8BDBA9D121B370F90054FCE8 /* FriendsListViewController.swift */,
 				8BDBA9E321B38D040054FCE8 /* FriendRequestsViewController.swift */,
 				8B84571621881C68003E49EC /* NewEventViewController.swift */,
@@ -324,6 +329,7 @@
 				71E6C8752181635D00D3E661 /* StatsViewController.xib */,
 				8BDBA9D221B370F90054FCE8 /* FriendsListViewController.xib */,
 				8BDBA9E421B38D040054FCE8 /* FriendRequestsViewController.xib */,
+				8BDBA9EA21B46D0B0054FCE8 /* EventViewController.xib */,
 			);
 			path = SacredCalendar;
 			sourceTree = "<group>";
@@ -476,6 +482,7 @@
 				8B8A1782218A8B04001A811F /* NewEventFormView.xib in Resources */,
 				8B845725218A039D003E49EC /* NewCategoryViewController.xib in Resources */,
 				8B8456E221879230003E49EC /* EventsViewController.xib in Resources */,
+				8BDBA9EC21B46D0B0054FCE8 /* EventViewController.xib in Resources */,
 				71E6C874218161B300D3E661 /* NotificationViewController.xib in Resources */,
 				71E6C8722175916200D3E661 /* (null) in Resources */,
 				8BA90066215334BA00FF7733 /* LaunchScreen.storyboard in Resources */,
@@ -643,6 +650,7 @@
 				71D90933216D98390036AC5E /* Event.swift in Sources */,
 				8BDBA9D321B370F90054FCE8 /* FriendsListViewController.swift in Sources */,
 				8B495AF9216EDB1F00F0A60C /* Operators.swift in Sources */,
+				8BDBA9EB21B46D0B0054FCE8 /* EventViewController.swift in Sources */,
 				8B845715218814EB003E49EC /* CalendarViewer.swift in Sources */,
 				8BC175F0217584A4002AFFD2 /* Category.swift in Sources */,
 				8BDBA9E521B38D040054FCE8 /* FriendRequestsViewController.swift in Sources */,

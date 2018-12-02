@@ -18,6 +18,7 @@ class Event: Model {
     var startTime: Date
     var endTime: Date?
     var description: String?
+    var location: String?
     
     /// Transportable representation.
     var transportable: TransportFormat {
@@ -35,6 +36,9 @@ class Event: Model {
         if let endTime = endTime?.timeIntervalSince1970 {
             data["endTime"] = endTime
         }
+        if let location = location {
+            data["location"] = location
+        }
         return data
     }
     
@@ -51,9 +55,8 @@ class Event: Model {
         self.category = Category(json: json["category"])
         self.startTime = Date(timeIntervalSince1970: startTime)
         
-        if let description = json["description"].string {
-            self.description = description
-        }
+        self.description = json["description"].string
+        self.location = json["location"].string
         
         if let endTime = json["endTime"].double {
             self.endTime = Date(timeIntervalSince1970: endTime)

@@ -62,12 +62,11 @@ class CalendarViewer: UIView {
         for event in todaysEvents {
             let eventView = EventView.create(event: event)
             
-            let longPress = UILongPressGestureRecognizer()
-            eventView.addGestureRecognizer(longPress)
+            let tap = UITapGestureRecognizer()
+            eventView.addGestureRecognizer(tap)
             
             // adds a long press observable to the event view, binds the value to mark the selected event
-            longPress.rx.event
-                .filter({ $0.state == .began })
+            tap.rx.event
                 .withLatestFrom(Observable.just(event))
                 .bind(to: selectedEvent)
                 .disposed(by: rerenderTrash)

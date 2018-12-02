@@ -118,6 +118,28 @@ class EventsViewController: UIViewController {
         setup(friendsButton: IconButton(title: "friends"))
 
         set(title: "Events")
+        
+        
+        // observes the selected event property of the calendar for event deletion
+        calendar.selectedEvent
+            //            .flatMap({ [weak self] in
+            //                self?.proposeDelete(event: $0) ?? .empty()
+            //            })
+            //            .flatMap({ [weak self] in
+            //                self?.viewModel.delete(event: $0) ?? .empty()
+            //            })
+            //            .flatMap({ [weak self] _ in
+            //                self?.viewModel.fetchEvents(query: [:]) ?? .empty()
+            //            })
+            //            .subscribe(onNext: { _ in
+            //                print("deletion success")
+            //            })
+            .subscribe(onNext: { [weak self] in
+                let logic = EventViewModel(event: $0)
+                let controller = EventViewController(viewModel: logic)
+                self?.navigationController?.pushViewController(controller, animated: true)
+            })
+            .disposed(by: trash)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,22 +147,6 @@ class EventsViewController: UIViewController {
         
         // initiates a refresh of the events for the calendar view
         _ = viewModel.fetchEvents(query: [:])
-        
-        // observes the selected event property of the calendar for event deletion
-        calendar.selectedEvent
-            .flatMap({ [weak self] in
-                self?.proposeDelete(event: $0) ?? .empty()
-            })
-            .flatMap({ [weak self] in
-                self?.viewModel.delete(event: $0) ?? .empty()
-            })
-            .flatMap({ [weak self] _ in
-                self?.viewModel.fetchEvents(query: [:]) ?? .empty()
-            })
-            .subscribe(onNext: { _ in
-                print("deletion success")
-            })
-            .disposed(by: trash)
     }
     
     /// Returns an observable modal confirming witht the user their intention to delete a given event.
