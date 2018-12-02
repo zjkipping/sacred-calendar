@@ -15,7 +15,6 @@
 		71E6C8722175916200D3E661 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		71E6C874218161B300D3E661 /* NotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C873218161B300D3E661 /* NotificationViewController.xib */; };
 		71E6C8762181635D00D3E661 /* StatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C8752181635D00D3E661 /* StatsViewController.xib */; };
-		71E6C8782181650700D3E661 /* FriendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C8772181650700D3E661 /* FriendViewController.xib */; };
 		71E6C87C21816B3300D3E661 /* FilterEventsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C87B21816B3300D3E661 /* FilterEventsViewController.xib */; };
 		71E6C87E21816D7600D3E661 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C87D21816D7600D3E661 /* CalendarViewController.xib */; };
 		8B29FFC3218281A500F86BC8 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B29FFC2218281A500F86BC8 /* LoginViewController.xib */; };
@@ -61,6 +60,16 @@
 		8BC175F2217584FD002AFFD2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC175F1217584FD002AFFD2 /* User.swift */; };
 		8BC175F421758E54002AFFD2 /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC175F321758E54002AFFD2 /* EventsViewController.swift */; };
 		8BC175F621759501002AFFD2 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC175F521759501002AFFD2 /* SignUpViewController.swift */; };
+		8BDBA9D321B370F90054FCE8 /* FriendsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDBA9D121B370F90054FCE8 /* FriendsListViewController.swift */; };
+		8BDBA9D421B370F90054FCE8 /* FriendsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BDBA9D221B370F90054FCE8 /* FriendsListViewController.xib */; };
+		8BDBA9D621B371FC0054FCE8 /* FetchFriendsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDBA9D521B371FC0054FCE8 /* FetchFriendsService.swift */; };
+		8BDBA9D821B372630054FCE8 /* DeleteFriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDBA9D721B372630054FCE8 /* DeleteFriendService.swift */; };
+		8BDBA9DA21B378ED0054FCE8 /* RequestFriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDBA9D921B378ED0054FCE8 /* RequestFriendService.swift */; };
+		8BDBA9DC21B380930054FCE8 /* LookupUserIdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDBA9DB21B380930054FCE8 /* LookupUserIdService.swift */; };
+		8BDBA9E021B389820054FCE8 /* Friendship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDBA9DF21B389820054FCE8 /* Friendship.swift */; };
+		8BDBA9E521B38D040054FCE8 /* FriendRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDBA9E321B38D040054FCE8 /* FriendRequestsViewController.swift */; };
+		8BDBA9E621B38D040054FCE8 /* FriendRequestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8BDBA9E421B38D040054FCE8 /* FriendRequestsViewController.xib */; };
+		8BDBA9E821B38FA10054FCE8 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDBA9E721B38FA10054FCE8 /* FriendRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,7 +98,6 @@
 		71D90934216DA05D0036AC5E /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		71E6C873218161B300D3E661 /* NotificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationViewController.xib; sourceTree = "<group>"; };
 		71E6C8752181635D00D3E661 /* StatsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatsViewController.xib; sourceTree = "<group>"; };
-		71E6C8772181650700D3E661 /* FriendViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendViewController.xib; sourceTree = "<group>"; };
 		71E6C87B21816B3300D3E661 /* FilterEventsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterEventsViewController.xib; sourceTree = "<group>"; };
 		71E6C87D21816D7600D3E661 /* CalendarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
 		8B29FFC2218281A500F86BC8 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -141,6 +149,16 @@
 		8BC175F1217584FD002AFFD2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8BC175F321758E54002AFFD2 /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		8BC175F521759501002AFFD2 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		8BDBA9D121B370F90054FCE8 /* FriendsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListViewController.swift; sourceTree = "<group>"; };
+		8BDBA9D221B370F90054FCE8 /* FriendsListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsListViewController.xib; sourceTree = "<group>"; };
+		8BDBA9D521B371FC0054FCE8 /* FetchFriendsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchFriendsService.swift; sourceTree = "<group>"; };
+		8BDBA9D721B372630054FCE8 /* DeleteFriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFriendService.swift; sourceTree = "<group>"; };
+		8BDBA9D921B378ED0054FCE8 /* RequestFriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFriendService.swift; sourceTree = "<group>"; };
+		8BDBA9DB21B380930054FCE8 /* LookupUserIdService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupUserIdService.swift; sourceTree = "<group>"; };
+		8BDBA9DF21B389820054FCE8 /* Friendship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friendship.swift; sourceTree = "<group>"; };
+		8BDBA9E321B38D040054FCE8 /* FriendRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestsViewController.swift; sourceTree = "<group>"; };
+		8BDBA9E421B38D040054FCE8 /* FriendRequestsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendRequestsViewController.xib; sourceTree = "<group>"; };
+		8BDBA9E721B38FA10054FCE8 /* FriendRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
 		A6BB218A37F34B3C5BA101D8 /* Pods-SacredCalendarTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SacredCalendarTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SacredCalendarTests/Pods-SacredCalendarTests.release.xcconfig"; sourceTree = "<group>"; };
 		B513FB8EB7AA76E9ABE30D60 /* Pods_SacredCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SacredCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C86CBD267973E68417265440 /* Pods-SacredCalendarTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SacredCalendarTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SacredCalendarTests/Pods-SacredCalendarTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -233,6 +251,10 @@
 				8B84571E2189458C003E49EC /* DeleteEventService.swift */,
 				8B9B13B7217D4524002CB9A0 /* CreateUserService.swift */,
 				8B8A1785218B41C3001A811F /* FetchUserService.swift */,
+				8BDBA9D521B371FC0054FCE8 /* FetchFriendsService.swift */,
+				8BDBA9D721B372630054FCE8 /* DeleteFriendService.swift */,
+				8BDBA9D921B378ED0054FCE8 /* RequestFriendService.swift */,
+				8BDBA9DB21B380930054FCE8 /* LookupUserIdService.swift */,
 				8B8457222189FF44003E49EC /* CreateCategoryService.swift */,
 				8B845726218A2D17003E49EC /* FetchCategoryService.swift */,
 			);
@@ -246,6 +268,8 @@
 				8BC175F1217584FD002AFFD2 /* User.swift */,
 				71D90932216D98390036AC5E /* Event.swift */,
 				8BC175EF217584A4002AFFD2 /* Category.swift */,
+				8BDBA9DF21B389820054FCE8 /* Friendship.swift */,
+				8BDBA9E721B38FA10054FCE8 /* FriendRequest.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -280,6 +304,8 @@
 				8BA9005D215334BA00FF7733 /* LoginViewController.swift */,
 				8BC175F521759501002AFFD2 /* SignUpViewController.swift */,
 				8BC175F321758E54002AFFD2 /* EventsViewController.swift */,
+				8BDBA9D121B370F90054FCE8 /* FriendsListViewController.swift */,
+				8BDBA9E321B38D040054FCE8 /* FriendRequestsViewController.swift */,
 				8B84571621881C68003E49EC /* NewEventViewController.swift */,
 				8B8457202189FD9E003E49EC /* NewCategoryViewController.swift */,
 				8B8A1783218A8BA6001A811F /* NewEventFormView.swift */,
@@ -296,7 +322,8 @@
 				71E6C87B21816B3300D3E661 /* FilterEventsViewController.xib */,
 				71E6C87D21816D7600D3E661 /* CalendarViewController.xib */,
 				71E6C8752181635D00D3E661 /* StatsViewController.xib */,
-				71E6C8772181650700D3E661 /* FriendViewController.xib */,
+				8BDBA9D221B370F90054FCE8 /* FriendsListViewController.xib */,
+				8BDBA9E421B38D040054FCE8 /* FriendRequestsViewController.xib */,
 			);
 			path = SacredCalendar;
 			sourceTree = "<group>";
@@ -449,7 +476,6 @@
 				8B8A1782218A8B04001A811F /* NewEventFormView.xib in Resources */,
 				8B845725218A039D003E49EC /* NewCategoryViewController.xib in Resources */,
 				8B8456E221879230003E49EC /* EventsViewController.xib in Resources */,
-				71E6C8782181650700D3E661 /* FriendViewController.xib in Resources */,
 				71E6C874218161B300D3E661 /* NotificationViewController.xib in Resources */,
 				71E6C8722175916200D3E661 /* (null) in Resources */,
 				8BA90066215334BA00FF7733 /* LaunchScreen.storyboard in Resources */,
@@ -459,6 +485,8 @@
 				8B84571321880727003E49EC /* WeekEventView.xib in Resources */,
 				71E6C87E21816D7600D3E661 /* CalendarViewController.xib in Resources */,
 				71E6C87C21816B3300D3E661 /* FilterEventsViewController.xib in Resources */,
+				8BDBA9D421B370F90054FCE8 /* FriendsListViewController.xib in Resources */,
+				8BDBA9E621B38D040054FCE8 /* FriendRequestsViewController.xib in Resources */,
 				71E6C8762181635D00D3E661 /* StatsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -598,18 +626,26 @@
 				8BA9005C215334BA00FF7733 /* AppDelegate.swift in Sources */,
 				8B8457212189FD9E003E49EC /* NewCategoryViewController.swift in Sources */,
 				71D90935216DA05D0036AC5E /* API.swift in Sources */,
+				8BDBA9DC21B380930054FCE8 /* LookupUserIdService.swift in Sources */,
 				8B8457232189FF44003E49EC /* CreateCategoryService.swift in Sources */,
+				8BDBA9D621B371FC0054FCE8 /* FetchFriendsService.swift in Sources */,
 				8B84571D2188C3EF003E49EC /* AppNavigationController.swift in Sources */,
+				8BDBA9E821B38FA10054FCE8 /* FriendRequest.swift in Sources */,
 				8B9B13B4217D320A002CB9A0 /* Model.swift in Sources */,
+				8BDBA9D821B372630054FCE8 /* DeleteFriendService.swift in Sources */,
 				8B84571B21882282003E49EC /* CreateEventService.swift in Sources */,
 				8B8A1786218B41C3001A811F /* FetchUserService.swift in Sources */,
 				8B9B13B6217D345C002CB9A0 /* FetchEventsService.swift in Sources */,
 				8B495AFD216EDB6800F0A60C /* ValidatedResponse.swift in Sources */,
+				8BDBA9E021B389820054FCE8 /* Friendship.swift in Sources */,
 				8BC175F2217584FD002AFFD2 /* User.swift in Sources */,
+				8BDBA9DA21B378ED0054FCE8 /* RequestFriendService.swift in Sources */,
 				71D90933216D98390036AC5E /* Event.swift in Sources */,
+				8BDBA9D321B370F90054FCE8 /* FriendsListViewController.swift in Sources */,
 				8B495AF9216EDB1F00F0A60C /* Operators.swift in Sources */,
 				8B845715218814EB003E49EC /* CalendarViewer.swift in Sources */,
 				8BC175F0217584A4002AFFD2 /* Category.swift in Sources */,
+				8BDBA9E521B38D040054FCE8 /* FriendRequestsViewController.swift in Sources */,
 				8BC175F421758E54002AFFD2 /* EventsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

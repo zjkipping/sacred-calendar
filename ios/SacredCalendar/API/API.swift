@@ -26,7 +26,8 @@ enum HeaderKey: String {
 
 /// Representation of possible backend resources.
 enum Resource: String {
-    case auth = "", event, events, category, categories, users
+    case auth = "", event, events, category, categories, users, friends
+    case friendRequests = "friend-requests"
 }
 
 /// Representation of possible backend actions.
@@ -41,6 +42,9 @@ enum Action {
     case refreshToken
     case register
     case `self`
+    case lookup
+    case accept
+    case deny
 }
 
 class API {
@@ -125,6 +129,9 @@ class API {
         case .refreshToken: return .post
         case .register:     return .post
         case .`self`:       return .get
+        case .lookup:       return .get
+        case .accept:       return .post
+        case .deny:       return .post
         }
     }
     
@@ -146,6 +153,9 @@ class API {
         case .refreshToken:     return "refreshToken"
         case .register:         return "register"
         case .`self`:           return "self"
+        case .lookup:           return "fr-typeahead"
+        case .accept:           return "accept"
+        case .deny:           return "deny"
         }
     }
     

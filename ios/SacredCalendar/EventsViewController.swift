@@ -115,7 +115,8 @@ class EventsViewController: UIViewController {
             }).disposed(by: trash)
        
         setup(newEventButton: IconButton(type: .contactAdd))
-        
+        setup(friendsButton: IconButton(title: "friends"))
+
         set(title: "Events")
     }
     
@@ -170,6 +171,17 @@ class EventsViewController: UIViewController {
                 let newEvent = NewEventViewController()
                 self?.navigationController?.pushViewController(newEvent, animated: true)
             }).disposed(by: trash)
+    }
+    
+    func setup(friendsButton button: UIButton) {
+        navigationItem.rightViews.append(button)
+        
+        button.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                let friends = FriendsListViewController()
+                self?.navigationController?.pushViewController(friends, animated: true)
+            })
+            .disposed(by: trash)
     }
     
     /// Shows a given set of events in a desired view mode on the calendar.
