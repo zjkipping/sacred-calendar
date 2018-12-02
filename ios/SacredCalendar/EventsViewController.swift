@@ -40,6 +40,10 @@ class EventsViewModel {
     
     let userId: Int?
     
+    var isOwnCalendar: Bool {
+        return userId == nil
+    }
+    
     let events = BehaviorSubject<[Event]>(value: [])
     
     let trash = DisposeBag()
@@ -120,19 +124,21 @@ class EventsViewController: UIViewController {
                 return (sorted, args.1)
             })
         
-        // observes the selected event property of the calendar for event deletion
-        calendar.selectedEvent
-            .flatMap({ [weak self] in
-                self?.proposeDelete(event: $0) ?? .empty()
-            })
-            .flatMap({ [weak self] in
-                self?.viewModel.delete(event: $0) ?? .empty()
-            })
-            .subscribe(onNext: { [weak self] _ in
-                self?.viewModel.fetchEvents()
-                print("deletion success")
-            })
-            .disposed(by: trash)
+        if viewModel.isOwnCalendar {
+            // observes the selected event property of the calendar for event deletion
+            calendar.selectedEvent
+                .flatMap({ [weak self] in
+                    self?.proposeDelete(event: $0) ?? .empty()
+                })
+                .flatMap({ [weak self] in
+                    self?.viewModel.delete(event: $0) ?? .empty()
+                })
+                .subscribe(onNext: { [weak self] _ in
+                    self?.viewModel.fetchEvents()
+                    print("deletion success")
+                })
+                .disposed(by: trash)
+        }
         
         rerender
             .subscribe(onNext: { [weak self] data in
@@ -167,7 +173,7 @@ class EventsViewController: UIViewController {
             .disposed(by: trash)
     }
     
-    override func viewWillAppear(_ animated: Bool) {        
+    override func viewWillAppear(_ animated: Bool) {
         // initiates a refresh of the events for the calendar view
         _ = viewModel.fetchEvents()
     }
