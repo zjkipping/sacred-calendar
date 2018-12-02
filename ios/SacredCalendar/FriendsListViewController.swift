@@ -115,6 +115,14 @@ class FriendsListViewController: UIViewController {
                 
         }.disposed(by: trash)
         
+        tableView.rx.modelSelected(Friendship.self)
+            .subscribe(onNext: { [weak self] in
+                let logic = EventsViewModel(userId: $0.id)
+                let events = EventsViewController(viewModel: logic)
+                self?.navigationController?.pushViewController(events, animated: true)
+            })
+            .disposed(by: trash)
+        
         viewModel.fetchFriends()
         
         setup(addFriend: IconButton(title: "add"))

@@ -12,9 +12,30 @@ import RxSwift
 /// Async operations for fetching events.
 class FetchEventsService {
     
-    func execute(query: [String : Any]) -> Observable<[Event]> {
+    func execute() -> Observable<[Event]> {
         return Observable.create { observer in
-            let request = API.request(.events, .list, query) { response in
+            let request = API.request(.events, .list) { response in
+                guard response.success else {
+                    observer.onError(response.error!)
+                    return
+                }
+                
+                guard let events = Event.create(from: response.data.arrayValue) else {
+                    return
+                }
+                
+                observer.onNext(events)
+            }
+            
+            return Disposables.create {
+                request.cancel()
+            }
+        }
+    }
+    
+    func executeFriendFetch(query: [String : Any]) -> Observable<[Event]> {
+        return Observable.create { observer in
+            let request = API.request(.friendEvents, .list, query) { response in
                 guard response.success else {
                     observer.onError(response.error!)
                     return

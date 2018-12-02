@@ -38,19 +38,30 @@ class EventsViewModel {
     
     let viewMode = PublishSubject<CalendarView>()
     
+    let userId: Int?
+    
     let events = BehaviorSubject<[Event]>(value: [])
     
     let trash = DisposeBag()
     
-    init(services: Services = EventsViewModelServices()) {
+    init(services: Services = EventsViewModelServices(), userId: Int? = nil) {
         self.services = services
+        self.userId = userId
     }
     
     /// Fetches events and pushes them to the events stream.
-    func fetchEvents(query: [String : Any]) -> Observable<[Event]> {
-        let newEvents = services.events.execute(query: query)
-        newEvents.bind(to: events).disposed(by: trash)
-        return newEvents
+    func fetchEvents() {
+        let observable: Observable<[Event]>
+        if let id = userId {
+            observable = services.events.executeFriendFetch(query: ["id" : id])
+        } else {
+            observable = services.events.execute()
+        }
+        
+        observable
+            .take(1)
+            .bind(to: events)
+            .disposed(by: trash)
     }
     
     /// Deletes the provided event. Returns a success flag.
@@ -109,6 +120,20 @@ class EventsViewController: UIViewController {
                 return (sorted, args.1)
             })
         
+        // observes the selected event property of the calendar for event deletion
+        calendar.selectedEvent
+            .flatMap({ [weak self] in
+                self?.proposeDelete(event: $0) ?? .empty()
+            })
+            .flatMap({ [weak self] in
+                self?.viewModel.delete(event: $0) ?? .empty()
+            })
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel.fetchEvents()
+                print("deletion success")
+            })
+            .disposed(by: trash)
+        
         rerender
             .subscribe(onNext: { [weak self] data in
                 self?.show(events: data.0, mode: data.1)
@@ -142,11 +167,9 @@ class EventsViewController: UIViewController {
             .disposed(by: trash)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        show(events: [], mode: .daily)
-        
+    override func viewWillAppear(_ animated: Bool) {        
         // initiates a refresh of the events for the calendar view
-        _ = viewModel.fetchEvents(query: [:])
+        _ = viewModel.fetchEvents()
     }
     
     /// Returns an observable modal confirming witht the user their intention to delete a given event.
