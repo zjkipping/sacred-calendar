@@ -216,6 +216,12 @@ module.exports = {
   },
   deleteEvent: async (req, res) => {
     try {
+      // delete all outstanding event invites for the event
+      await pool.execute(
+        `DELETE FROM EventInvite WHERE eventID = ?`,
+        [req.params.id]
+      );
+      
       // delete the event in the DB that matches the ID provided in the request params
       await pool.execute(
         'DELETE FROM Event WHERE id = ?',
@@ -237,10 +243,10 @@ module.exports = {
           FROM EventInvite
           INNER JOIN UserLogin ON UserLogin.id = EventInvite.senderID
           INNER JOIN Event ON Event.id = EventInvite.eventID
-          INNER JOIN Friendship ON Friendship.targetID = EventInvite.senderID
+          INNER JOIN Friendship ON Friendship.targetID = EventInvite.senderID AND Friendship.userID = ?
           WHERE recipientID = ?
         `,
-        [req.id]
+        [req.id, req.id]
       );
       // send back a '200' OK
       res.status(200).send(rows);

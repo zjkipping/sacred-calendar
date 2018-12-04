@@ -9,7 +9,7 @@
         <input
           class="color-picker-input"
           [style.background]="category.get('color')?.value"
-          [cpPosition]="'right'"
+          [cpPosition]="'bottom'"
           [colorPicker]="category.get('color')?.value"
           (colorPickerSelect)="setColor($event, category)"
           [cpOKButton]="true"

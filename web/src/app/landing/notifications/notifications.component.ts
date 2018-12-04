@@ -46,13 +46,18 @@ export class NotificationsComponent implements OnDestroy {
     this.dialog.open(ViewEventDialogComponent, {
       height: DIALOG_HEIGHT,
       width: DIALOG_WIDTH,
-      data: invite
-    }).afterClosed().subscribe((choice: boolean) => {
-      if (choice) {
-        this.ds.acceptEventInvite(invite.id).subscribe(() => {
-          this.ds.fetchEventInvites();
-          this.ds.fetchEvents();
-        });
+      data: invite,
+      panelClass: 'category-dialog'
+    }).afterClosed().subscribe((result: { choice: boolean }) => {
+      if (result) {
+        if (result.choice) {
+          this.ds.acceptEventInvite(invite.id).subscribe(() => {
+            this.ds.fetchEventInvites();
+            this.ds.fetchEvents();
+          });
+        } else {
+          this.denyEventInvite(invite.id);
+        }
       }
     });
   }

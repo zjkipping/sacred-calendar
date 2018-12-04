@@ -32,18 +32,20 @@ module.exports = {
       // decode the refreshToken
       const decoded = jwt.decode(refreshToken);
       // grab the user's ID off the decoded token object
-      const id = decoded.uid;
+      const tokenID = decoded.tokenID;
+      const uid = decoded.uid;
       // grab all the refreshTokens belonging to the user's ID
-      const [rows, _fields] = await pool.execute('SELECT token from `TokenAuth` where userID = ?', [id]);
-      rows.forEach(async (row) => {
-        // check to see if the token provided matches any in the DB
-        const match = await bcrypt.compareSync(refreshToken, row.token);
+      const [rows, _fields] = await pool.execute('SELECT token from `TokenAuth` where id = ?', [tokenID]);
+
+      if (rows.length > 0) {
+        const dbToken = rows[0].token;
+        const match = await bcrypt.compareSync(refreshToken, dbToken);
         if (match) {
           try {
             // check to see if the refreshToken has expired
             if (jwt.verify(refreshToken, CONFIG.refreshTokenSecret)) {
               // create new clientToken since refreshToken was valid
-              const token = jwt.sign({ uid: id } , CONFIG.tokenSecret, { expiresIn: CONFIG.tokenLife});
+              const token = jwt.sign({ uid } , CONFIG.tokenSecret, { expiresIn: CONFIG.tokenLife});
               // send back a '200' OK to the client along with the new clientToken
               res.status(200).send({ token });
             } else {
@@ -52,13 +54,14 @@ module.exports = {
             }
           } catch (err) {
             // catch any expired token errors and delete the token from the DB
-            await pool.execute('DELETE FROM TokenAuth WHERE userID = ? AND token = ?', [id, row.token]);
+            await pool.execute('DELETE FROM TokenAuth WHERE id = ?', [tokenID]);
             // send back a '403' error, since the user's device auth has expired
             res.status(403).send({ error: true, code:'NO_AUTH', message: 'Unauthorized access.' });
           }
-          return;
         }
-      });
+      } else {
+        res.status(403).send({ error: true, code:'NO_AUTH', message: 'Unauthorized access.' });
+      }
     } catch (err) {
       console.log(err);
       // send back a '404' error since the request is invalid

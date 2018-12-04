@@ -59,14 +59,23 @@ module.exports = {
         //    (essentially hashes/salts the provided password (the same way) and verifies the two hashes are the same)
         const valid = await bcrypt.compareSync(req.body.password, password);
         if (valid) {
+          // creating a row in the TokenAuth table to get an incremented ID
+          const [result] = await pool.execute('INSERT INTO TokenAuth (userID) values (?)', [id]);
+          const tokenID = result.insertId;
+
           // create a clientToken/authToken using the settings from the config and the user's ID as the data
           const token = jwt.sign({ uid: id } , CONFIG.tokenSecret, { expiresIn: CONFIG.tokenLife});
           // create a refreshToken using the settings from the config and the user's ID as the data
-          const refreshToken = jwt.sign({ uid: id } , CONFIG.refreshTokenSecret, { expiresIn: CONFIG.refreshTokenLife});
+          const refreshToken = jwt.sign({ uid: id, tokenID } , CONFIG.refreshTokenSecret, { expiresIn: CONFIG.refreshTokenLife});
           // hash the refreshToken to so it can be stored in the DB
           const hashedRefreshToken = await bcrypt.hashSync(refreshToken, CONFIG.saltRounds);
-          // inserting the hashed refreshToken and user's id into the TokenAuth table
-          await pool.execute('INSERT INTO TokenAuth (userID, token) values (?, ?)', [id, hashedRefreshToken]);
+
+          // adding the hashed refreshToken and user's id into the TokenAuth table row
+          await pool.execute(
+            'UPDATE TokenAuth SET token = ? WHERE id = ?',
+            [hashedRefreshToken, tokenID]
+          );
+
           // sending back a '200' OK message to the client with the clienToken & refreshToken as a body
           res.status(200).send({ token, refreshToken });
         } else {
@@ -86,17 +95,10 @@ module.exports = {
       const refreshToken = req.body.refreshToken;
       const decoded = jwt.decode(refreshToken);
       // grab the ID from the decoded token
-      const id = decoded.uid;
-      // grab all the refreshTokens belonging to the user's ID
-      const [rows, _fields] = await pool.execute('select token from TokenAuth WHERE userID = ?', [id]);
-      rows.forEach(async (row) => {
-        // find a token that matches the refresh token provided
-        const match = await bcrypt.compareSync(refreshToken, row.token);
-        if (match) {
-          // delete the table row if the token from the DB matches the one provided in the request
-          await pool.execute('delete from TokenAuth WHERE userID = ? AND token = ?', [id, row.token]);
-        }
-      });
+      const tokenID = decoded.tokenID;
+      
+      await pool.execute('DELETE FROM TokenAuth WHERE id = ?', [tokenID]);
+      
       // sending back a '200' OK message to the client
       res.status(200).send();
     } catch (err) {

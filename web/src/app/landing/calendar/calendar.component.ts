@@ -112,9 +112,9 @@ export class CalendarComponent implements OnDestroy {
     }).afterClosed().subscribe((event: EventFormValue) => {
       if (event) {
         this.ds.newEvent(event).pipe(
-          switchMap((id: number) => {
+          switchMap((res: { id: number }) => {
             if (event.invites && event.invites.length > 0) {
-              return this.ds.sendEventInvites(id, event.invites);
+              return this.ds.sendEventInvites(res.id, event.invites);
             } else {
               return of({});
             }

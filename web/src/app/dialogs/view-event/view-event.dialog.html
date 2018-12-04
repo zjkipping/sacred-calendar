@@ -1,4 +1,7 @@
 <h1 mat-dialog-title>View Event Invite</h1>
+<button mat-mini-fab color="warn" mat-dialog-close class="close-button">
+  <mat-icon>close</mat-icon>
+</button>
 <div mat-dialog-content class="invite-body">
   <h2 class="text-center">{{invite.date.format('dddd, MMM Do YYYY')}}</h2>
   <div class="center-container">
@@ -23,7 +26,7 @@
   </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="{ accept: false }" color="warn">Deny Invite</button>
   <div class="spacer"></div>
-  <button mat-raised-button class="success" [mat-dialog-close]="true">Accept Invite</button>
+  <button mat-raised-button class="success" [mat-dialog-close]="{ accept: true }">Accept Invite</button>
 </div>

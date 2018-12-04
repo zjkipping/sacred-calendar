@@ -31,8 +31,9 @@ module.exports = {
       // creates the TokenAuth table in the DB
       await connection.execute(`
         CREATE TABLE IF NOT EXISTS TokenAuth (
+          id int AUTO_INCREMENT PRIMARY KEY,
           userID int NOT NULL,
-          token varchar(256) NOT NULL
+          token varchar(256)
         )
       `);
 
