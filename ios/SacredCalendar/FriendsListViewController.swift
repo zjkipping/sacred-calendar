@@ -89,31 +89,31 @@ class FriendsListViewController: UIViewController {
         viewModel.friends
             .take(1)
             .bind(to: tableView.rx.items(cellIdentifier: "Cell")) { row, element, cell in
-            cell.textLabel?.text = element.username
-            cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 20)
-            cell.backgroundColor = .clear
+                cell.textLabel?.text = element.username
+                cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 20)
+                cell.backgroundColor = .clear
                 
-            let longPress = UILongPressGestureRecognizer(target: nil, action: nil)
-            longPress.rx.event
-                .withLatestFrom(Observable.just(element))
-                .flatMap({ [weak self] in
-                    self?.showRemoveFriend(for: $0) ?? .empty()
-                })
-                .filter({ $0 })
-                .withLatestFrom(Observable.just(element))
-                .flatMap({ [weak self] in
-                    self?.viewModel.deleteFriendship(id: $0.id) ?? .empty()
-                })
-                .subscribe(onNext: { [weak self] in
-                    if $0 {
-                        self?.viewModel.fetchFriends()
-                    }
-                })
-                .disposed(by: self.trash)
+                let longPress = UILongPressGestureRecognizer(target: nil, action: nil)
+                longPress.rx.event
+                    .withLatestFrom(Observable.just(element))
+                    .flatMap({ [weak self] in
+                        self?.showRemoveFriend(for: $0) ?? .empty()
+                    })
+                    .filter({ $0 })
+                    .withLatestFrom(Observable.just(element))
+                    .flatMap({ [weak self] in
+                        self?.viewModel.deleteFriendship(id: $0.id) ?? .empty()
+                    })
+                    .subscribe(onNext: { [weak self] in
+                        if $0 {
+                            self?.viewModel.fetchFriends()
+                        }
+                    })
+                    .disposed(by: self.trash)
                 
-            cell.addGestureRecognizer(longPress)
+                cell.addGestureRecognizer(longPress)
                 
-        }.disposed(by: trash)
+            }.disposed(by: trash)
         
         tableView.rx
             .modelSelected(Friendship.self)

@@ -30,6 +30,7 @@ enum Resource: String {
     case event, events, category, categories, users, friends
     case friendRequests = "friend-requests"
     case friendEvents = "friend"
+    case eventInvites = "event-invites"
 }
 
 /// Representation of possible backend actions.

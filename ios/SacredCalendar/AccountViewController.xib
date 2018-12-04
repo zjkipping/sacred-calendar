@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AccountViewController" customModule="SacredCalendar" customModuleProvider="target">
+            <connections>
+                <outlet property="friendsButton" destination="aVv-l4-T5Z" id="OK8-Qi-uK2"/>
+                <outlet property="invitesButton" destination="lcp-r6-Qlq" id="8SL-jN-mMN"/>
+                <outlet property="nameLabel" destination="duM-dP-h94" id="ugz-er-g4f"/>
+                <outlet property="usernameLabel" destination="6sQ-kR-gLa" id="CeK-Af-bRT"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcp-r6-Qlq">
+                    <rect key="frame" x="137.5" y="409.5" width="100" height="44"/>
+                    <color key="backgroundColor" red="0.044099128479999999" green="0.76931096610000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="EqS-vC-IfY"/>
+                        <constraint firstAttribute="height" constant="44" id="pEh-WB-pNJ"/>
+                    </constraints>
+                    <state key="normal" title="INVITES">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duM-dP-h94">
+                    <rect key="frame" x="37.5" y="80" width="300" height="34"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sQ-kR-gLa">
+                    <rect key="frame" x="37.5" y="124" width="300" height="24"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVv-l4-T5Z">
+                    <rect key="frame" x="137.5" y="321.5" width="100" height="44"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="eal-ap-cC0"/>
+                        <constraint firstAttribute="height" constant="44" id="qDD-SC-8oy"/>
+                    </constraints>
+                    <state key="normal" title="FRIENDS">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="duM-dP-h94" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.8" id="0S4-HP-wL4"/>
+                <constraint firstItem="6sQ-kR-gLa" firstAttribute="centerX" secondItem="duM-dP-h94" secondAttribute="centerX" id="BjL-qB-Vbp"/>
+                <constraint firstItem="6sQ-kR-gLa" firstAttribute="width" secondItem="duM-dP-h94" secondAttribute="width" id="Ec9-fn-W8x"/>
+                <constraint firstItem="lcp-r6-Qlq" firstAttribute="top" secondItem="aVv-l4-T5Z" secondAttribute="bottom" constant="44" id="Pap-nA-Hif"/>
+                <constraint firstItem="6sQ-kR-gLa" firstAttribute="top" secondItem="duM-dP-h94" secondAttribute="bottom" constant="10" id="Slh-36-m6I"/>
+                <constraint firstItem="duM-dP-h94" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="60" id="WNj-c0-Ed4"/>
+                <constraint firstItem="aVv-l4-T5Z" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="Ya7-Rt-XJY"/>
+                <constraint firstItem="aVv-l4-T5Z" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="ZjX-m5-qfq"/>
+                <constraint firstItem="duM-dP-h94" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="fng-V5-jVj"/>
+                <constraint firstItem="lcp-r6-Qlq" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="i9U-j2-Npk"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+        </view>
+    </objects>
+</document>

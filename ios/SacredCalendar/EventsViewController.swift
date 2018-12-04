@@ -130,7 +130,7 @@ class EventsViewController: UIViewController {
        
         if viewModel.isOwnCalendar {
             setup(newEventButton: IconButton(type: .contactAdd))
-            setup(friendsButton: IconButton(title: "friends"))
+            setup(accountButton: IconButton(title: "account"))
         }
 
         set(title: "Events")
@@ -181,13 +181,13 @@ class EventsViewController: UIViewController {
             }).disposed(by: trash)
     }
     
-    func setup(friendsButton button: UIButton) {
+    func setup(accountButton button: UIButton) {
         navigationItem.rightViews.append(button)
         
         button.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                let friends = FriendsListViewController()
-                self?.navigationController?.pushViewController(friends, animated: true)
+                let account = AccountViewController()
+                self?.navigationController?.pushViewController(account, animated: true)
             })
             .disposed(by: trash)
     }

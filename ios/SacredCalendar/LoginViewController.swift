@@ -12,17 +12,19 @@ import RxCocoa
 import RxSwift
 
 /// Container for services used in AuthViewModel
-class AuthViewModelServices: HasAuthService {
+class AuthViewModelServices: HasAuthService, HasFetchUserService {
     let auth: AuthService
-    
-    init(auth: AuthService = .init()) {
+    let fetchUser: FetchUserService
+
+    init(auth: AuthService = .init(), fetchUser: FetchUserService = .init()) {
         self.auth = auth
+        self.fetchUser = fetchUser
     }
 }
 
 /// Logic for the screens requiring authentication centered functionality.
 class AuthViewModel {
-    typealias Services = HasAuthService
+    typealias Services = HasAuthService & HasFetchUserService
     
     /// Contains the async services required for this logical component.
     private let services: Services
@@ -40,6 +42,10 @@ class AuthViewModel {
     /// Sends a logout request and returns a success flag.
     func logout() -> Observable<Bool> {
         return services.auth.logout()
+    }
+    
+    func getUser() -> Observable<User> {
+        return services.fetchUser.execute()
     }
 }
 
@@ -146,7 +152,7 @@ class LoginViewController: UIViewController {
             passwordField.rx.text.orEmpty
         )
             
-        button.rx.tap
+        let login = button.rx.tap
             .withLatestFrom(form)
             .filter({ [weak self] in
                 guard let self = self else { return false }
@@ -162,18 +168,28 @@ class LoginViewController: UIViewController {
                 let credentials = (username: username, password: password)
                 return self?.viewModel.login(credentials: credentials) ?? .empty()
             })
+        
+        login
+            .filter({ !$0.0 })
             .subscribe(onNext: { [weak self] success, errorMessage in
-//                User.current = $0
-                
-//                print("logged in: \($0.fullName)")
-                
-                if success {
-                    let events = EventsViewController()
-                    self?.navigationController?.pushViewController(events, animated: true)
-                } else if let errorMessage = errorMessage {
+                if let errorMessage = errorMessage {
                     self?.formErrors.onNext([errorMessage])
                 }
+            })
+            .disposed(by: trash)
+        
+        login
+            .filter({ $0.0 })
+            .flatMap({ [weak self] _ in
+                self?.viewModel.getUser() ?? .empty()
+            })
+            .subscribe(onNext: { [weak self] in
+                User.current = $0
                 
+                print("logged in: \($0.fullName)")
+                
+                let events = EventsViewController()
+                self?.navigationController?.pushViewController(events, animated: true)
             })
             .disposed(by: trash)
     }
