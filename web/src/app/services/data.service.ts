@@ -228,6 +228,13 @@ export function convertTimeToMomentDate(time: string, date: moment.Moment) {
   const timeColonSplit = time.split(':');
   const timeSpaceSplit = timeColonSplit[1].split(' ');
   const minutes = Number(timeSpaceSplit[0]);
-  const hours = Number(timeColonSplit[0]) + (timeSpaceSplit[1] === 'pm' ? 12 : 0);
-  return moment(date).hours(hours).minutes(minutes).milliseconds(0);
+  let hours = Number(timeColonSplit[0]);
+  if (timeSpaceSplit[1] === 'pm') {
+    if (hours !== 12) {
+      hours += 12;
+    }
+  } else if (hours === 12) {
+    hours = 0;
+  }
+  return moment(date).hours(hours).minutes(minutes).seconds(0).milliseconds(0);
 }

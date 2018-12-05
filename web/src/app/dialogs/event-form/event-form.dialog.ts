@@ -81,9 +81,11 @@ export class EventFormDialogComponent implements OnDestroy {
   endTimeValidator(form: FormGroup) {
     const start = (form.get('startTime') as FormControl);
     const end = (form.get('endTime') as FormControl);
+    console.log(start.value, end.value);
     if (start.value !== '' && end.value !== '') {
       const startUnix = convertTimeToMomentDate(start.value, moment());
       const endUnix = convertTimeToMomentDate(end.value, moment());
+      console.log(startUnix, endUnix);
       return startUnix > endUnix ? { endTimeBeforeStart: true } : null;
     } else {
       return null;

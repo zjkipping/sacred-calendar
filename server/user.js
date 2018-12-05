@@ -565,7 +565,7 @@ module.exports = {
           })
           .groupBy('color')
           .map((stats, color) => ({ name: stats[0].name, color, minutes: _.sumBy(stats, 'minutes') }))
-          .value()
+          .value();
 
         // send back a '200' OK with the stats
         res.status(200).send(stats);
