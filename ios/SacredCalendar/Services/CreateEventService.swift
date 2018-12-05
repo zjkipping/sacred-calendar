@@ -11,14 +11,20 @@ import RxSwift
 
 /// Async operations for creating events.
 class CreateEventService {
-    func execute(data: [String : Any]) -> Observable<Bool> {
+    func execute(data: [String : Any]) -> Observable<Int> {
         return Observable.create { observer in
             let request = API.request(.event, .create, data) { response in
                 guard response.success else {
                     observer.onError(response.error!)
                     return
                 }
-                observer.onNext(true)
+                
+                guard let id = response.data["id"].int else {
+                    observer.onError(response.error!)
+                    return
+                }
+                
+                observer.onNext(id)
             }
             
             return Disposables.create {

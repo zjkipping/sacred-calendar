@@ -16,19 +16,21 @@ import RxCocoa
 import RxSwift
 
 /// Container for the services for the new event view model.
-class NewEventViewModelServices: HasCreateEventService, HasFetchCategoryService {
+class NewEventViewModelServices: HasCreateEventService, HasFetchCategoryService, HasEventInvitesService {
     let events: CreateEventService
     let fetchCategories: FetchCategoryService
+    var eventInvite: EventInvitesService
     
-    init(events: CreateEventService = .init(), fetchCategories: FetchCategoryService = .init()) {
+    init(events: CreateEventService = .init(), fetchCategories: FetchCategoryService = .init(), eventInvite: EventInvitesService = .init()) {
         self.events = events
         self.fetchCategories = fetchCategories
+        self.eventInvite = eventInvite
     }
 }
 
 /// Logic container for the new event view.
 class NewEventViewModel {
-    typealias Services = HasCreateEventService & HasFetchCategoryService
+    typealias Services = HasCreateEventService & HasFetchCategoryService & HasEventInvitesService
     
     /// Container for the async operations.
     let services: Services
@@ -37,6 +39,8 @@ class NewEventViewModel {
     
     let events = PublishSubject<[Event]>()
     
+    let invitees = BehaviorSubject<Set<AvailableFriend>>(value: [])
+    
     let trash = DisposeBag()
     
     init(services: Services = NewEventViewModelServices()) {
@@ -44,13 +48,17 @@ class NewEventViewModel {
     }
     
     /// Creates a new event in the database.
-    func submit(data: [String : Any]) -> Observable<Bool> {
+    func submit(data: [String : Any]) -> Observable<Int> {
         return services.events.execute(data: data)
     }
     
     /// Fetches the custom categories for the current user.
     func fetchCategories() -> Observable<[Category]> {
         return services.fetchCategories.execute()
+    }
+    
+    func send(invites: [Int], id: Int) -> Observable<Bool> {
+        return services.eventInvite.send(invites: invites, id: id)
     }
 }
 
@@ -118,7 +126,32 @@ class NewEventViewController: UIViewController {
             print($0)
         }).disposed(by: trash)
         
+        setup(inviteButton: formView.inviteButton)
+        
         setup(newCategoryButton: formView.newCategoryButton)
+        
+        viewModel.invitees
+            .subscribe(onNext: { [weak self] in
+                self?.formView.inviteesStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+                
+                guard $0.count > 0 else { return }
+                
+                let header = UILabel()
+                header.attributedText = NSAttributedString(string: "Invitees", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+                header.fontSize = 20
+                header.textColor = .white
+                header.textAlignment = .center
+                self?.formView.inviteesStackView.addArrangedSubview(header)
+                
+                for invitee in $0 {
+                    let label = UILabel()
+                    label.text = invitee.username
+                    label.textColor = .white
+                    label.textAlignment = .center
+                    self?.formView.inviteesStackView.addArrangedSubview(label)
+                }
+            })
+            .disposed(by: trash)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,20 +174,52 @@ class NewEventViewController: UIViewController {
             }).disposed(by: trash)
     }
     
+    /// Adds a tap observer to launch the friend selection flow.
+    func setup(inviteButton button: UIButton) {
+        let form = Observable.combineLatest(
+            date,
+            startDate,
+            endDate
+        )
+        
+        button.rx.tap
+            .withLatestFrom(form)
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                
+                let calendar = Calendar.current
+//                calendar.timeZone = NSTimeZone(abbreviation: "UTC")!
+                let beginningOfToday = calendar.startOfDay(for: Date())
+                
+                let date = calendar.startOfDay(for: $0)
+                
+                let startTime = date.addingTimeInterval($1.timeIntervalSince(beginningOfToday) - 6 * 60 * 60)
+                let endTime = date.addingTimeInterval($2.timeIntervalSince(beginningOfToday) - 6 * 60 * 60)
+                
+//                print($0.timeIntervalSince1970)
+//                print($1.timeIntervalSince1970)
+//                print($2.timeIntervalSince1970)
+                
+                print(startTime)
+                print(endTime)
+                
+                let options = FriendsListViewController<AvailableFriend>.Options(isSelectable: true, startTime: startTime, endTime: endTime)
+                let logic = FriendsViewModel<AvailableFriend>()
+                logic.selection
+                    .bind(to: self.viewModel.invitees)
+                    .disposed(by: logic.trash)
+                let friends = FriendsListViewController(viewModel: logic, options: options)
+                
+                self.navigationController?.pushViewController(friends, animated: true)
+            }).disposed(by: trash)
+    }
+    
     /// Formats a date stream.
     func formated(date: Observable<Date>) -> Observable<String> {
         return date.map({
-            let adjustment = NSDateComponents()
-            adjustment.hour = -2
-            
-            TimeZone.ReferenceType.default = TimeZone(abbreviation: "ADT")!
             let formatter = DateFormatter()
-            formatter.timeZone = TimeZone.ReferenceType.default
-            formatter.dateFormat = "HH:mm a"
-
-            let adjusted = Calendar.current.date(byAdding: adjustment as DateComponents, to: $0)!
-            return adjusted.timeString
-            return formatter.string(from: adjusted)
+            formatter.dateFormat = "h:mm a"
+            return formatter.string(from: $0)
         })
     }
     
@@ -165,13 +230,7 @@ class NewEventViewController: UIViewController {
     
     /// Displays the datetime picker for a given mode and initial value.
     func showDatePicker(mode: UIDatePicker.Mode, title: String, date initial: Date?) -> Observable<Date> {
-        
-        // adjusts the date/time for time zone discrepencies
-        let adjustment = NSDateComponents()
-        adjustment.hour = -2
-        
-        let date = Calendar.current.date(byAdding: adjustment as DateComponents, to: initial ?? Date())!
-        
+
         let blur = UIBlurEffect(style: .dark)
         let blurred = UIVisualEffectView(effect: blur)
         blurred.layer.cornerRadius = 14
@@ -187,7 +246,7 @@ class NewEventViewController: UIViewController {
             picker.setValue(UIColor(rgb: UInt32(hexNumber)), forKeyPath: "textColor")
         }
         picker.datePickerMode = mode
-        picker.date = date ?? Date()
+        picker.date = initial ?? Date()
         
         // constructs peripheral views for the datetime picker
         let done = MDCRaisedButton()
@@ -227,16 +286,9 @@ class NewEventViewController: UIViewController {
         // constructs a date observable, offset to correct for discrepencies, and dissolves
         // the datetime picker when fired.
         return done.rx.tap
-                    .withLatestFrom(picker.rx.date)
-                    .map({
-                        let adjustment = NSDateComponents()
-                        adjustment.hour = 2
-                        
-                        let adjusted = Calendar.current.date(byAdding: adjustment as DateComponents, to: $0)!
-                        return adjusted
-                    })
-                    .take(1)
-                    .do(onCompleted: container.removeFromSuperview)
+                .withLatestFrom(picker.rx.date)
+                .take(1)
+                .do(onCompleted: container.removeFromSuperview)
     }
     
     /// Attaches tap observer for showing date picker.
@@ -276,52 +328,72 @@ class NewEventViewController: UIViewController {
         )
         
         // validates the form, builds the appropriate structure for backend and submits to server
-        button.rx.tap
-            .withLatestFrom(form)
-            .filter({ [weak self] in
-                guard let self = self else { return false }
-                _ = $3
-                _ = $4
-                _ = $5
-                
-                switch self.validateForm(name: $0, description: $1, location: $2) {
-                case .valid: return true
-                case .invalid(let reasons):
-                    self.formErrors.onNext(reasons)
-                    return false
-                }
-            }).map({ [weak self] in
-                let adjustment = NSDateComponents()
-                adjustment.hour = -2
-                
-                TimeZone.ReferenceType.default = TimeZone(abbreviation: "ADT")!
-                let formatter = DateFormatter()
-                formatter.timeZone = TimeZone.ReferenceType.default
-                formatter.dateFormat = "HH:mm a"
-                
-                let start = Calendar.current.date(byAdding: adjustment as DateComponents, to: $4)!
-                let end = Calendar.current.date(byAdding: adjustment as DateComponents, to: $5)!
-                
-                var data: [String : Any] = [
-                    "name" : $0,
-                    "description" : $1,
-                    "location" : $2,
-                    "date" : $3.dateString,
-                    "startTime" : start.timeString.lowercased(),
-                    "endTime" : end.timeString.lowercased(),
-                ]
-                
-                if let dropdown = self?.formView.categoryDropdown,
-                   let selected = dropdown.selectedIndex,
-                   let id = dropdown.optionIds?[selected] {
-                    data["categoryID"] = id
-                }
-                return data
-            }).flatMap({ [weak self] in
-                self?.viewModel.submit(data: $0) ?? .empty()
-            }).subscribe(onNext: { [weak self] _ in
+        
+        let eventCreated = button.rx.tap
+                .withLatestFrom(form)
+                .filter({ [weak self] in
+                    guard let self = self else { return false }
+                    _ = $3
+                    _ = $4
+                    _ = $5
+                    
+                    switch self.validateForm(name: $0, description: $1, location: $2) {
+                    case .valid: return true
+                    case .invalid(let reasons):
+                        self.formErrors.onNext(reasons)
+                        return false
+                    }
+                })
+                .map({ [weak self] in
+                    let calendar = Calendar.current
+                    let beginningOfToday = calendar.startOfDay(for: Date())
+                    
+                    let startTime = $4.timeIntervalSince(beginningOfToday) + 60 * 60 * 6
+                    let endTime = $5.timeIntervalSince(beginningOfToday) + 60 * 60 * 6
+                    
+                    var data: [String : Any] = [
+                        "name" : $0,
+                        "description" : $1,
+                        "location" : $2,
+                        "date" : $3.timeIntervalSince1970,
+                        "startTime" : startTime,
+                        "endTime" : endTime,
+                    ]
+                    
+                    if let dropdown = self?.formView.categoryDropdown,
+                        let selected = dropdown.selectedIndex,
+                        let id = dropdown.optionIds?[selected] {
+                        data["categoryID"] = id
+                    }
+                    return data
+                })
+                .flatMap({ [weak self] data -> Observable<Int> in
+                    self?.viewModel.submit(data: data) ?? .empty()
+                })
+        
+        let invitesSent = eventCreated
+            .withLatestFrom(viewModel.invitees) { (id: $0, invitees: $1) }
+            .filter({ $0.invitees.count > 0 })
+            .map({ args -> (Int, [Int]) in
+                (id: args.id, invitees: args.invitees.map { $0.id })
+            })
+            .flatMap({ [weak self] data -> Observable<Bool> in
+                self?.viewModel.send(invites: data.1, id: data.0) ?? .empty()
+            })
+        
+        invitesSent
+            .subscribe(onNext: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
-            }).disposed(by: trash)
+            })
+            .disposed(by: trash)
+        
+        eventCreated
+            .withLatestFrom(viewModel.invitees) { (id: $0, invitees: $1) }
+            .filter({ $0.invitees.count == 0 })
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            })
+            .disposed(by: trash)
     }
     
     /// Attaches a tap observer to cancel the current form.

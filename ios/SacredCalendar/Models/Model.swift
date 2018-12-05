@@ -9,7 +9,7 @@
 typealias TransportFormat = [String : Any]
 
 /// Defines the interface for a Model type.
-protocol Model: JSONCreatable, Transportable {
+protocol Model: JSONCreatable, Transportable, Hashable {
     var id: Int { get }
     
     init?(json: JSON)
@@ -22,6 +22,10 @@ extension Model {
 //        guard let id = json["id"].int else { return nil }
         let id = json["id"].int ?? 0
         self.init(id: id, json: json)
+    }
+    
+    var hashValue: Int {
+        return id
     }
 }
 
@@ -49,4 +53,8 @@ extension JSONCreatable {
         let attempt = list.compactMap(Self.init)
         return attempt.count == list.count ? attempt : nil
     }
+}
+
+func ==<T: Model>(lhs: T, rhs: T) -> Bool {
+    return lhs.id == rhs.id
 }

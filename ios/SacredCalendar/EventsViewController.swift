@@ -148,7 +148,7 @@ class EventsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         // initiates a refresh of the events for the calendar view
-        _ = viewModel.fetchEvents()
+        viewModel.fetchEvents()
     }
     
     /// Returns an observable modal confirming witht the user their intention to delete a given event.

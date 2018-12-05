@@ -19,6 +19,8 @@
 		71E6C87E21816D7600D3E661 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71E6C87D21816D7600D3E661 /* CalendarViewController.xib */; };
 		8B29FFC3218281A500F86BC8 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B29FFC2218281A500F86BC8 /* LoginViewController.xib */; };
 		8B29FFC6218285A600F86BC8 /* SignUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B29FFC5218285A600F86BC8 /* SignUpViewController.xib */; };
+		8B39686321B75343002DCF73 /* AvailableFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B39686221B75343002DCF73 /* AvailableFriend.swift */; };
+		8B39686521B753A9002DCF73 /* AvailabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B39686421B753A9002DCF73 /* AvailabilityService.swift */; };
 		8B495AF7216EDB0900F0A60C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B495AF6216EDB0900F0A60C /* Extensions.swift */; };
 		8B495AF9216EDB1F00F0A60C /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B495AF8216EDB1F00F0A60C /* Operators.swift */; };
 		8B495AFD216EDB6800F0A60C /* ValidatedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B495AFC216EDB6800F0A60C /* ValidatedResponse.swift */; };
@@ -109,6 +111,8 @@
 		71E6C87D21816D7600D3E661 /* CalendarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
 		8B29FFC2218281A500F86BC8 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		8B29FFC5218285A600F86BC8 /* SignUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignUpViewController.xib; sourceTree = "<group>"; };
+		8B39686221B75343002DCF73 /* AvailableFriend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableFriend.swift; sourceTree = "<group>"; };
+		8B39686421B753A9002DCF73 /* AvailabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityService.swift; sourceTree = "<group>"; };
 		8B495AF6216EDB0900F0A60C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8B495AF8216EDB1F00F0A60C /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		8B495AFC216EDB6800F0A60C /* ValidatedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatedResponse.swift; sourceTree = "<group>"; };
@@ -271,6 +275,7 @@
 				8BDBA9DB21B380930054FCE8 /* LookupUserIdService.swift */,
 				8B8457222189FF44003E49EC /* CreateCategoryService.swift */,
 				8B845726218A2D17003E49EC /* FetchCategoryService.swift */,
+				8B39686421B753A9002DCF73 /* AvailabilityService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -285,6 +290,7 @@
 				8BDBA9DF21B389820054FCE8 /* Friendship.swift */,
 				8BDBA9E721B38FA10054FCE8 /* FriendRequest.swift */,
 				8BDBA9F521B4C1D60054FCE8 /* EventInvite.swift */,
+				8B39686221B75343002DCF73 /* AvailableFriend.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -657,6 +663,7 @@
 				8BDBA9E821B38FA10054FCE8 /* FriendRequest.swift in Sources */,
 				8B9B13B4217D320A002CB9A0 /* Model.swift in Sources */,
 				8BDBA9D821B372630054FCE8 /* DeleteFriendService.swift in Sources */,
+				8B39686321B75343002DCF73 /* AvailableFriend.swift in Sources */,
 				8B84571B21882282003E49EC /* CreateEventService.swift in Sources */,
 				8B8A1786218B41C3001A811F /* FetchUserService.swift in Sources */,
 				8B9B13B6217D345C002CB9A0 /* FetchEventsService.swift in Sources */,
@@ -668,6 +675,7 @@
 				71D90933216D98390036AC5E /* Event.swift in Sources */,
 				8BDBA9F321B4A5C40054FCE8 /* EventInvitesViewController.swift in Sources */,
 				8BDBA9D321B370F90054FCE8 /* FriendsListViewController.swift in Sources */,
+				8B39686521B753A9002DCF73 /* AvailabilityService.swift in Sources */,
 				8B495AF9216EDB1F00F0A60C /* Operators.swift in Sources */,
 				8BDBA9EB21B46D0B0054FCE8 /* EventViewController.swift in Sources */,
 				8B845715218814EB003E49EC /* CalendarViewer.swift in Sources */,

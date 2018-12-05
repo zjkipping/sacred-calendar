@@ -12,30 +12,34 @@ import RxSwift
 import UIKit
 
 /// Container for the services required by the friends list view model logic container.
-class FriendsViewModelServices: HasFetchFriendsService, HasRequestFriendService, HasLookupUserIdService, HasDeleteFriendService {
+class FriendsViewModelServices: HasFetchFriendsService, HasRequestFriendService, HasLookupUserIdService, HasDeleteFriendService, HasAvailabilityService {
     let friends: FetchFriendsService
     let requestFriend: RequestFriendService
     let lookupUser: LookupUserIdService
     let removeFriend: DeleteFriendService
+    let availability: AvailabilityService
     
-    init(friends: FetchFriendsService = .init(), requestFriend: RequestFriendService = .init(), lookupUser: LookupUserIdService = .init(), removeFriend: DeleteFriendService = .init()) {
+    init(friends: FetchFriendsService = .init(), requestFriend: RequestFriendService = .init(), lookupUser: LookupUserIdService = .init(), removeFriend: DeleteFriendService = .init(), availability: AvailabilityService = .init()) {
         self.friends = friends
         self.requestFriend = requestFriend
         self.lookupUser = lookupUser
         self.removeFriend = removeFriend
+        self.availability = availability
     }
 }
 
 /// Logic container for the friends list view.
-class FriendsViewModel {
-    typealias Services = HasFetchFriendsService & HasRequestFriendService & HasLookupUserIdService & HasDeleteFriendService
+class FriendsViewModel<T: Friend> {
+    typealias Services = HasFetchFriendsService & HasRequestFriendService & HasLookupUserIdService & HasDeleteFriendService & HasAvailabilityService
     
     /// Contains the required async operations
     let services: Services
     
     let trash = DisposeBag()
     
-    let friends = PublishSubject<[Friendship]>()
+    let friends = PublishSubject<[T]>()
+    
+    let selection = BehaviorSubject<Set<T>>(value: [])
     
     init(services: Services = FriendsViewModelServices()) {
         self.services = services
@@ -44,6 +48,7 @@ class FriendsViewModel {
     func fetchFriends() {
         services.friends.execute()
             .take(1)
+            .map({ $0 as! [T] })
             .bind(to: friends)
             .disposed(by: trash)
     }
@@ -60,19 +65,53 @@ class FriendsViewModel {
     func deleteFriendship(id: Int) -> Observable<Bool> {
         return services.removeFriend.execute(id: id)
     }
+    
+    func fetchAvailableFriends(startTime: Date, endTime: Date?) {
+        var query = ["start" : startTime.timeIntervalSince1970]
+        
+        if let endTime = endTime {
+            query["end"] = endTime.timeIntervalSince1970
+        }
+        
+        services.availability.execute(query: query)
+            .take(1)
+            .map({ $0 as! [T] })
+            .bind(to: friends)
+            .disposed(by: trash)
+    }
 }
 
-class FriendsListViewController: UIViewController {
+protocol Friend: Hashable {
+    var id: Int { get }
+    var username: String { get }
+}
+
+extension Friend {
+    var hashValue: Int {
+        return id
+    }
+}
+
+class FriendsListViewController<T: Friend>: UIViewController {
+    
+    struct Options {
+        let isSelectable: Bool
+        let startTime: Date
+        let endTime: Date?
+    }
 
     @IBOutlet weak var tableView: UITableView!
     
-    let viewModel: FriendsViewModel
+    let viewModel: FriendsViewModel<T>
     
     let trash = DisposeBag()
     
+    let options: Options
+    
     /// Constructor - Assigns the logic container and reads the visuals from the .nib.
-    init(viewModel: FriendsViewModel = .init()) {
+    init(viewModel: FriendsViewModel<T> = .init(), options: Options? = nil) {
         self.viewModel = viewModel
+        self.options = options ?? Options(isSelectable: false, startTime: Date(), endTime: nil)
         
         super.init(nibName: "FriendsListViewController", bundle: nil)
     }
@@ -85,13 +124,18 @@ class FriendsListViewController: UIViewController {
         super.viewDidLoad()
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.allowsMultipleSelection = options.isSelectable
 
         viewModel.friends
             .take(1)
-            .bind(to: tableView.rx.items(cellIdentifier: "Cell")) { row, element, cell in
+            .bind(to: tableView.rx.items(cellIdentifier: "Cell")) { [weak self] row, element, cell in
+                guard let self = self else { return }
+                
                 cell.textLabel?.text = element.username
                 cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 20)
                 cell.backgroundColor = .clear
+                
+                guard !self.options.isSelectable else { return }
                 
                 let longPress = UILongPressGestureRecognizer(target: nil, action: nil)
                 longPress.rx.event
@@ -115,22 +159,75 @@ class FriendsListViewController: UIViewController {
                 
             }.disposed(by: trash)
         
-        tableView.rx
-            .modelSelected(Friendship.self)
-            .subscribe(onNext: { [weak self] in
-                let logic = EventsViewModel(userId: $0.id)
-                let events = EventsViewController(viewModel: logic)
-                self?.navigationController?.pushViewController(events, animated: true)
-            })
-            .disposed(by: trash)
+        let friendSelected = tableView.rx
+            .modelSelected(T.self)
         
-        viewModel.fetchFriends()
+        let friendDeselected = tableView.rx
+            .modelDeselected(T.self)
         
-        setup(addFriend: IconButton(title: "add"))
-        setup(friendRequests: IconButton(title: "requests"))
+        let rowSelected = tableView.rx
+            .itemSelected
+        
+        let rowDeselected = tableView.rx
+            .itemDeselected
+        
+        let toggled = Observable.merge(
+            friendSelected.map({ ($0, true) }),
+            friendDeselected.map({ ($0, false)})
+        )
+        
+        let font = UIFont.systemFont(ofSize: 26)
+        let bold = UIFont.boldSystemFont(ofSize: 26)
+        
+        if options.isSelectable {
+            toggled
+                .withLatestFrom(viewModel.selection) { ($1, $0) }
+                .map({ friends, action in
+                    action.1 ? friends.union([action.0]) : friends.subtracting([action.0])
+                })
+                .bind(to: viewModel.selection)
+                .disposed(by: trash)
+            
+            rowSelected
+                .subscribe(onNext: { [weak self] in
+                    guard let self = self else { return }
+                    
+                    let cell = self.tableView.cellForRow(at: $0)
+                    
+                    cell?.textLabel?.font = bold
+                })
+                .disposed(by: trash)
+            
+            rowDeselected
+                .subscribe(onNext: { [weak self] in
+                    guard let self = self else { return }
+                    
+                    let cell = self.tableView.cellForRow(at: $0)
+                    
+                    cell?.textLabel?.font = font
+                })
+                .disposed(by: trash)
+        } else {
+            friendSelected
+                .subscribe(onNext: { [weak self] in
+                    let logic = EventsViewModel(userId: $0.id)
+                    let events = EventsViewController(viewModel: logic)
+                    self?.navigationController?.pushViewController(events, animated: true)
+                })
+                .disposed(by: trash)
+        }
+        
+        if options.isSelectable {
+            viewModel.fetchAvailableFriends(startTime: options.startTime, endTime: options.endTime)
+        } else {
+            viewModel.fetchFriends()
+            
+            setup(addFriend: IconButton(title: "add"))
+            setup(friendRequests: IconButton(title: "requests"))
+        }
     }
     
-    func showRemoveFriend(for friend: Friendship) -> Observable<Bool> {
+    func showRemoveFriend(for friend: T) -> Observable<Bool> {
         return Observable.create { observer in
             let alert = UIAlertController(title: "Remove Friend?", message: "Are you sure you would like to remove \(friend.username) as a friend?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: { _ in
@@ -147,7 +244,6 @@ class FriendsListViewController: UIViewController {
             }
         }
     }
-    
     
     func setup(addFriend button: UIButton) {
         navigationItem.rightViews.append(button)

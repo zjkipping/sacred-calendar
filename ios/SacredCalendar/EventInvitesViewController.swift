@@ -48,6 +48,30 @@ class FetchEventInvitesService {
 
 class EventInvitesService {
     
+    func send(invites: [Int], id: Int) -> Observable<Bool> {
+        return Observable.create { observer in
+            let data: [String : Any] = [
+                "id" : id,
+                "invites" : invites,
+            ]
+            
+            let request = API.request(.event, .invite, data) { response in
+                guard response.success else {
+                    observer.onError(response.error!)
+                    observer.onCompleted()
+                    return
+                }
+                
+                observer.onNext(true)
+                observer.onCompleted()
+            }
+            
+            return Disposables.create {
+                request.cancel()
+            }
+        }
+    }
+    
     func accept(inviteId: Int) -> Observable<Bool> {
         return Observable.create { observer in
             let request = API.request(.event, .accept, ["id" : inviteId]) { response in
@@ -86,7 +110,6 @@ class EventInvitesService {
 protocol HasFetchEventInvitesService {
     var eventInvites: FetchEventInvitesService { get }
 }
-
 
 protocol HasEventInvitesService {
     var eventInvite: EventInvitesService { get }

@@ -79,7 +79,7 @@ class AccountViewController: UIViewController {
     func setup(friendsButton button: UIButton) {
         button.rx.tap
             .subscribe(onNext: { [weak self] in
-                let friends = FriendsListViewController()
+                let friends = FriendsListViewController<Friendship>()
                 self?.navigationController?.pushViewController(friends, animated: true)
             })
             .disposed(by: trash)

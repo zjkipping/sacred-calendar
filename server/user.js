@@ -141,6 +141,8 @@ module.exports = {
         const start = req.query.start;
         const end = req.query.end ? null : req.query.end;
 
+        console.log(start, end);
+
         // getting the date from the start time
         const date = moment.unix(start).hours(0).minutes(0).seconds(0).milliseconds(0).unix();
         // get event columns of userID, username, startTime, and endTime from friends' events that are on the same date as the start time

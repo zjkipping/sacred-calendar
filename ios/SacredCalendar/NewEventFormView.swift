@@ -28,6 +28,9 @@ class NewEventFormView: UIView {
     @IBOutlet weak var categoryDropdown: DropDown!
     @IBOutlet weak var newCategoryButton: UIButton!
     
+    @IBOutlet weak var inviteButton: UIButton!
+    @IBOutlet weak var inviteesStackView: UIStackView!
+    
     @IBOutlet weak var contentView: UIView!
 
     /// Constructor - Delegates to the common init.

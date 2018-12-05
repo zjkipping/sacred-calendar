@@ -22,7 +22,7 @@ class EventViewModelServices: HasDeleteEventService {
     }
 }
 
-/// Logic container for the events view.
+/// Logic container for the event view.
 class EventViewModel {
     typealias Services = HasDeleteEventService
     
@@ -53,6 +53,8 @@ class EventViewController: UIViewController {
     @IBOutlet weak var locationLabel: UILabel!
     
     @IBOutlet weak var dateLabel: UILabel!
+    
+    @IBOutlet weak var timeStackView: UIStackView!
     @IBOutlet weak var startTimeLabel: UILabel!
     @IBOutlet weak var endTimeLabel: UILabel!
     
@@ -86,7 +88,6 @@ class EventViewController: UIViewController {
             deleteButton.removeFromSuperview()
         }
         
-        
         populateUI(event: viewModel.event)
     }
     
@@ -108,7 +109,8 @@ class EventViewController: UIViewController {
         if let endTime = event.endTime {
             endTimeLabel.text = formatter.string(from: endTime)
         } else {
-            endTimeLabel.text = nil
+            timeStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+            timeStackView.addArrangedSubview(startTimeLabel)
         }
     }
     
@@ -132,9 +134,11 @@ class EventViewController: UIViewController {
     
     func setup(deleteButton button: UIButton) {
         button.rx.tap
+            .flatMap({ [weak self] in
+                self?.viewModel.deleteEvent() ?? .empty()
+            })
             .subscribe(onNext: { [weak self] _ in
-                let friends = FriendsListViewController()
-                self?.navigationController?.pushViewController(friends, animated: true)
+                self?.navigationController?.popViewController(animated: true)
             })
             .disposed(by: trash)
     }
