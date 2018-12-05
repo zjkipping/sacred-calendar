@@ -18,3 +18,9 @@
 .events-container .event:not(:first-child) {
   margin-top: 10px;
 }
+
+.divider {
+  margin: 5px 0px;
+  border: 1px solid white;
+  width: 100%;
+}
