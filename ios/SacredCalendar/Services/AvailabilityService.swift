@@ -9,8 +9,6 @@
 import RxCocoa
 import RxSwift
 
-
-
 /// Async operations for fetching friends.
 class AvailabilityService {
     

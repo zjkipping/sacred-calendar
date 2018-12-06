@@ -14,17 +14,19 @@ import RxCocoa
 import RxSwift
 
 /// Container for the services required by the account view model logic container.
-class AccountViewModelServices: HasFetchUserService {
+class AccountViewModelServices: HasFetchUserService, HasAuthService {
     let fetchUser: FetchUserService
+    var auth: AuthService
     
-    init(fetchUser: FetchUserService = .init()) {
+    init(fetchUser: FetchUserService = .init(), auth: AuthService = .init()) {
         self.fetchUser = fetchUser
+        self.auth = auth
     }
 }
 
 /// Logic container for the account view.
 class AccountViewModel {
-    typealias Services = HasFetchUserService
+    typealias Services = HasFetchUserService & HasAuthService
     
     /// Contains the required async operations
     let services: Services
@@ -33,6 +35,10 @@ class AccountViewModel {
     
     init(services: Services = AccountViewModelServices()) {
         self.services = services
+    }
+    
+    func logout() -> Observable<Bool> {
+        return services.auth.logout()
     }
 }
 
@@ -44,6 +50,7 @@ class AccountViewController: UIViewController {
     
     @IBOutlet weak var friendsButton: UIButton!
     @IBOutlet weak var invitesButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
 
     let viewModel: AccountViewModel
     
@@ -67,6 +74,7 @@ class AccountViewController: UIViewController {
         
         setup(friendsButton: friendsButton)
         setup(invitesButton: invitesButton)
+        setup(logoutButton: logoutButton)
         
         populateUI()
     }
@@ -90,6 +98,17 @@ class AccountViewController: UIViewController {
             .subscribe(onNext: { [weak self] in
                 let eventInvites = EventInvitesViewController()
                 self?.navigationController?.pushViewController(eventInvites, animated: true)
+            })
+            .disposed(by: trash)
+    }
+    
+    func setup(logoutButton button: UIButton) {
+        button.rx.tap
+            .flatMap({ [weak self] in
+                self?.viewModel.logout() ?? .empty()
+            })
+            .subscribe(onNext: { [weak self] _ in
+                self?.navigationController?.popToRootViewController(animated: true)
             })
             .disposed(by: trash)
     }

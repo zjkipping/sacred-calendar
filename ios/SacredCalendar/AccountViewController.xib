@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="friendsButton" destination="aVv-l4-T5Z" id="OK8-Qi-uK2"/>
                 <outlet property="invitesButton" destination="lcp-r6-Qlq" id="8SL-jN-mMN"/>
+                <outlet property="logoutButton" destination="Ufg-CT-UVx" id="B4r-du-ark"/>
                 <outlet property="nameLabel" destination="duM-dP-h94" id="ugz-er-g4f"/>
                 <outlet property="usernameLabel" destination="6sQ-kR-gLa" id="CeK-Af-bRT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -24,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcp-r6-Qlq">
-                    <rect key="frame" x="137.5" y="409.5" width="100" height="44"/>
+                    <rect key="frame" x="137.5" y="341" width="100" height="44"/>
                     <color key="backgroundColor" red="0.044099128479999999" green="0.76931096610000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="EqS-vC-IfY"/>
@@ -47,7 +48,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVv-l4-T5Z">
-                    <rect key="frame" x="137.5" y="321.5" width="100" height="44"/>
+                    <rect key="frame" x="137.5" y="253" width="100" height="44"/>
                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="eal-ap-cC0"/>
@@ -57,18 +58,31 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ufg-CT-UVx">
+                    <rect key="frame" x="137.5" y="579" width="100" height="44"/>
+                    <color key="backgroundColor" red="0.14901960780000001" green="0.65098039220000004" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="5Qg-Pc-mi2"/>
+                        <constraint firstAttribute="height" constant="44" id="uNG-cx-9nt"/>
+                    </constraints>
+                    <state key="normal" title="LOGOUT">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="duM-dP-h94" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.8" id="0S4-HP-wL4"/>
+                <constraint firstItem="Ufg-CT-UVx" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="6Oe-hL-EWz"/>
                 <constraint firstItem="6sQ-kR-gLa" firstAttribute="centerX" secondItem="duM-dP-h94" secondAttribute="centerX" id="BjL-qB-Vbp"/>
                 <constraint firstItem="6sQ-kR-gLa" firstAttribute="width" secondItem="duM-dP-h94" secondAttribute="width" id="Ec9-fn-W8x"/>
                 <constraint firstItem="lcp-r6-Qlq" firstAttribute="top" secondItem="aVv-l4-T5Z" secondAttribute="bottom" constant="44" id="Pap-nA-Hif"/>
                 <constraint firstItem="6sQ-kR-gLa" firstAttribute="top" secondItem="duM-dP-h94" secondAttribute="bottom" constant="10" id="Slh-36-m6I"/>
                 <constraint firstItem="duM-dP-h94" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="60" id="WNj-c0-Ed4"/>
-                <constraint firstItem="aVv-l4-T5Z" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="Ya7-Rt-XJY"/>
+                <constraint firstItem="aVv-l4-T5Z" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" multiplier="0.8" id="Ya7-Rt-XJY"/>
                 <constraint firstItem="aVv-l4-T5Z" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="ZjX-m5-qfq"/>
                 <constraint firstItem="duM-dP-h94" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="fng-V5-jVj"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Ufg-CT-UVx" secondAttribute="bottom" constant="44" id="fwa-6M-hLJ"/>
                 <constraint firstItem="lcp-r6-Qlq" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="i9U-j2-Npk"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

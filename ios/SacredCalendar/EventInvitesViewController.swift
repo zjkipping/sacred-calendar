@@ -212,9 +212,9 @@ class EventInvitesViewController: UIViewController {
                             return self.viewModel.deny(invite: invite)
                         }
                     })
-                    .subscribe(onNext: {
+                    .subscribe(onNext: { [weak self] in
                         if $0 {
-                            print("success")
+                            self?.navigationController?.popViewController(animated: true)
                         } else {
                             print("failure")
                         }

@@ -188,20 +188,12 @@ class NewEventViewController: UIViewController {
                 guard let self = self else { return }
                 
                 let calendar = Calendar.current
-//                calendar.timeZone = NSTimeZone(abbreviation: "UTC")!
                 let beginningOfToday = calendar.startOfDay(for: Date())
                 
                 let date = calendar.startOfDay(for: $0)
                 
                 let startTime = date.addingTimeInterval($1.timeIntervalSince(beginningOfToday) - 6 * 60 * 60)
                 let endTime = date.addingTimeInterval($2.timeIntervalSince(beginningOfToday) - 6 * 60 * 60)
-                
-//                print($0.timeIntervalSince1970)
-//                print($1.timeIntervalSince1970)
-//                print($2.timeIntervalSince1970)
-                
-                print(startTime)
-                print(endTime)
                 
                 let options = FriendsListViewController<AvailableFriend>.Options(isSelectable: true, startTime: startTime, endTime: endTime)
                 let logic = FriendsViewModel<AvailableFriend>()
@@ -370,6 +362,7 @@ class NewEventViewController: UIViewController {
                 .flatMap({ [weak self] data -> Observable<Int> in
                     self?.viewModel.submit(data: data) ?? .empty()
                 })
+                .share()
         
         let invitesSent = eventCreated
             .withLatestFrom(viewModel.invitees) { (id: $0, invitees: $1) }

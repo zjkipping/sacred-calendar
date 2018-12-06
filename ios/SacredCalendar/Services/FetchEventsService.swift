@@ -20,6 +20,10 @@ class FetchEventsService {
                     return
                 }
                 
+                defer {
+                    observer.onCompleted()
+                }
+                
                 guard let events = Event.create(from: response.data.arrayValue) else {
                     return
                 }

@@ -44,7 +44,7 @@ class EventsViewModel {
         return userId == nil
     }
     
-    let events = BehaviorSubject<[Event]>(value: [])
+    let events = PublishSubject<[Event]>()
     
     let trash = DisposeBag()
     
@@ -54,17 +54,19 @@ class EventsViewModel {
     }
     
     /// Fetches events and pushes them to the events stream.
-    func fetchEvents() {
+    func fetchEvents() -> Observable<[Event]> {
         let observable: Observable<[Event]>
         if let id = userId {
             observable = services.events.executeFriendFetch(query: ["id" : id])
         } else {
             observable = services.events.execute()
         }
+        
         observable
             .take(1)
             .bind(to: events)
             .disposed(by: trash)
+        return observable
     }
     
     /// Deletes the provided event. Returns a success flag.
@@ -109,31 +111,32 @@ class EventsViewController: UIViewController {
             $0.size == $1.size
         }
         
+        if viewModel.isOwnCalendar {
+            setup(newEventButton: IconButton(type: .contactAdd))
+            setup(accountButton: IconButton(title: "account"))
+            
+            navigationItem.backButton.isHidden = true
+        }
+        
+        set(title: "Events")
+        
         // creates an observable combination of the events list and current orientation
         // for any changes to either, the events are sorted and displayed in the appropriate
         // calendar view mode
         let rerender = Observable.combineLatest(viewModel.events, orientation)
+            .startWith(([], true))
             .map({ args -> ([Event], CalendarView) in
                 return (args.0, args.1 ? .daily : .weekly)
             })
             .map({ args -> ([Event], CalendarView) in
-                let sorted = args.0.sorted { l, r in
-                    l.startTime < r.startTime
-                }
-                return (sorted, args.1)
+                (args.0.sorted { $0.startTime < $1.startTime }, args.1)
             })
-    
+        
         rerender
+            .debug()
             .subscribe(onNext: { [weak self] data in
                 self?.show(events: data.0, mode: data.1)
             }).disposed(by: trash)
-       
-        if viewModel.isOwnCalendar {
-            setup(newEventButton: IconButton(type: .contactAdd))
-            setup(accountButton: IconButton(title: "account"))
-        }
-
-        set(title: "Events")
         
         // observes the selected event property of the calendar for event deletion
         calendar.selectedEvent
@@ -149,6 +152,16 @@ class EventsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         // initiates a refresh of the events for the calendar view
         viewModel.fetchEvents()
+            .withLatestFrom(orientation) { ($0, $1) }
+            .map({ args -> ([Event], CalendarView) in
+                return (args.0, args.1 ? .daily : .weekly)
+            })
+            .map({ args -> ([Event], CalendarView) in
+                (args.0.sorted { $0.startTime < $1.startTime }, args.1)
+            })
+            .subscribe(onNext: { [weak self] data in
+                self?.show(events: data.0, mode: data.1)
+            }).disposed(by: trash)
     }
     
     /// Returns an observable modal confirming witht the user their intention to delete a given event.
@@ -182,7 +195,7 @@ class EventsViewController: UIViewController {
     }
     
     func setup(accountButton button: UIButton) {
-        navigationItem.rightViews.append(button)
+        navigationItem.leftViews.append(button)
         
         button.rx.tap
             .subscribe(onNext: { [weak self] _ in

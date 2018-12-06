@@ -56,7 +56,10 @@ class AuthService {
     
     func logout() -> Observable<Bool> {
         return Observable.create { observer in
-            let request = API.request(.auth, .logout) { response in
+            
+            guard let refreshToken = KeychainWrapper.standard.string(forKey: TokenKey.refresh.rawValue) else { return Disposables.create() }
+            
+            let request = API.request(.auth, .logout, ["refreshToken" : refreshToken]) { response in
                 guard response.success else {
                     observer.onError(response.error!)
                     return

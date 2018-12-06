@@ -100,6 +100,8 @@ class FriendsListViewController<T: Friend>: UIViewController {
         let endTime: Date?
     }
 
+    @IBOutlet weak var friendRequestsButton: UIButton!
+    
     @IBOutlet weak var tableView: UITableView!
     
     let viewModel: FriendsViewModel<T>
@@ -122,6 +124,8 @@ class FriendsListViewController<T: Friend>: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        set(title: options.isSelectable ? "Available Friends" : "Friends")
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.allowsMultipleSelection = options.isSelectable
@@ -219,12 +223,15 @@ class FriendsListViewController<T: Friend>: UIViewController {
         
         if options.isSelectable {
             viewModel.fetchAvailableFriends(startTime: options.startTime, endTime: options.endTime)
+            
+            friendRequestsButton.isHidden = true
         } else {
             viewModel.fetchFriends()
             
             setup(addFriend: IconButton(title: "add"))
-            setup(friendRequests: IconButton(title: "requests"))
         }
+        
+        setup(friendRequests: friendRequestsButton)
     }
     
     func showRemoveFriend(for friend: T) -> Observable<Bool> {
@@ -272,9 +279,7 @@ class FriendsListViewController<T: Friend>: UIViewController {
             .disposed(by: trash)
     }
     
-    func setup(friendRequests button: UIButton) {
-        navigationItem.rightViews.append(button)
-        
+    func setup(friendRequests button: UIButton) { 
         button.rx.tap
             .subscribe(onNext: { [weak self] in
                 let friendRequests = FriendRequestsViewController()
