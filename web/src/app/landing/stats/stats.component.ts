@@ -71,7 +71,11 @@ export class StatsComponent {
       this.chartLabels = stats.map(stat => stat.name);
       this.chartColors = [{ backgroundColor: stats.map(stat => stat.color) }];
       this.chartData = stats.map(stat => Number((stat.minutes / 60).toFixed(2)));
-      this.totalHours = this.chartData.reduce((prev, current) => prev + current);
+      if (stats.length > 0) {
+        this.totalHours = this.chartData.reduce((prev, current) => prev + current);
+      } else {
+        this.totalHours = 0;
+      }
       this.loadingStats = false;
     });
   }

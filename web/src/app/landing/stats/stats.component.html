@@ -14,6 +14,7 @@
   </div>
   <div *ngIf="!loadingStats; else loadingStatistics">
     <h2 class="text-center">Total Hours: {{totalHours}}</h2>
+    <div class="text-center" *ngIf="totalHours === 0">Make some events (that have an end time) to see your stats!</div>
     <div class="center-container">
       <canvas
         baseChart
